@@ -1,0 +1,43 @@
+.about-us {
+  margin: 0 350px;
+  text-align: justify;
+  color:#303030;
+}
+.about-us .p{
+  font-size: 18px;
+  line-height: 27px;
+}
+.about-us .h1{
+  font-size: 38px;
+  margin: 100px 0 25px 0;
+  font-weight: bold;
+}
+.about-us .h3{
+  font-size: 28px;
+  margin: 36px 0 18px 0;
+  font-weight: bold;
+}
+.about-us .p .a {
+  color:#3dd442;
+  text-decoration: none;
+}
+.about-us .p .a:hover {
+  color:#00b006;
+}
+.about-us-list {
+  list-style: none;
+  padding-left: 0;
+}
+.about-us-list .li {
+  position: relative;
+  padding: 15px 0;
+  padding-left: 30px;
+  font-size: 18px;
+}
+.about-us-list .li::before {
+  content: "➤";
+  position: absolute;
+  top: 15px;
+  left: 5px;
+  font-size: 1.2em;
+}

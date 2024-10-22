@@ -1,0 +1,15 @@
+.root {
+  width: 100vw;
+  min-height: 100vh;
+
+  display: flex;
+
+  background-color: #AFAFAF;
+}
+
+.content {
+  margin: 5.5% auto;
+  max-width: 460px;
+  width: 100%;
+  position: relative;
+}

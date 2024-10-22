@@ -1,0 +1,11 @@
+{
+    "Servers": {
+        "1": {
+            "Name": "root",
+            "Group": "Servers",
+            "Port": 5432,
+            "Username": "root",
+            "Host": "db"
+        }
+    }
+}

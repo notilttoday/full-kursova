@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@boilerplate/front-end/*": ["../../applications/front-end/*"],
+      "@boilerplate/dashboard/*": ["../../applications/dashboard/*"],
+      "@boilerplate/back-end/*": ["../../applications/back-end/src/*"],
+      "@boilerplate/_development/*": ["../_development/*"],
+      "@boilerplate/core/*": ["../../common/core/*"],
+      "@boilerplate/types/*": ["../../common/types/*"]
+    }
+  }
+}

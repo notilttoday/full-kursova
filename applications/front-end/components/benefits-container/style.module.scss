@@ -1,0 +1,39 @@
+.ourBenefits {
+  display: flex;
+  justify-content: center;
+  margin-top: 79px;
+  cursor: default;
+}
+.ourBenefits img {
+  width: 74px;
+  height: 80px;
+  padding: 10px;
+}
+.benefit {
+  display: flex;
+  border: 1px solid var(--gray);
+  padding: 10px;
+  border-radius: 15px;
+  margin: 20px 10px;
+  transition: all 0.3s ease;
+  width: 363px;
+  height: 96px;
+  align-items: center;
+}
+.benefit .h4 {
+  font-weight: bold;
+  font-size: 18px;
+  margin: 0 0 10px 0;
+  color: #303030;
+}
+.benefit p {
+  font-size: 15px;
+  margin: 0;
+  color: #a6a6a6;
+}
+
+.benefit:hover {
+  border: 1px solid #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+}

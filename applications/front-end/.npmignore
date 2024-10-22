@@ -1,0 +1,12 @@
+/__tests__
+
+/node_modules
+
+/src
+
+/public
+
+.env
+
+build.config.json
+craco.config.js

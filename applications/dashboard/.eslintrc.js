@@ -1,0 +1,1 @@
+module.exports = require('@boilerplate/_development/eslint.config.js')(__dirname)
