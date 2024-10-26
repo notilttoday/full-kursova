@@ -34,7 +34,7 @@ export const Header: React.FC = () => {
                 </a>
             </div>
             <div className={classes["profile-dropdown"]}>
-                <a href="my-profile" className={classes.profile}>
+                <a href="cabinet" className={classes.profile}>
                     <Image className={classes.img} src={profileIco}  alt="profileIcon" />
                 </a>
             </div>

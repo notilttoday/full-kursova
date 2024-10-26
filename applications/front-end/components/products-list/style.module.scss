@@ -15,7 +15,7 @@
   font-weight: bold;
 }
 .product {
-  height: 500px;
+  height: 470px;
   border: 1px solid var(--gray);
   border-radius: 15px;
   transition: all 0.1s ease;
@@ -60,13 +60,64 @@
   justify-content: space-between;
   align-items: center;
   position: absolute;
-  gap: 200px;
   bottom: 15px;
+  width: 100%;
+  margin: 0 -20px;
+  padding: 0 15px;
 }
 .price-cart p {
   font-weight: bold;
 }
+.input-number {
+  border: 1px solid #303030;
+  border-radius: 7px;
+  text-align: center;
+  background-color: var(--light-gray);
+  cursor: auto;
+  font-size: 16px;
+  height: 30px;
+  width: 30px;
+  padding: 0 1px 0 0;
+}
+.input-number:focus {
+  outline: 1px solid #303030;
+}
+.input-number::-webkit-inner-spin-button, 
+.input-number::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+}
+.change-quantity {
+  display: flex;
+  align-items: center;
+  margin-left: 70px;
+}
+.change-quantity .button {
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+}
+.change-quantity .button:hover {
+  background-color: var(--gray);
+  border-radius: 3px;
+}
+.change-quantity .img {
+  width: 16px;
+  height: 16px;
+}
+.change-quantity .img-bottom-arrow{
+  width: 16px;
+  height: 16px;
+  transform: rotate(180deg);
+}
+.quantity-arrows {
+  display: flex;
+  flex-direction: column;
+}
 .add-to-cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
   color: #ededed;
   background-color: #008000;
@@ -75,6 +126,7 @@
   cursor: pointer;
   height: 40px;
   width: 40px;
+  padding-right: 6px;
 }
 .add-to-cart.text{
   display: flex;
@@ -86,10 +138,16 @@
 .add-to-cart.text> *{
   margin: 0;
 }
-
 .add-to-cart img {
   width: 25px;
 }
 .add-to-cart:hover {
   background-color: #00b006;
+}
+
+.review-grade {
+  display: flex;
+  justify-content: center;
+  font-size: 30px;
+  margin: 20px auto;
 }

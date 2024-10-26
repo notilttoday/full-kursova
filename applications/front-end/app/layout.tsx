@@ -9,7 +9,7 @@ import logger from 'loglevel'
 import { Header } from '@boilerplate/front-end/components/header'
 import { Footer } from '@boilerplate/front-end/components/footer'
 import { Benefits } from '@boilerplate/front-end/components/benefits-container'
-import { Product } from '@boilerplate/front-end/components/product'
+import { ProductsList } from '@boilerplate/front-end/components/products-list'
 
 import { createAxiosBaseQuery } from '@boilerplate/core/builders/axios-base-query.builder'
 import { type HttpClientResponse, Method } from '@boilerplate/core/interfaces/http'

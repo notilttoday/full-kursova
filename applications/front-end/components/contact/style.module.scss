@@ -1,13 +1,13 @@
 .contact .h1 {
   text-align: center;
-  color: #303030;
+  color: var(--dark-gray);
   font-weight: bold;
   margin-top: 90px;
   font-size: 32px;
 }
 .contact .h2 {
   text-align: center;
-  color: #303030;
+  color: var(--dark-gray);
   font-weight: bold;
   font-size: 24px;
   margin: 20px 0;
@@ -23,7 +23,7 @@
 }
 .contact-box {
   display: flex;
-  border: 2px solid #303030;
+  border: 2px solid var(--dark-gray);
   width: 300px;
   border-radius: 15px;
   padding: 15px;
@@ -36,7 +36,7 @@
   transform: scale(1.1);
 }
 .contact-box .a{
-  color:#303030;
+  color:var(--dark-gray);
   font-weight: bold;
   text-decoration: none;
   margin: 5px;
@@ -58,7 +58,7 @@
   height: auto;
   width: 1200px;
   border-radius: 25px;
-  background-color: var(--light-gray)
+  background-color: #ededed;
 }
 .send-message-box .input{
   font-size: 20px;
@@ -95,11 +95,11 @@
 
 .send-message-box textarea{
   font-size: 20px;
-  padding: 15px;
+  padding: 10px 15px;
   border: 1px solid #a6a6a6;
   border-radius: 25px;
   width: 100%;
-  height: 150px;
+  height: 170px;
   box-sizing: border-box;
 }
 .send-message-box textarea:focus {
@@ -107,7 +107,7 @@
 }
 .send-message-box label{
   font-size: 20px;
-  color: #303030;
+  color: var(--dark-gray);
   margin-bottom: 8px;
 }
 .send-message-box label:last-child {
