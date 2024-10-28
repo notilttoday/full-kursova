@@ -1,6 +1,7 @@
-import { Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, Index, JoinTable, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 
 import { Role } from '@boilerplate/core/interfaces/user'
+import { ContactMessageEntity } from 'src/modules/contact-message/entities/contact-message.entity'
 
 @Entity()
 export class ProfileEntity {
@@ -32,4 +33,8 @@ export class ProfileEntity {
   @Index()
   @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: Date
+
+  @OneToMany(() => ContactMessageEntity, (contactMessage) => contactMessage.message)
+  @JoinTable()
+  contactMessage: ContactMessageEntity
 }

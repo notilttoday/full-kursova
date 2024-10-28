@@ -1,19 +1,21 @@
-import classes from '@boilerplate/front-end/components/products-list/style.module.scss'
-import Image from 'next/image'
+'use client'
 
-import addToCart from '@boilerplate/front-end/assets/icons/add-to-cart.svg'
-import arthasImg from '@boilerplate/front-end/assets/figures/ArthasMenethil.jpg'
+import classes from '@boilerplate/front-end/components/products-list/style.module.scss'
+
 import { ProductItem } from '@boilerplate/front-end/components/products-list/product-item'
 
-export const ProductsList: React.FC = () => {
+import { useGetProductsQuery } from '@boilerplate/front-end/store/queries/products.query'
+
+interface ProductsListProps { }
+
+export const ProductsList: React.FC<ProductsListProps> = () => {
+  const { data = [] } = useGetProductsQuery()
+
   return (
     <div className={classes.products}>
-      <ProductItem></ProductItem>
-      <ProductItem></ProductItem>
-      <ProductItem></ProductItem>
-      <ProductItem></ProductItem>
-      <ProductItem></ProductItem>
-      <ProductItem></ProductItem>
+      {data.map(({ id, title, price }) => (
+        <ProductItem key={id} id={id} title={title} price={price} />
+      ))}
     </div>
   )
 }

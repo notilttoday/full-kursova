@@ -6,10 +6,11 @@ import boxImage from '@boilerplate/front-end/assets/images/box.png'
 import creditCardsImage from '@boilerplate/front-end/assets/images/credit-cards.png'
 import safetyImage from '@boilerplate/front-end/assets/images/safety.png'
 
+interface BenefitsProps { }
 
-export const Benefits: React.FC = () => {
-  return (
-    <div className={classes.ourBenefits}>
+export const Benefits: React.FC<BenefitsProps> = () => {
+    return (
+        <div className={classes.ourBenefits}>
             <div className={classes.benefit}>
                 <Image className={classes.img} src={headphonesImage} alt="headphones" />
                 <div>
@@ -39,5 +40,5 @@ export const Benefits: React.FC = () => {
                 </div>
             </div>
         </div>
-  )
+    )
 }
