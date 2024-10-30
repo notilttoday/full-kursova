@@ -54,6 +54,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen })
             <SidebarItem icon={<FaDoorOpen />} href="/products/create">
               Додати продукти
             </SidebarItem>
+            <SidebarItem icon={<FaDoorOpen />} href="/contact-messages/receive">
+              Продивитись звернення
+            </SidebarItem>
             <Suspense
               fallback={
                 <SidebarItem icon={<FaDoorOpen />} onClick={NOOP_LOGOUT}>

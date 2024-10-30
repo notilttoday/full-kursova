@@ -15,7 +15,7 @@ export const HeaderCartButton: React.FC<HeaderCartButtonProps> = () => {
 
   return (
     <div className={classes["cart-dropdown"]}>
-      <Link href="cart" className={classes["CartID"]}>
+      <Link href="cart" className={classes.profile}>
         <Image className={classes.img} src={cartIco} alt="cartIcon" />
         <div className={classes["cart-quantity"]}>
           {quantity}

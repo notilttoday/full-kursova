@@ -1,14 +1,16 @@
 import { Injectable } from '@nestjs/common'
 
-import { PostContactMessage } from '@boilerplate/types/contact-message/interfaces/contact-message'
+import { GetContactMessage } from '@boilerplate/types/contact-message/interfaces/contact-message'
+
 import { ContactMessageEntity } from '@boilerplate/back-end/modules/contact-message/entities/contact-message.entity'
 
 @Injectable()
 export class ContactMessagesDataMapper {
-  toProductShort(entity: ContactMessageEntity): PostContactMessage {
-    const { firstName, lastName, email, phone, message, userId } = entity
+  toContactMessage(entity: ContactMessageEntity): GetContactMessage {
+    const { id, firstName, lastName, email, phone, message, userId } = entity
 
     return {
+      id,
       firstName,
       lastName,
       email,

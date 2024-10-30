@@ -5,6 +5,7 @@
   margin-top: 90px;
   font-size: 32px;
 }
+
 .contact .h2 {
   text-align: center;
   color: var(--dark-gray);
@@ -12,15 +13,18 @@
   font-size: 24px;
   margin: 20px 0;
 }
+
 .our-contacts {
   margin: 0 auto;
   display: flex;
   justify-content: center;
 }
+
 .our-contacts .img {
   width: 50px;
   height: 50px;
 }
+
 .contact-box {
   display: flex;
   border: 2px solid var(--dark-gray);
@@ -31,36 +35,43 @@
   transition: all 0.3s ease;
   max-height: 100px;
 }
+
 .contact-box:hover {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transform: scale(1.1);
 }
-.contact-box .a{
-  color:var(--dark-gray);
+
+.contact-box .a {
+  color: var(--dark-gray);
   font-weight: bold;
   text-decoration: none;
   margin: 5px;
 }
-.contact-box .a:hover{
-  color:green;
+
+.contact-box .a:hover {
+  color: green;
 }
+
 .contact-info {
   display: flex;
   flex-direction: column;
   margin-left: 5px;
 }
+
 .send-message {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .contact .send-message-box {
   height: auto;
   width: 1200px;
   border-radius: 25px;
   background-color: #ededed;
 }
-.send-message-box .input{
+
+.send-message-box .input {
   font-size: 20px;
   padding-left: 10px;
   border: 1px solid #a6a6a6;
@@ -93,33 +104,38 @@
   outline: 1px solid #a6a6a6;
 }
 
-.send-message-box textarea{
+.send-message-box textarea {
   font-size: 20px;
   padding: 10px 15px;
   border: 1px solid #a6a6a6;
   border-radius: 25px;
   width: 100%;
-  height: 170px;
+  height: 200px;
   box-sizing: border-box;
 }
+
 .send-message-box textarea:focus {
   outline: 1px solid #a6a6a6;
 }
-.send-message-box label{
+
+.send-message-box label {
   font-size: 20px;
   color: var(--dark-gray);
   margin-bottom: 8px;
 }
+
 .send-message-box label:last-child {
   text-align: center;
 }
+
 .send-message-box form {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   padding: 20px;
 }
-.send-message-box form button{
+
+.send-message-box form button {
   width: 250px;
   height: 45px;
   border: 0;
@@ -129,6 +145,7 @@
   cursor: pointer;
   font-size: 18px;
 }
-.send-message-box form button:hover{
+
+.send-message-box form button:hover {
   background-color: #00b006;
 }

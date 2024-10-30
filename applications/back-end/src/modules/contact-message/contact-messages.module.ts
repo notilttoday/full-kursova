@@ -11,12 +11,12 @@ import { ContactMessagesDataMapper } from '@boilerplate/back-end/modules/contact
 
 import { ContactMessagesRepository } from '@boilerplate/back-end/modules/contact-message/repositories/contact-messages.repository'
 
-import { ContactMessageService } from '@boilerplate/back-end/modules/contact-message/services/contact-messages.service'
+import { ContactMessagesService } from '@boilerplate/back-end/modules/contact-message/services/contact-messages.service'
 
 @Module({
   imports: [TypeOrmModule.forFeature([ContactMessageEntity]), forwardRef(() => AuthModule)],
   controllers: [ContactMessageController],
-  providers: [ContactMessagesDataMapper, ContactMessagesRepository, ContactMessageService],
+  providers: [ContactMessagesDataMapper, ContactMessagesRepository, ContactMessagesService],
   exports: [],
 })
 export class ContactMessageModule { }

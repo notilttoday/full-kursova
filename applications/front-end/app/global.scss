@@ -1,5 +1,5 @@
-html{
-  --dark-gray:#303030;
+html {
+  --dark-gray: #303030;
   --light-gray: #dfdfdf;
   --gray: #d1d1d1;
 }
@@ -15,7 +15,7 @@ body {
   justify-content: space-between;
 }
 
-li{
+li {
   list-style: none;
 }
 
@@ -28,11 +28,15 @@ a {
   padding-top: 75px;
   max-width: 2000px;
 }
+
 .common-text {
   font-size: 18px;
   color: var(--dark-gray);
 }
 
+.width-100 {
+  width: 100%;
+}
 
 // *,
 // *::after,

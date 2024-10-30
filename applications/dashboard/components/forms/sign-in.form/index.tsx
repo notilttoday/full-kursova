@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '@boilerplate/dashboard/store'
 
 import { authSlice } from '@boilerplate/dashboard/store/slices/auth.slice'
 
-interface SignInProps {}
+interface SignInProps { }
 
 const SignInForm = lazy(() => import('@boilerplate/dashboard/components/forms/sign-in.form/form'))
 
@@ -24,7 +24,7 @@ export const SignIn: React.FC<SignInProps> = () => {
   const formContent = (
     <div className="p-6.5">
       <div className="mb-4.5">
-        <label className="mb-3 block text-sm font-medium text-black dark:text-white">Логин</label>
+        <label className="mb-3 block text-sm font-medium text-black dark:text-white">Логін</label>
         <input
           type="text"
           placeholder=""
@@ -46,7 +46,7 @@ export const SignIn: React.FC<SignInProps> = () => {
       </div>
 
       <button className="w-full-30% ml-auto flex justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
-        Вход
+        Увійти
       </button>
     </div>
   )
@@ -54,7 +54,7 @@ export const SignIn: React.FC<SignInProps> = () => {
   return (
     <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-        <h3 className="font-medium text-black dark:text-white">Вход для админов</h3>
+        <h3 className="font-medium text-black dark:text-white">Вхід для адміністраторів</h3>
       </div>
       <Suspense fallback={<form action="#">{formContent}</form>}>
         <SignInForm action="#">{formContent}</SignInForm>

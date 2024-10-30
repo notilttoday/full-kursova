@@ -1,0 +1,19 @@
+.contact-message {
+  display: flex;
+  margin: 20px;
+  border: 1px solid black;
+  border-radius: 20px;
+}
+
+.contact-messages {
+  display: flex;
+  flex-direction: column;
+}
+
+.column-1 {
+  width: 30%;
+}
+
+.column-2 {
+  width: 70%;
+}
