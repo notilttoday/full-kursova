@@ -6,7 +6,7 @@ import { Method } from '@boilerplate/core/interfaces/http'
 import { GameType, GetSearchProductsData } from '@boilerplate/types/products/interfaces/products'
 import { HttpRequestFieldDecorator } from '@boilerplate/core/decorators/http-request-field.decorator'
 
-export const GetProductsRequestUrl = '/'
+export const GetProductsRequestUrl = '/figure-search'
 
 export class GetSearchProductDataDto implements GetSearchProductsData {
   [x: string]: string | readonly string[]

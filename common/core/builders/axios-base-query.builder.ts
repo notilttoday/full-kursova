@@ -41,6 +41,7 @@ instance.interceptors.request.use(
 export function createAxiosBaseQuery() {
   return async <Url extends string, Data, Search extends HttpSearch>({
     params = {},
+    search,
     ...args
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   }: HttpClientRequest<Url, Data, Search>) => {
@@ -53,7 +54,7 @@ export function createAxiosBaseQuery() {
         url = url.replace(`:${paramKey}?`, value).replace(`:${paramKey}`, value) as typeof args.url
       }
 
-      const result = await instance<HttpServerResponse<unknown>>({ ...args, url })
+      const result = await instance<HttpServerResponse<unknown>>({ ...args, url, params: search })
 
       if (result instanceof AxiosError) {
         throw result

@@ -12,13 +12,12 @@ import { v1ReactApi } from '@boilerplate/front-end/store/api/v1.api/react.api'
 const api = v1ReactApi.injectEndpoints({
   endpoints: (build) => ({
     getProducts: build.query<GetProductShortDto[], Required<GetSearchProductDataDto>>({
-      query: ({ title, game, eac }): GetProductsHttpClientRequestDto => ({
+      query: ({ title, game }): GetProductsHttpClientRequestDto => ({
         method: Method.Get,
         url: GetProductsRequestUrl,
         search: {
           title,
-          game,
-          eac,
+          game
         },
       }),
     }),
