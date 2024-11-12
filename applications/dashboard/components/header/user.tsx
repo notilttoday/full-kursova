@@ -1,6 +1,4 @@
-import Image from 'next/image'
-
-import noAvatarImage from '@boilerplate/dashboard/assets/images/no-avatar.png'
+import Avatar from 'react-avatar'
 
 import { useGetProfileQuery } from '@boilerplate/dashboard/store/queries/profile.query'
 
@@ -9,31 +7,18 @@ interface HeaderUserProps {}
 export const HeaderUser: React.FC<HeaderUserProps> = () => {
   const { data: profile, isSuccess } = useGetProfileQuery()
 
-  if (!isSuccess) {
-    return null
-  }
-
-  const { firstName, lastName } = profile
+  const { firstName, lastName } = profile || {}
 
   return (
     <div className="flex items-center gap-4">
       <span className="hidden text-right lg:block">
-        <span className="block text-sm font-medium text-black dark:text-white">
-          {firstName} {lastName}
+        <span className="block text-base font-medium text-black dark:text-white">
+          {isSuccess ? firstName : null} {isSuccess ? lastName : null}
         </span>
       </span>
 
-      <span className="h-12 w-12 rounded-full">
-        <Image
-          width={112}
-          height={112}
-          src={noAvatarImage}
-          style={{
-            width: 'auto',
-            height: 'auto',
-          }}
-          alt="User"
-        />
+      <span className="align-center flex h-12 w-12 justify-center overflow-hidden rounded-full">
+        <Avatar name={`${firstName} ${lastName}`} size="48" color="#3c50e0" textSizeRatio={2.5} />
       </span>
     </div>
   )

@@ -1,3 +1,11 @@
+export enum GameType {
+  Dota = 'dota',
+  TheWitcher = 'the_witcher',
+  WorldOfWarcraft = 'world_of_warcraft',
+  Diablo = 'diablo',
+  AssassinsCreed = 'assassins_creed',
+}
+
 export interface GetProductShort {
   id: string
   title: string
@@ -10,19 +18,11 @@ export interface GetProduct extends GetProductShort {
   game: string
 }
 
-export enum GameType {
-  Dota = 'dota',
-  TheWitcher = 'the_witcher',
-  WorldOfWarcraft = 'world_of_warcraft',
-  Diablo = 'diablo',
-  AssassinsCreed = 'assassins_creed',
-}
-
 export interface PostProductData {
   title: string
   description: string
   price: number
-  game: string
+  game: GameType
   file: Express.Multer.File
 }
 

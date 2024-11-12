@@ -3,67 +3,53 @@ import _omit from 'lodash/omit'
 
 import { createSliceKey } from '@boilerplate/core/builders/slice-key.builder'
 
-import { GameType } from '@boilerplate/types/products/interfaces/products'
-
 import { reducer } from '@boilerplate/dashboard/store'
 
-interface CreateProductState {
+interface ConfirmDeletionState {
+  open: boolean
   title: string
-  description: string
-  price: number
-  game: GameType
-  file: File | null
+  description?: string
 }
 
 const slice = createSlice({
-  name: createSliceKey('create-product'),
-  initialState: (): CreateProductState => ({
+  name: createSliceKey('confirm-deletion'),
+  initialState: (): ConfirmDeletionState => ({
+    open: false,
     title: '',
-    description: '',
-    price: 0,
-    game: GameType.Dota,
-    file: null,
   }),
   selectors: {
+    open: (state) => state.open,
     title: (state) => state.title,
     description: (state) => state.description,
-    price: (state) => state.price,
-    game: (state) => state.game,
-    file: (state) => state.file,
   },
   reducers: {
+    open(state) {
+      state.open = true
+    },
+    close(state) {
+      state.open = false
+    },
     setTitle(state, action: PayloadAction<string>) {
       state.title = action.payload
     },
-    setDescription(state, action: PayloadAction<string>) {
+    setDescription(state, action: PayloadAction<string | undefined>) {
       state.description = action.payload
-    },
-    setPrice(state, action: PayloadAction<number>) {
-      state.price = action.payload
-    },
-    setGame(state, action: PayloadAction<GameType>) {
-      state.game = action.payload
-    },
-    setFile(state, action: PayloadAction<File | null>) {
-      state.file = action.payload
     },
   },
 })
 
 const withSlice = reducer.inject(slice)
 
-export const createProductSlice = {
+export const confirmDeletionSlice = {
   /**
    * Omit reducer and reducerPath for prevent any other connections of it to store
    */
   ..._omit(slice, ['reducer', 'reducerPath']),
   selectSlice: withSlice.selector(slice.selectSlice),
   selectors: {
+    open: withSlice.selector(slice.selectors.open),
     title: withSlice.selector(slice.selectors.title),
     description: withSlice.selector(slice.selectors.description),
-    price: withSlice.selector(slice.selectors.price),
-    game: withSlice.selector(slice.selectors.game),
-    file: withSlice.selector(slice.selectors.file),
   },
 }
 

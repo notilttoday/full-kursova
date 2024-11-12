@@ -1,13 +1,24 @@
 'use client'
 
-import { createProductSlice } from "@/store/slices/create-product.slice"
-import { useAppDispatch, useAppSelector } from "@boilerplate/dashboard/store"
-import { GameType } from "@boilerplate/types/products/interfaces/products"
-import { lazy, useCallback, Suspense, useState } from "react"
+import { Suspense, lazy, useCallback } from 'react'
 
-interface CreateProductFormProps { }
+import { GameType } from '@boilerplate/types/products/interfaces/products'
+
+import { useAppDispatch, useAppSelector } from '@boilerplate/dashboard/store'
+
+import { createProductSlice } from '@/store/slices/create-product.slice'
+
+interface CreateProductFormProps {}
 
 const CreateProductBaseForm = lazy(() => import('@boilerplate/dashboard/components/forms/create-product.form/form'))
+
+const gameMap: Record<GameType, string> = {
+  [GameType.Dota]: 'Dota 2',
+  [GameType.TheWitcher]: 'The Witcher',
+  [GameType.WorldOfWarcraft]: 'World of warcraft',
+  [GameType.Diablo]: 'Diablo',
+  [GameType.AssassinsCreed]: 'Assassins creed',
+}
 
 export const CreateProductForm: React.FC<CreateProductFormProps> = () => {
   const dispatch = useAppDispatch()
@@ -27,24 +38,21 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = () => {
     dispatch(createProductSlice.actions.setPrice(parseFloat(event.target.value)))
   }, [])
 
-  const game = useAppSelector(createProductSlice.selectors.game);
+  const game = useAppSelector(createProductSlice.selectors.game)
   const handleChangeGame = useCallback<React.ChangeEventHandler<HTMLSelectElement>>((event) => {
-    dispatch(createProductSlice.actions.setGame(event.target.value));
-  }, []);
-
-  const [file, setFile] = useState<File | null>(null);
+    dispatch(createProductSlice.actions.setGame(event.target.value as GameType))
+  }, [])
 
   const handleFileChange = useCallback<React.ChangeEventHandler<HTMLInputElement>>((event) => {
-    const selectedFile = event.target.files?.[0] || null;
-    dispatch(createProductSlice.actions.setFile(selectedFile));
-  }, []);
+    const selectedFile = event.target.files?.[0] || null
+
+    dispatch(createProductSlice.actions.setFile(selectedFile))
+  }, [])
 
   const content = (
     <>
       <div>
-        <label className="mb-3 block text-sm font-medium text-white dark:text-white">
-          Назва
-        </label>
+        <label className="mb-3 block text-sm font-medium text-white dark:text-white">Назва</label>
         <input
           type="text"
           placeholder="Назва фігурки"
@@ -54,9 +62,7 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = () => {
         />
       </div>
       <div>
-        <label className="mb-3 block text-sm font-medium text-white dark:text-white">
-          Ціна
-        </label>
+        <label className="mb-3 block text-sm font-medium text-white dark:text-white">Ціна</label>
         <input
           type="text"
           placeholder="Ціна фігурки"
@@ -66,9 +72,7 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = () => {
         />
       </div>
       <div>
-        <label className="mb-3 block text-sm font-medium text-white dark:text-white">
-          Опис
-        </label>
+        <label className="mb-3 block text-sm font-medium text-white dark:text-white">Опис</label>
         <textarea
           rows={6}
           placeholder="Опис фігурки"
@@ -78,25 +82,21 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = () => {
         ></textarea>
       </div>
       <div>
-        <label className="mb-3 block text-sm font-medium text-white dark:text-white">
-          Гра
-        </label>
+        <label className="mb-3 block text-sm font-medium text-white dark:text-white">Гра</label>
         <select
           value={game}
           onChange={handleChangeGame}
           className="w-full rounded-lg border-[1.5px] border-stroke bg-black px-5 py-3 text-white outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
         >
-          {Object.values(GameType).map((gameValue) => (
-            <option key={gameValue} value={gameValue}>
-              {gameValue}
+          {Object.entries(gameMap).map(([gameType, gameTitle]) => (
+            <option key={gameType} value={gameType}>
+              {gameTitle}
             </option>
           ))}
         </select>
       </div>
       <div>
-        <label className="mb-3 block text-sm font-medium text-white dark:text-white">
-          Завантажити файл
-        </label>
+        <label className="mb-3 block text-sm font-medium text-white dark:text-white">Завантажити файл</label>
         <input
           type="file"
           className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-white outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
@@ -121,15 +121,9 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = () => {
   )
 
   return (
-    <div className="rounded-sm border rounded-lg border-[1px] border-stroke bg-black shadow-default dark:border-strokedark dark:bg-boxdark">
-      <Suspense fallback={(
-        <form className="flex flex-col gap-5.5 p-6.5">
-          {content}
-        </form>
-      )}>
-        <CreateProductBaseForm className="flex flex-col gap-5.5 p-6.5">
-          {content}
-        </CreateProductBaseForm>
+    <div className="rounded-lg rounded-sm border border-[1px] border-stroke bg-black shadow-default dark:border-strokedark dark:bg-boxdark">
+      <Suspense fallback={<form className="flex flex-col gap-5.5 p-6.5">{content}</form>}>
+        <CreateProductBaseForm className="flex flex-col gap-5.5 p-6.5">{content}</CreateProductBaseForm>
       </Suspense>
     </div>
   )

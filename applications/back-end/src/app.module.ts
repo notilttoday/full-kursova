@@ -1,3 +1,4 @@
+import { BullModule } from '@nestjs/bull'
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
@@ -44,6 +45,15 @@ const ssl =
       entities: [`${__dirname}/**/*.entity{.js,.ts}`],
       migrations: [`${__dirname}/**/migrations/*{.js,.ts}`],
       ssl,
+    }),
+    BullModule.forRoot({
+      url: config.get('redis.url'),
+      // the limiter is optional. needed for high load and can be changed
+      limiter: {
+        max: config.get('bull.limiter.max'),
+        duration: config.get('bull.limiter.duration'),
+        bounceBack: config.get('bull.limiter.bounceBack'),
+      },
     }),
   ],
   controllers: [],

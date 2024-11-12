@@ -1,16 +1,16 @@
 import { Type } from 'class-transformer'
-import { IsNumber, IsOptional, IsString, Min, ValidateNested } from 'class-validator'
+import { IsEnum, IsNumber, IsString, Min, ValidateNested } from 'class-validator'
 
+import { HttpRequestFieldDecorator } from '@boilerplate/core/decorators/http-request-field.decorator'
 import { HttpClientRequestDto } from '@boilerplate/core/dto/requests/http-client-request.dto'
 import { HttpServerRequestDto } from '@boilerplate/core/dto/requests/http-server-request.dto'
 import { HttpRequestFieldCast, Method } from '@boilerplate/core/interfaces/http'
 
 import { GameType, type PostProductData } from '@boilerplate/types/products/interfaces/products'
-import { HttpRequestFieldDecorator } from '@boilerplate/core/decorators/http-request-field.decorator'
 
 export const PostProductUrl = '/products'
 
-export class PostProductDataDto implements Omit<PostProductData, "file"> {
+export class PostProductDataDto implements Omit<PostProductData, 'file'> {
   @HttpRequestFieldDecorator()
   @IsString()
   title: string
@@ -25,14 +25,11 @@ export class PostProductDataDto implements Omit<PostProductData, "file"> {
   price: number
 
   @HttpRequestFieldDecorator()
-  @IsString()
-  game: string
+  @IsEnum(GameType)
+  game: GameType
 }
 
-export class PostProductHttpServerRequestDto extends HttpServerRequestDto<
-  typeof PostProductUrl,
-  PostProductDataDto
-> {
+export class PostProductHttpServerRequestDto extends HttpServerRequestDto<typeof PostProductUrl, PostProductDataDto> {
   readonly method = Method.Post
 
   readonly url = PostProductUrl
@@ -42,10 +39,7 @@ export class PostProductHttpServerRequestDto extends HttpServerRequestDto<
   readonly data: PostProductDataDto
 }
 
-export class PostProductHttpClientRequestDto extends HttpClientRequestDto<
-  typeof PostProductUrl,
-  FormData
-> {
+export class PostProductHttpClientRequestDto extends HttpClientRequestDto<typeof PostProductUrl, FormData> {
   readonly method = Method.Post
 
   readonly url = PostProductUrl

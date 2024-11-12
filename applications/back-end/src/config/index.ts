@@ -107,6 +107,34 @@ export const config = createProfiguration<ConfigDto>(
         },
       },
     },
+    bull: {
+      limiter: {
+        duration: {
+          default: 1000,
+          env: 'BULL_LIMITER_DURATION',
+        },
+        max: {
+          default: 10,
+          env: 'BULL_LIMITER_MAX',
+        },
+        bounceBack: {
+          default: false,
+          env: 'BULL_LIMITER_BOUNCE_BACK',
+        },
+      },
+      processors: {
+        deleteToken: {
+          delay: {
+            default: '5s',
+            env: 'BULL_PROCESSORS_DELETE_TOKEN_DELAY',
+          },
+          concurrency: {
+            default: 1,
+            env: 'BULL_PROCESSORS_DELETE_TOKEN_CONCURRENCY',
+          },
+        },
+      },
+    },
   },
   {
     strict: false,

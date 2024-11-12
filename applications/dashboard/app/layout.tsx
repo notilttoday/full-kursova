@@ -2,6 +2,7 @@
 
 import { type Metadata } from 'next'
 
+import dynamic from 'next/dynamic'
 import { cookies } from 'next/headers'
 
 import clsx from 'clsx'
@@ -16,6 +17,9 @@ import { type MyProfile } from '@boilerplate/types/auth/interfaces/profile'
 
 import { ReduxProvider } from '@boilerplate/dashboard/store/provider'
 
+import { Progress } from '@boilerplate/dashboard/components/progress'
+import { Snackbar } from '@boilerplate/dashboard/components/snackbar'
+
 import 'jsvectormap/dist/jsvectormap.css'
 import 'flatpickr/dist/flatpickr.min.css'
 import '@boilerplate/dashboard/assets/css/satoshi.css'
@@ -24,6 +28,9 @@ import '@boilerplate/dashboard/assets/css/style.css'
 export interface RootLayoutProps {
   readonly children: React.ReactNode
 }
+
+const ConfirmDeletion = dynamic(() => import('@boilerplate/dashboard/components/confirms/delete'))
+const ConfirmChanges = dynamic(() => import('@boilerplate/dashboard/components/confirms/changes'))
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -66,7 +73,13 @@ const RootLayout: React.FC<RootLayoutProps> = async ({ children }) => {
     <html lang="en" style={{ backgroundColor: '#1a222c' }}>
       <body className="light">
         <div className={clsx('h-screen', 'dark:bg-boxdark-2', 'dark:text-bodydark')}>
-          <ReduxProvider profile={profile}>{children}</ReduxProvider>
+          <ReduxProvider profile={profile}>
+            <Progress />
+            {children}
+            <Snackbar />
+            <ConfirmDeletion />
+            <ConfirmChanges />
+          </ReduxProvider>
         </div>
       </body>
     </html>

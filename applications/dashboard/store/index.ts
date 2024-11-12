@@ -2,6 +2,8 @@
 
 'use client'
 
+import { type useRouter } from 'next/navigation'
+
 import { combineSlices, configureStore, createDynamicMiddleware } from '@reduxjs/toolkit'
 // eslint-disable-next-line no-restricted-imports
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,12 +21,15 @@ const dynamicMiddleware = createDynamicMiddleware()
 const sagasMiddleware = createSagaMiddleware()
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const createStore = () =>
-  configureStore({
+export const createStore = ({ router }: { router: ReturnType<typeof useRouter> }) => {
+  sagasMiddleware.setContext({ router })
+
+  return configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({ serializableCheck: false }).concat([dynamicMiddleware.middleware, sagasMiddleware]),
   })
+}
 
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
