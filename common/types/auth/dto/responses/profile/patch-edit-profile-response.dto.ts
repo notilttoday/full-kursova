@@ -1,24 +1,29 @@
 import { Type } from 'class-transformer'
-import { IsArray, IsOptional, IsString } from 'class-validator'
+import { IsOptional, IsString } from 'class-validator'
 
 import { HttpServerResponseDto } from '@boilerplate/core/dto/responses/http-server-response.dto'
 
 import { MyProfile } from '@boilerplate/types/auth/interfaces/profile'
 import { GameType } from '@boilerplate/types/products/interfaces/products'
 
-export class MyProfileDto implements MyProfile {
+export class EditProfileDto implements MyProfile {
+  @IsOptional()
   @IsString()
   id: string
 
+  @IsOptional()
   @IsString()
   firstName: string
 
+  @IsOptional()
   @IsString()
   lastName: string
 
+  @IsOptional()
   @IsString()
   email: string
 
+  @IsOptional()
   @IsString()
   phone: string
 
@@ -31,8 +36,8 @@ export class MyProfileDto implements MyProfile {
   favGames?: GameType[]
 }
 
-export class GetProfileMyHttpServerResponseDto extends HttpServerResponseDto<MyProfileDto> {
+export class PatchProfileMyHttpServerResponseDto extends HttpServerResponseDto<EditProfileDto> {
   @IsOptional()
-  @Type(() => MyProfileDto)
-  result?: MyProfileDto
+  @Type(() => EditProfileDto)
+  result?: EditProfileDto
 }
