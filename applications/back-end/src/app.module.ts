@@ -7,7 +7,9 @@ import { DatabaseNamingStrategy } from '@boilerplate/back-end/db/database-naming
 
 import { AuthModule } from '@boilerplate/back-end/modules/auth/auth.module'
 import { HealthCheckModule } from '@boilerplate/back-end/modules/health-check/health-check.module'
+import { ProductsModule } from '@boilerplate/back-end/modules/products/products.module'
 import { SettingsModule } from '@boilerplate/back-end/modules/settings/settings.module'
+import { ContactMessageModule } from '@boilerplate/back-end/modules/contact-message/contact-messages.module'
 
 const sslRejectUnauthorized = config.get('database.ssl.rejectUnauthorized')
 const sslCA = config.get('database.ssl.ca')
@@ -17,18 +19,20 @@ const sslCert = config.get('database.ssl.cert')
 const ssl =
   sslRejectUnauthorized || sslCA || sslKey || sslCert
     ? {
-        rejectUnauthorized: sslRejectUnauthorized,
-        ca: sslCA,
-        key: sslKey,
-        cert: sslCert,
-      }
+      rejectUnauthorized: sslRejectUnauthorized,
+      ca: sslCA,
+      key: sslKey,
+      cert: sslCert,
+    }
     : undefined
 
 @Module({
   imports: [
     AuthModule,
     HealthCheckModule,
+    ProductsModule,
     SettingsModule,
+    ContactMessageModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: config.get('database.url'),
@@ -45,4 +49,4 @@ const ssl =
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }

@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import Form from 'react-bootstrap/Form'
 
-export interface AuthLostPasswordPageProps {}
+export interface AuthLostPasswordPageProps { }
 
 const AuthLostPasswordPage: React.FC<AuthLostPasswordPageProps> = () => (
   <Card>

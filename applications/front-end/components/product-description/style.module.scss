@@ -1,0 +1,158 @@
+.product-desc {
+    margin: 70px 200px 0;
+}
+
+.about-figure {
+    display: flex;
+    margin-top: 50px;
+    min-height: 500px;
+}
+
+.column-1 {
+    width: 100%;
+    max-width: 450px;
+}
+
+.column-2 {
+    flex-grow: 1;
+}
+
+.column-1 .figure-img {
+    width: 100%;
+    height: 100%;
+    max-height: 540px;
+    max-width: 400px;
+}
+
+.column-2 h3 {
+    font-size: 26px;
+    color: #303030;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.figure-img {
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+.figure-img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+}
+
+.category-list {
+    display: flex;
+    gap: 20px;
+}
+
+.price-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.price-container .img {
+    width: 40px;
+    height: 40px;
+}
+
+.price {
+    font-size: 24px;
+}
+
+.category-container {
+    background-color: #303030;
+    color: #FFF;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.common-text {
+    font-size: 20px;
+    margin: 25px 0;
+}
+
+.add-to-cart {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 12px;
+    border-radius: 10px;
+    color: #FFF;
+    font-weight: bold;
+    background-color: var(--dark-gray);
+}
+
+.add-to-cart .img {
+    height: 28px;
+    width: 28px;
+}
+
+.input-number {
+    border: 1px solid #303030;
+    border-radius: 10px;
+    text-align: center;
+    background-color: var(--light-gray);
+    cursor: auto;
+    font-size: 24px;
+    height: 40px;
+    width: 40px;
+}
+
+.input-number:focus {
+    outline: 1px solid #303030;
+}
+
+.input-number::-webkit-inner-spin-button,
+.input-number::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.change-quantity {
+    display: flex;
+    align-items: center;
+    margin-left: 70px;
+    gap: 5px;
+}
+
+.change-quantity .button {
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+.change-quantity .button:hover {
+    background-color: var(--gray);
+    border-radius: 3px;
+}
+
+.change-quantity .img {
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+}
+
+.change-quantity .img-bottom-arrow {
+    width: 25px;
+    height: 25px;
+    transform: rotate(180deg);
+    border-radius: 5px;
+}
+
+.change-quantity .p {
+    font-size: 22px;
+}
+
+.quantity-arrows {
+    display: flex;
+    flex-direction: column;
+}
+
+.figure-desc {
+    text-align: justify;
+}

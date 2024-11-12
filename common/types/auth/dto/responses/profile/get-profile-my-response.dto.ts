@@ -1,9 +1,10 @@
 import { Type } from 'class-transformer'
-import { IsOptional, IsString } from 'class-validator'
+import { IsArray, IsOptional, IsString } from 'class-validator'
 
 import { HttpServerResponseDto } from '@boilerplate/core/dto/responses/http-server-response.dto'
 
 import { MyProfile } from '@boilerplate/types/auth/interfaces/profile'
+import { GameType } from '@boilerplate/types/products/interfaces/products'
 
 export class MyProfileDto implements MyProfile {
   @IsString()
@@ -20,6 +21,14 @@ export class MyProfileDto implements MyProfile {
 
   @IsString()
   phone: string
+
+  @IsOptional()
+  @IsString()
+  statusText?: string
+
+  @IsOptional()
+  @IsString({ each: true })
+  favGames?: GameType[]
 }
 
 export class GetProfileMyHttpServerResponseDto extends HttpServerResponseDto<MyProfileDto> {

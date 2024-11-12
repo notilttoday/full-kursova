@@ -8,8 +8,6 @@ import logger from 'loglevel'
 
 import { Header } from '@boilerplate/front-end/components/header'
 import { Footer } from '@boilerplate/front-end/components/footer'
-import { Benefits } from '@boilerplate/front-end/components/benefits-container'
-import { Product } from '@boilerplate/front-end/components/product'
 
 import { createAxiosBaseQuery } from '@boilerplate/core/builders/axios-base-query.builder'
 import { type HttpClientResponse, Method } from '@boilerplate/core/interfaces/http'
@@ -70,9 +68,11 @@ const RootLayout: React.FC<RootLayoutProps> = async ({ children }) => {
         <meta name="format-detection" content="telephone=no, date=no, email=no, address=no" />
       </head>
       <body>
-        <Header></Header>
-        <ReduxProvider profile={profile}>{children}</ReduxProvider>
-        <Footer></Footer>
+        <ReduxProvider profile={profile}>
+          <Header />
+          {children}
+          <Footer />
+        </ReduxProvider>
       </body>
     </html>
   )
