@@ -19,6 +19,7 @@ import { profileSlice } from '@boilerplate/front-end/store/slices/profile.slice'
 
 interface SignInStartActionPayload {
   redirect: () => void
+  onError?: (message: string) => void
 }
 
 export const signInStart = createAction<SignInStartActionPayload>(createSagaActionType('sign-in-start'))
@@ -32,6 +33,10 @@ function* handler(action: PayloadAction<SignInStartActionPayload>): SagaIterator
 
     const putTokenResponse: HttpClientResponse<PutTokenResultDto> = yield call(() => putTokenRequest)
 
+    if (!putTokenResponse.data || !putTokenResponse.data.token) {
+      throw new Error('Не вдалося отримати токен')
+    }
+
     jwtStore.set(putTokenResponse.data.token)
 
     const getProfileRequest = yield put(getProfile.initiate(undefined, { forceRefetch: true }))
@@ -41,10 +46,15 @@ function* handler(action: PayloadAction<SignInStartActionPayload>): SagaIterator
     yield put(profileSlice.actions.init(getProfileResponse.data))
 
     yield call(action.payload.redirect)
-  } catch (error) {
+  } catch (error: any) {
     jwtStore.clear()
 
     logger.error(error)
+
+    const errorMessage = error?.response?.data?.message || 'Неправильний email або пароль'
+    if (action.payload.onError) {
+      yield call(action.payload.onError, errorMessage)
+    }
   }
 }
 

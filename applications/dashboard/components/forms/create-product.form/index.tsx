@@ -2,7 +2,8 @@
 
 import { createProductSlice } from "@/store/slices/create-product.slice"
 import { useAppDispatch, useAppSelector } from "@boilerplate/dashboard/store"
-import { lazy, useCallback, Suspense } from "react"
+import { GameType } from "@boilerplate/types/products/interfaces/products"
+import { lazy, useCallback, Suspense, useState } from "react"
 
 interface CreateProductFormProps { }
 
@@ -25,6 +26,18 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = () => {
   const handleChangePrice = useCallback<React.ChangeEventHandler<HTMLInputElement>>((event) => {
     dispatch(createProductSlice.actions.setPrice(parseFloat(event.target.value)))
   }, [])
+
+  const game = useAppSelector(createProductSlice.selectors.game);
+  const handleChangeGame = useCallback<React.ChangeEventHandler<HTMLSelectElement>>((event) => {
+    dispatch(createProductSlice.actions.setGame(event.target.value));
+  }, []);
+
+  const [file, setFile] = useState<File | null>(null);
+
+  const handleFileChange = useCallback<React.ChangeEventHandler<HTMLInputElement>>((event) => {
+    const selectedFile = event.target.files?.[0] || null;
+    dispatch(createProductSlice.actions.setFile(selectedFile));
+  }, []);
 
   const content = (
     <>
@@ -63,6 +76,32 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = () => {
           value={description}
           onChange={handleChangeDescription}
         ></textarea>
+      </div>
+      <div>
+        <label className="mb-3 block text-sm font-medium text-white dark:text-white">
+          Гра
+        </label>
+        <select
+          value={game}
+          onChange={handleChangeGame}
+          className="w-full rounded-lg border-[1.5px] border-stroke bg-black px-5 py-3 text-white outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+        >
+          {Object.values(GameType).map((gameValue) => (
+            <option key={gameValue} value={gameValue}>
+              {gameValue}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <label className="mb-3 block text-sm font-medium text-white dark:text-white">
+          Завантажити файл
+        </label>
+        <input
+          type="file"
+          className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 text-white outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
+          onChange={handleFileChange}
+        />
       </div>
       <div className="flex justify-end gap-4.5">
         <button

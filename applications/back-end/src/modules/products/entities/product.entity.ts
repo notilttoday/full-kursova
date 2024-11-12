@@ -1,3 +1,4 @@
+import { GameType } from '@boilerplate/types/products/interfaces/products'
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, Index, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 
 @Entity()
@@ -13,6 +14,12 @@ export class ProductEntity {
 
   @Column()
   price: number
+
+  @Column({ type: 'enum', enum: GameType, nullable: true })
+  game: GameType
+
+  @Column({ type: 'text', nullable: true })
+  imagePath: string
 
   @Index()
   @CreateDateColumn({ type: 'timestamptz' })

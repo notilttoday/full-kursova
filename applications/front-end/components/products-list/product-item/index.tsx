@@ -7,7 +7,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import addToCart from '@boilerplate/front-end/assets/icons/add-to-cart.svg'
-import arthasImg from '@boilerplate/front-end/assets/figures/ArthasMenethil.jpg'
+import errorImage from '@boilerplate/front-end/assets/images/404-error.png'
 import topArrow from '@boilerplate/front-end/assets/icons/top-arrow.svg'
 import { useAppDispatch } from '@boilerplate/front-end/store'
 import { cartSlice } from '@boilerplate/front-end/store/slices/cart.slice'
@@ -16,9 +16,10 @@ interface ProductItemProps {
   id: string
   title: string
   price: number
+  imagePath?: string
 }
 
-export const ProductItem: React.FC<ProductItemProps> = ({ id, title, price }) => {
+export const ProductItem: React.FC<ProductItemProps> = ({ id, title, price, imagePath }) => {
   const dispatch = useAppDispatch()
 
   const router = useRouter();
@@ -35,7 +36,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ id, title, price }) =>
     setQuantity(newQuantity);
   };
   const handleProductClick = (): void => {
-    router.push('/product-desc');
+    router.push(`/product-description/${id}`);
   };
   const handleAddToCartClick = (): void => {
     dispatch(cartSlice.actions.add({ id, quantity }))
@@ -45,14 +46,14 @@ export const ProductItem: React.FC<ProductItemProps> = ({ id, title, price }) =>
     <div className={classes.product}>
       <div onClick={handleProductClick}>
         <div className={classes["image-container"]}>
-          <Image className={classes.img} src={arthasImg} alt="#" />
+          <Image className={classes.img} src={imagePath ? imagePath : errorImage} width="200" height="200" alt="#" />
         </div>
         <h5 className={classes.h5}>{title}</h5>
         <div className={classes.availability}>
           <p className={classes.p}> Є/Немає в наявності </p>
         </div>
         <div className={classes["review-grade"]}>
-          <p className={classes.p}> * * * * *</p>
+          <p className={classes.p}>* * * * *</p>
         </div>
       </div>
       <div className={classes["price-cart"]}>

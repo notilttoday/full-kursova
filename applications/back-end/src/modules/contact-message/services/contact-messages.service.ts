@@ -29,7 +29,6 @@ export class ContactMessagesService {
 
   async postContactMessage(data: PostContactMessage): Promise<HttpServerResponse<PostContactMessageResult>> {
     const { firstName, lastName, email, phone, message, userId } = data
-    console.log(userId)
     await this.contactMessagesRepository.save({
       firstName,
       lastName,

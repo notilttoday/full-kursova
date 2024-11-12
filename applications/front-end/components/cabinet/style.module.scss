@@ -4,19 +4,23 @@
     flex-direction: column;
     align-items: center;
 }
+
 .h1 {
     margin-top: 15px;
     font-size: 44px;
     font-weight: bold;
 }
+
 .h2 {
     text-align: center;
     font-size: 24px;
 }
+
 .status {
     margin: 20px auto;
     font-size: 20px;
 }
+
 .profile-img {
     width: 243px;
     height: 243px;
@@ -33,21 +37,25 @@
 
 .fav-examples {
     display: flex;
+    justify-content: center;
 }
-.fav-examples .img{
+
+.fav-examples .img {
     width: 75px;
     height: 75px;
     z-index: 1;
     background-color: #fff;
     border-radius: 50%;
 }
-.fav-examples .img:first-child{
+
+.fav-examples .img:first-child {
     margin-right: -25px;
     background-color: #fff;
     border-radius: 50%;
     z-index: 2;
 }
-.fav-examples .img:last-child{
+
+.fav-examples .img:last-child {
     margin-left: -25px;
     background-color: #fff;
     border-radius: 50%;
@@ -60,6 +68,7 @@
     justify-content: space-between;
     align-items: center;
 }
+
 .logout-button {
     background-color: #ff6257;
     border: 0;
@@ -72,9 +81,11 @@
     align-items: center;
     margin: 30px auto 0;
 }
+
 .logout-button:hover {
     background-color: #c7271c;
 }
+
 .logout-image {
     width: 20px;
     height: 20px;
@@ -91,12 +102,20 @@
     justify-content: space-evenly;
     align-items: center;
 }
+
 .edit-button:hover {
     background-color: #a6a6a6;
 }
+
 .edit-image {
     width: 20px;
     height: 20px;
+}
+
+.h5 {
+    margin: 10px;
+    font-size: 20px;
+    color: #303030;
 }
 
 

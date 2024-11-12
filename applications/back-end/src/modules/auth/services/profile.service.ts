@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common'
+import { ForbiddenException, Injectable, NotFoundException, UnauthorizedException, InternalServerErrorException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { InjectRepository } from '@nestjs/typeorm'
 import { In, Repository } from 'typeorm'
@@ -24,6 +24,8 @@ import { TokenService } from '@boilerplate/back-end/modules/auth/services/token.
 
 import { ProfileDataMapper } from '@boilerplate/back-end/modules/auth/data-mappers/profile.data-mapper'
 import { TokensDataMapper } from '@boilerplate/back-end/modules/auth/data-mappers/tokens.data-mapper'
+import { PatchProfileMyHttpServerRequestDto, PatchProfileMyParamsDto } from '@boilerplate/types/auth/dto/requests/profile/patch-edit-profile-request.dto'
+import { PatchProfileMyHttpServerResponseDto, EditProfileDto } from '@boilerplate/types/auth/dto/responses/profile/patch-edit-profile-response.dto'
 
 @Injectable()
 export class ProfileService {
@@ -40,7 +42,7 @@ export class ProfileService {
     private readonly tokensDataMapper: TokensDataMapper,
 
     private readonly profileDataMapper: ProfileDataMapper,
-  ) {}
+  ) { }
 
   async login(data: PutTokenData): Promise<HttpServerResponse<PutTokenResult>> {
     const { email, password } = data
@@ -144,6 +146,46 @@ export class ProfileService {
 
     if (!profile.roles.includes(role)) {
       throw new ForbiddenException('Access denied')
+    }
+
+    return {
+      result: this.profileDataMapper.toMyProfile(profile),
+    }
+  }
+
+  async updateMyProfile(
+    userGid: string,
+    updateProfileDto: PatchProfileMyParamsDto
+  ): Promise<PatchProfileMyHttpServerResponseDto> {
+    const {
+      result: [profile],
+    } = await this.getProfiles([userGid]);
+
+    if (!profile) {
+      throw new NotFoundException('Profile not found');
+    }
+
+    if (updateProfileDto.firstName !== undefined) {
+      profile.firstName = updateProfileDto.firstName;
+    }
+    if (updateProfileDto.lastName !== undefined) {
+      profile.lastName = updateProfileDto.lastName;
+    }
+    if (updateProfileDto.phone !== undefined) {
+      profile.phone = updateProfileDto.phone;
+    }
+    if (updateProfileDto.statusText !== undefined) {
+      profile.statusText = updateProfileDto.statusText;
+    }
+    if (updateProfileDto.favGames !== undefined) {
+      profile.favGames = updateProfileDto.favGames;
+    }
+
+    try {
+      await this.profileRepository.save(profile);
+    } catch (error) {
+      console.error('Error saving profile:', error);
+      throw new InternalServerErrorException('Failed to update profile');
     }
 
     return {

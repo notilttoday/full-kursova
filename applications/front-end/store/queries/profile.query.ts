@@ -1,8 +1,8 @@
 import { Method } from '@boilerplate/core/interfaces/http'
 import { Role } from '@boilerplate/core/interfaces/user'
 
-import { type GetProfileMyHttpClientRequestDto, GetProfileMyUrl } from '@boilerplate/types/auth/dto/requests/profile'
-import { type MyProfileDto } from '@boilerplate/types/auth/dto/responses/profile'
+import { type GetProfileMyHttpClientRequestDto, GetProfileMyUrl, PatchProfileMyParamsDto, PatchProfileMyUrl } from '@boilerplate/types/auth/dto/requests/profile'
+import { EditProfileDto, type MyProfileDto } from '@boilerplate/types/auth/dto/responses/profile'
 
 import { v1ReactApi } from '@boilerplate/front-end/store/api/v1.api/react.api'
 
@@ -17,9 +17,21 @@ const api = v1ReactApi.injectEndpoints({
         },
       }),
     }),
+    updateProfile: build.mutation<EditProfileDto, PatchProfileMyParamsDto>({
+      query: ({ firstName, lastName, phone, statusText, favGames }) => ({
+        method: Method.Patch,
+        url: PatchProfileMyUrl,
+        data: {
+          firstName,
+          lastName,
+          phone,
+          statusText,
+          favGames
+        },
+      }),
+    }),
   }),
 })
 
-export const { useGetProfileQuery } = api
-
-export const { getProfile } = api.endpoints
+export const { useGetProfileQuery, useUpdateProfileMutation } = api;
+export const { getProfile, updateProfile } = api.endpoints;

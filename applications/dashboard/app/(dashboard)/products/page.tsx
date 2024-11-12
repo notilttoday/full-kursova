@@ -4,6 +4,8 @@ import { type Metadata } from 'next'
 
 import { WithProfile } from '@boilerplate/dashboard/store/with-profile'
 
+import { DashProductList } from '@boilerplate/dashboard/components/product-list'
+
 interface DashboardProductsPageProps { }
 
 export const metadata: Metadata = {
@@ -13,7 +15,7 @@ export const metadata: Metadata = {
 
 export const DashboardProductsPage: React.FC<DashboardProductsPageProps> = () => (
   <WithProfile>
-    Products
+    <DashProductList />
   </WithProfile>
 )
 

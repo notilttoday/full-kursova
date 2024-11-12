@@ -61,11 +61,7 @@ services:
     env_file: "../applications/front-end/.env"
     volumes:
       - "..:/app:delegated"
-    develop:
-      watch:
-        - action: sync
-          path: ../applications/front-end/app
-          target: /app/applications/front-end/app
+      - "../applications/back-end/uploads:/app/applications/front-end/public/uploads:delegated"
 
   # boilerplate-dashboard
   boilerplate-dashboard:
@@ -77,6 +73,7 @@ services:
     env_file: "../applications/dashboard/.env"
     volumes:
       - "..:/app:delegated"
+      - "../applications/back-end/uploads:/app/applications/dashboard/public/uploads:delegated"
 
   # boilerplate-api
   boilerplate-api:

@@ -51,8 +51,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen })
       <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
         <nav className="mt-5 px-4 py-4 lg:mt-9 lg:px-6">
           <ul className="mb-6 flex flex-col gap-1.5">
+            <SidebarItem icon={<FaDoorOpen />} href="/products">
+              Список товарів
+            </SidebarItem>
             <SidebarItem icon={<FaDoorOpen />} href="/products/create">
-              Додати продукти
+              Додати товар
             </SidebarItem>
             <SidebarItem icon={<FaDoorOpen />} href="/contact-messages/receive">
               Продивитись звернення

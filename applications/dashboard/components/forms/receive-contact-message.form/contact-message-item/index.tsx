@@ -1,6 +1,6 @@
 'use client'
 
-import classes from '@boilerplate/front-end/components/products-list/style.module.scss'
+import classes from '@boilerplate/dashboard/components/products-list/style.module.scss'
 
 import React from 'react'
 

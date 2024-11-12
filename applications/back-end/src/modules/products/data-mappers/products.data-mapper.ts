@@ -7,12 +7,13 @@ import { ProductEntity } from '@boilerplate/back-end/modules/products/entities/p
 @Injectable()
 export class ProductsDataMapper {
   toProductShort(entity: ProductEntity): GetProductShort {
-    const { id, title, price } = entity
+    const { id, title, price, imagePath } = entity
 
     return {
       id,
       title,
       price: price / 100,
+      imagePath,
     }
   }
 }

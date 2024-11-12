@@ -7,7 +7,7 @@ import { ProfileEntity } from '@boilerplate/back-end/modules/auth/entities/profi
 @Injectable()
 export class ProfileDataMapper {
   toMyProfile(entity: ProfileEntity): MyProfile {
-    const { id, firstName, lastName, email, phone } = entity
+    const { id, firstName, lastName, email, phone, statusText, favGames } = entity
 
     return {
       id,
@@ -15,6 +15,8 @@ export class ProfileDataMapper {
       lastName,
       email,
       phone,
+      statusText,
+      favGames,
     }
   }
 }

@@ -3,25 +3,28 @@
 'use client'
 
 import Link from 'next/link'
+import classes from '@boilerplate/front-end/app/(auth)/styles.module.scss'
 
 import Card from 'react-bootstrap/Card'
 
 import { SignUpForm } from '@boilerplate/front-end/components/forms/sing-up.form'
 
-export interface AuthSignUpPageProps {}
+export interface AuthSignUpPageProps { }
 
 const AuthSignUpPage: React.FC<AuthSignUpPageProps> = () => (
-  <Card>
-    <Card.Body>
-      <SignUpForm />
-      <div>
-        <p>
-          Already have account?&nbsp;
-          <Link href="/sign-in">Sign In</Link>
-        </p>
-      </div>
-    </Card.Body>
-  </Card>
+  <div className={classes.container}>
+    <Card className={classes.card}>
+      <Card.Body className={classes.cardBody}>
+        <SignUpForm />
+        <div>
+          <p style={{ marginTop: "10px", textAlign: "center" }}>
+            Вже маєте аккаунт?&nbsp;
+            <Link href="/sign-in" className={classes.link}>Увійти</Link>
+          </p>
+        </div>
+      </Card.Body>
+    </Card>
+  </div>
 )
 
 export default AuthSignUpPage

@@ -9,6 +9,8 @@ import { ProductsController } from '@boilerplate/back-end/modules/products/contr
 
 import { ProductsDataMapper } from '@boilerplate/back-end/modules/products/data-mappers/products.data-mapper'
 
+import { DashProductsDataMapper } from '@boilerplate/back-end/modules/products/data-mappers/dash-products.data-mapper'
+
 import { ProductsRepository } from '@boilerplate/back-end/modules/products/repositories/products.repository'
 
 import { ProductsService } from '@boilerplate/back-end/modules/products/services/products.service'
@@ -16,7 +18,7 @@ import { ProductsService } from '@boilerplate/back-end/modules/products/services
 @Module({
   imports: [TypeOrmModule.forFeature([ProductEntity]), forwardRef(() => AuthModule)],
   controllers: [ProductsController],
-  providers: [ProductsDataMapper, ProductsRepository, ProductsService],
+  providers: [ProductsDataMapper, ProductsRepository, ProductsService, DashProductsDataMapper],
   exports: [],
 })
 export class ProductsModule { }
