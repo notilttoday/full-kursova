@@ -2,6 +2,8 @@
 
 import { Suspense, lazy, useRef } from 'react'
 
+import { useRouter } from 'next/navigation'
+
 import { Provider } from 'react-redux'
 
 import { type MyProfile } from '@boilerplate/types/auth/interfaces/profile'
@@ -18,9 +20,12 @@ interface ReduxProviderProps {
 const RefrashToken = lazy(() => import('@boilerplate/dashboard/store/refrash-token'))
 
 export const ReduxProvider: React.FC<ReduxProviderProps> = ({ children, profile }) => {
+  const router = useRouter()
+
   const storeRef = useRef<AppStore | null>(null)
+
   if (!storeRef.current) {
-    storeRef.current = createStore()
+    storeRef.current = createStore({ router })
     storeRef.current.dispatch(profileSlice.actions.init(profile))
   }
 

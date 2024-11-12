@@ -1,10 +1,11 @@
-import { IsArray, IsOptional, IsString } from 'class-validator'
+import { IsOptional, IsString } from 'class-validator'
 
+import { HttpRequestFieldDecorator } from '@boilerplate/core/decorators/http-request-field.decorator'
 import { HttpClientRequestDto } from '@boilerplate/core/dto/requests/http-client-request.dto'
 import { HttpServerRequestDto } from '@boilerplate/core/dto/requests/http-server-request.dto'
 import { Method } from '@boilerplate/core/interfaces/http'
-import { GameType, GetSearchProductsData } from '@boilerplate/types/products/interfaces/products'
-import { HttpRequestFieldDecorator } from '@boilerplate/core/decorators/http-request-field.decorator'
+
+import { GetSearchProductsData } from '@boilerplate/types/products/interfaces/products'
 
 export const GetProductsRequestUrl = '/'
 
@@ -25,7 +26,8 @@ export class GetSearchProductDataDto implements GetSearchProductsData {
 export class GetProductsHttpServerRequestDto extends HttpServerRequestDto<
   typeof GetProductsRequestUrl,
   never,
-  GetSearchProductDataDto> {
+  GetSearchProductDataDto
+> {
   readonly method = Method.Get
 
   readonly url = GetProductsRequestUrl
@@ -34,8 +36,8 @@ export class GetProductsHttpServerRequestDto extends HttpServerRequestDto<
 export class GetProductsHttpClientRequestDto extends HttpClientRequestDto<
   typeof GetProductsRequestUrl,
   never,
-  GetSearchProductDataDto> {
-
+  GetSearchProductDataDto
+> {
   readonly method = Method.Get
 
   readonly url = GetProductsRequestUrl

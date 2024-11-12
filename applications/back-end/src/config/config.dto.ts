@@ -38,4 +38,17 @@ export interface ConfigDto {
       cert: string
     }
   }
+  bull: {
+    limiter: {
+      duration: number
+      max: number
+      bounceBack: boolean
+    }
+    processors: {
+      deleteToken: {
+        delay: string
+        concurrency: number
+      }
+    }
+  }
 }

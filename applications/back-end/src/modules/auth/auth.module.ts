@@ -1,3 +1,4 @@
+import { BullModule } from '@nestjs/bull'
 import { CacheModule } from '@nestjs/cache-manager'
 import { Module, forwardRef } from '@nestjs/common'
 import { JwtModule } from '@nestjs/jwt'
@@ -5,6 +6,8 @@ import { PassportModule } from '@nestjs/passport'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import * as redisStore from 'cache-manager-redis-store'
 import { ClientOpts as RedisClientOptions } from 'redis'
+
+import { QueueNames } from '@boilerplate/core/interfaces/queue'
 
 import { config } from '@boilerplate/back-end/config'
 
@@ -40,6 +43,9 @@ import { TokensDataMapper } from '@boilerplate/back-end/modules/auth/data-mapper
       signOptions: {
         expiresIn: config.get('auth.jwt.expire'),
       },
+    }),
+    BullModule.registerQueue({
+      name: QueueNames.Token,
     }),
     PassportModule.register({ defaultStrategy: 'jwt-passport' }),
     TypeOrmModule.forFeature([ProfileEntity, RefreshTokenEntity]),

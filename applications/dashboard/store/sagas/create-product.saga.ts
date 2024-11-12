@@ -6,23 +6,34 @@ import { call, put, select, takeLatest } from 'redux-saga/effects'
 import { createSagaActionType } from '@boilerplate/core/builders/saga-action-type.builder'
 import { type HttpClientResponse } from '@boilerplate/core/interfaces/http'
 
+import { type PostProductResultDto } from '@boilerplate/types/products/dto/responses/products'
+
 import { saga } from '@boilerplate/dashboard/store'
 
 import { create } from '@boilerplate/dashboard/store/queries/products.query'
-import { createProductSlice } from '../slices/create-product.slice'
-import { PostProductResultDto } from '@boilerplate/types/products/dto/responses/products'
+import { createProductSlice } from '@boilerplate/dashboard/store/slices/create-product.slice'
+
+import { notification } from '@boilerplate/dashboard/utils/notification'
 
 interface CreateProductStartActionPayload {
   redirect: () => void
 }
 
-export const createProductStart = createAction<CreateProductStartActionPayload>(createSagaActionType('create-product-start'))
+export const createProductStart = createAction<CreateProductStartActionPayload>(
+  createSagaActionType('create-product-start'),
+)
 
 function* handler(action: PayloadAction<CreateProductStartActionPayload>): SagaIterator<void> {
   try {
-    const title: ReturnType<typeof createProductSlice.selectors.title> = yield select(createProductSlice.selectors.title)
-    const description: ReturnType<typeof createProductSlice.selectors.description> = yield select(createProductSlice.selectors.description)
-    const price: ReturnType<typeof createProductSlice.selectors.price> = yield select(createProductSlice.selectors.price)
+    const title: ReturnType<typeof createProductSlice.selectors.title> = yield select(
+      createProductSlice.selectors.title,
+    )
+    const description: ReturnType<typeof createProductSlice.selectors.description> = yield select(
+      createProductSlice.selectors.description,
+    )
+    const price: ReturnType<typeof createProductSlice.selectors.price> = yield select(
+      createProductSlice.selectors.price,
+    )
     const game: ReturnType<typeof createProductSlice.selectors.game> = yield select(createProductSlice.selectors.game)
     const file: ReturnType<typeof createProductSlice.selectors.file> = yield select(createProductSlice.selectors.file)
 
@@ -31,17 +42,22 @@ function* handler(action: PayloadAction<CreateProductStartActionPayload>): SagaI
     }
 
     const formData = new FormData()
+
     formData.append('title', title)
     formData.append('description', description)
     formData.append('price', price.toString())
     formData.append('game', game)
     formData.append('file', file)
 
-    console.log({ formData });
-
     const postProductRequest = yield put(create.initiate(formData))
 
     const postProductResponse: HttpClientResponse<PostProductResultDto> = yield call(() => postProductRequest)
+
+    if (!postProductResponse?.data?.isSuccess) {
+      notification.error("Something's wrong!")
+
+      return
+    }
 
     yield call(action.payload.redirect)
   } catch (error) {

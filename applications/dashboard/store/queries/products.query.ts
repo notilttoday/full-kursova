@@ -2,16 +2,12 @@ import { Method } from '@boilerplate/core/interfaces/http'
 
 import {
   DeleteProductUrl,
-  type PostProductDataDto,
   type PostProductHttpClientRequestDto,
   PostProductUrl,
 } from '@boilerplate/types/products/dto/requests/products'
-import {
-  type PostProductResultDto,
-} from '@boilerplate/types/products/dto/responses/products'
+import { type PostProductResultDto } from '@boilerplate/types/products/dto/responses/products'
 
 import { v1ReactApi } from '@boilerplate/dashboard/store/api/v1.api/react.api'
-
 
 const api = v1ReactApi.injectEndpoints({
   endpoints: (build) => ({
@@ -26,10 +22,13 @@ const api = v1ReactApi.injectEndpoints({
       }),
       invalidatesTags: [{ type: 'Product', id: 'LIST' }],
     }),
-    delete: build.mutation<void, { productId: string }>({
-      query: ({ productId }) => ({
+    delete: build.mutation<void, string>({
+      query: (productId) => ({
         method: Method.Delete,
-        url: `/products/${productId}`,
+        url: DeleteProductUrl,
+        params: {
+          productId,
+        },
       }),
       invalidatesTags: [{ type: 'Product', id: 'LIST' }],
     }),
@@ -37,4 +36,5 @@ const api = v1ReactApi.injectEndpoints({
 })
 
 export const { create, delete: deleteProduct } = api.endpoints
+
 export const { useDeleteMutation } = api

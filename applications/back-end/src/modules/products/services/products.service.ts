@@ -1,37 +1,47 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common'
+import { Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common'
 import { compact, uniq } from 'lodash'
+import { FindOptionsWhere, ILike, In } from 'typeorm'
 
 import { HttpListServerResponse, HttpServerResponse } from '@boilerplate/core/interfaces/http'
 
-import { DeleteProductResult, GameType, GetProduct, GetProductShort, GetSearchProductsData, GetSingleProductData } from '@boilerplate/types/products/interfaces/products'
+import { PatchProductParamsDto } from '@boilerplate/types/products/dto/requests/products'
+import {
+  GetFullProductDto,
+  PatchProductHttpServerResponseDto,
+} from '@boilerplate/types/products/dto/responses/products'
+import {
+  DeleteProductResult,
+  GameType,
+  GetProduct,
+  GetProductShort,
+  GetSearchProductsData,
+  GetSingleProductData,
+  PostProductData,
+  PostProductResult,
+} from '@boilerplate/types/products/interfaces/products'
 
-import { ProductsDataMapper } from '@boilerplate/back-end/modules/products/data-mappers/products.data-mapper'
-
-import { DashProductsDataMapper } from '@boilerplate/back-end/modules/products/data-mappers/dash-products.data-mapper'
+import { ProductEntity } from '@boilerplate/back-end/modules/products/entities/product.entity'
 
 import { ProductsRepository } from '@boilerplate/back-end/modules/products/repositories/products.repository'
 
-import { PostProductData, PostProductResult } from '@boilerplate/types/products/interfaces/products'
-import { ProductEntity } from '@boilerplate/back-end/modules/products/entities/product.entity'
-import { FindOptionsWhere, ILike, In } from 'typeorm'
-import { DeleteProductResultHttpServerResponseDto, GetFullProductDto, PatchProductHttpServerResponseDto } from '@boilerplate/types/products/dto/responses/products'
-import { GetFullProductDataDto, PatchProductParamsDto } from '@boilerplate/types/products/dto/requests/products'
+import { DashProductsDataMapper } from '@boilerplate/back-end/modules/products/data-mappers/dash-products.data-mapper'
+import { ProductsDataMapper } from '@boilerplate/back-end/modules/products/data-mappers/products.data-mapper'
 
 @Injectable()
 export class ProductsService {
+  private readonly logger = new Logger(ProductsService.name)
+
   constructor(
     private readonly productsDataMapper: ProductsDataMapper,
 
     private readonly productsRepository: ProductsRepository,
 
     private readonly dashProductsDataMapper: DashProductsDataMapper,
-  ) { }
+  ) {}
 
-  async getProducts(params: GetSearchProductsData): Promise<HttpListServerResponse<GetProductShort>> {
-    const { title } = params
-    let { game } = params
-
-    console.log(title);
+  async getProducts(data: GetSearchProductsData): Promise<HttpListServerResponse<GetProductShort>> {
+    const { title } = data
+    let { game } = data
 
     game = Array.isArray(game) ? game : [game]
     game = compact(uniq(game))
@@ -53,20 +63,20 @@ export class ProductsService {
     }
   }
 
-  async getProduct(params: GetSingleProductData): Promise<HttpServerResponse<GetProduct>> {
-    const { productId } = params
+  async getProduct(data: GetSingleProductData): Promise<HttpServerResponse<GetProduct>> {
+    const { productId } = data
 
     const product = await this.productsRepository.findOne({ where: { id: productId } })
 
     return {
-      result: product
+      result: product,
     }
   }
 
   async postProduct(data: PostProductData): Promise<HttpServerResponse<PostProductResult>> {
     const { title, description, price, game, file } = data
 
-    if (!Object.values(GameType).includes(game as GameType)) {
+    if (!Object.values(GameType).includes(game)) {
       throw new Error(`Invalid game value: ${game}`)
     }
 
@@ -74,7 +84,7 @@ export class ProductsService {
       title,
       description,
       price: parseInt(`${price * 100}`, 10),
-      game: game as GameType,
+      game,
       imagePath: `/uploads/products/${file.filename}`,
     })
 
@@ -90,67 +100,68 @@ export class ProductsService {
   async getDashboardProducts(): Promise<HttpListServerResponse<GetFullProductDto>> {
     const [products, total] = await this.productsRepository.findAndCount({
       order: {
-        createdAt: 'desc'
-      }
-    });
+        createdAt: 'desc',
+      },
+    })
 
     return {
       result: products.map((product) => this.dashProductsDataMapper.toProductDash(product)),
       total,
-    };
+    }
   }
 
-  async updateProduct(
-    productId: string,
-    updateProductDto: PatchProductParamsDto
-  ): Promise<PatchProductHttpServerResponseDto> {
-
+  async updateProduct(productId: string, params: PatchProductParamsDto): Promise<PatchProductHttpServerResponseDto> {
     const product = await this.productsRepository.findOne({
       where: { id: productId },
-    });
+    })
 
     if (!product) {
-      throw new NotFoundException('Product not found');
+      throw new NotFoundException('Product not found')
     }
 
-    if (updateProductDto.title !== undefined) {
-      product.title = updateProductDto.title;
+    if (params.title !== undefined) {
+      product.title = params.title
     }
-    if (updateProductDto.description !== undefined) {
-      product.description = updateProductDto.description;
+
+    if (params.description !== undefined) {
+      product.description = params.description
     }
-    if (updateProductDto.price !== undefined) {
-      product.price = Math.round(parseFloat(updateProductDto.price.toString()) * 100);
+
+    if (params.price !== undefined) {
+      product.price = Math.round(parseFloat(params.price.toString()) * 100)
     }
-    if (updateProductDto.game !== undefined) {
-      if (!Object.values(GameType).includes(updateProductDto.game as GameType)) {
-        throw new Error(`Invalid game value: ${updateProductDto.game}`);
+
+    if (params.game !== undefined) {
+      if (!Object.values(GameType).includes(<GameType>params.game)) {
+        throw new Error(`Invalid game value: ${params.game}`)
       }
-      product.game = updateProductDto.game as GameType;
+
+      product.game = <GameType>params.game
     }
 
     try {
-      await this.productsRepository.save(product);
+      await this.productsRepository.save(product)
     } catch (error) {
-      console.error('Error saving product:', error);
-      throw new InternalServerErrorException('Failed to update product');
+      this.logger.error({ action: 'updateProduct', params: { productId, ...params }, error })
+
+      throw new InternalServerErrorException('Failed to update product')
     }
 
     return {
       result: this.dashProductsDataMapper.toProductDash(product),
-    };
+    }
   }
 
   async deleteProduct(productId: string): Promise<HttpServerResponse<DeleteProductResult>> {
     const product = await this.productsRepository.findOne({
-      where: { id: productId }
-    });
+      where: { id: productId },
+    })
 
     if (!product) {
-      throw new Error('Product not found');
+      throw new Error('Product not found')
     }
 
-    await this.productsRepository.delete(productId);
+    await this.productsRepository.delete(productId)
 
     const result: DeleteProductResult = {
       isSuccess: true,
@@ -160,5 +171,4 @@ export class ProductsService {
       result,
     }
   }
-
 }

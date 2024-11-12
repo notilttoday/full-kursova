@@ -10,3 +10,5 @@ export const createApiKey = <
   prefix?: TPrefix,
 ): `[v${TVersion}] ${TPrefix | typeof DEFAULT_PREFIX}/${TApiName}` =>
   `[v${version}] ${prefix || DEFAULT_PREFIX}/${apiName}`
+
+export const isApiKey = (key: string): boolean => Boolean(key?.split?.(' ')?.[1]?.startsWith(DEFAULT_PREFIX))

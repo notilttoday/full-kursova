@@ -1,18 +1,30 @@
+
+import { InjectQueue } from '@nestjs/bull'
 import { Injectable, Scope, UnauthorizedException } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { Request } from 'express'
 import { ExtractJwt, Strategy } from 'passport-jwt'
+import { Queue } from 'bull'
+import ms from 'ms'
 
 import { EncryptedAuthToken, EncryptedJwtAuthToken } from '@boilerplate/core/interfaces/auth'
 
 import { config } from '@boilerplate/back-end/config'
-
+import { DeleteTokenJobData } from '@boilerplate/back-end/modules/auth/interfaces/services/token'
 import { TokenService } from '@boilerplate/back-end/modules/auth/services/token.service'
-
+import { ProcessorNames, QueueNames } from '@boilerplate/core/interfaces/queue'
 @Injectable({
   scope: Scope.DEFAULT,
 })
 export class JwtPassportRefreshStrategy extends PassportStrategy(Strategy, 'jwt-passport-refresh') {
+  @InjectQueue(QueueNames.Token)
+  private readonly deleteTokenQueue: Queue<DeleteTokenJobData>
+
+  private readonly configs = {
+    delay: ms(<string>config.get('bull.processors.deleteToken.delay')),
+  }
+
+
   constructor(private readonly tokenService: TokenService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -47,7 +59,11 @@ export class JwtPassportRefreshStrategy extends PassportStrategy(Strategy, 'jwt-
     const newEncryptedData = newEncryptedToken?.data
 
     if (newEncryptedData) {
-      await this.tokenService.setTokenToBlacklist(authorization)
+      await this.deleteTokenQueue.add(
+        ProcessorNames.DeleteToken,
+        { authorization },
+        { removeOnComplete: true, removeOnFail: true, delay: this.configs.delay },
+      )
     }
 
     return { data: newEncryptedData ?? data }
