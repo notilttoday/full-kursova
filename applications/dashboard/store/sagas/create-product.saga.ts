@@ -23,8 +23,23 @@ function* handler(action: PayloadAction<CreateProductStartActionPayload>): SagaI
     const title: ReturnType<typeof createProductSlice.selectors.title> = yield select(createProductSlice.selectors.title)
     const description: ReturnType<typeof createProductSlice.selectors.description> = yield select(createProductSlice.selectors.description)
     const price: ReturnType<typeof createProductSlice.selectors.price> = yield select(createProductSlice.selectors.price)
+    const game: ReturnType<typeof createProductSlice.selectors.game> = yield select(createProductSlice.selectors.game)
+    const file: ReturnType<typeof createProductSlice.selectors.file> = yield select(createProductSlice.selectors.file)
 
-    const postProductRequest = yield put(create.initiate({ title, description, price }))
+    if (!file) {
+      throw new Error('Файл не вибрано!')
+    }
+
+    const formData = new FormData()
+    formData.append('title', title)
+    formData.append('description', description)
+    formData.append('price', price.toString())
+    formData.append('game', game)
+    formData.append('file', file)
+
+    console.log({ formData });
+
+    const postProductRequest = yield put(create.initiate(formData))
 
     const postProductResponse: HttpClientResponse<PostProductResultDto> = yield call(() => postProductRequest)
 

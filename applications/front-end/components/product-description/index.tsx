@@ -8,11 +8,16 @@ import React, { useState } from 'react';
 import arthasImg from '@boilerplate/front-end/assets/figures/ArthasMenethil.jpg'
 import addToCart from '@boilerplate/front-end/assets/icons/add-to-cart.svg'
 import topArrow from '@boilerplate/front-end/assets/icons/top-arrow.svg'
+import { useGetProductQuery } from '@boilerplate/front-end/store/queries/product.query';
 
-interface ProductDescriptionProps { }
+interface ProductDescriptionProps {
+    productId: string
+}
 
-export const ProductDescription: React.FC<ProductDescriptionProps> = () => {
+export const ProductDescription: React.FC<ProductDescriptionProps> = ({ productId }) => {
     const [quantity, setQuantity] = useState(1);
+
+    const { data: product, isLoading } = useGetProductQuery(productId)
 
     const increaseQuantity = (): void => {
         setQuantity(prevQuantity => prevQuantity + 1);
@@ -31,27 +36,20 @@ export const ProductDescription: React.FC<ProductDescriptionProps> = () => {
                     <Image src={arthasImg} alt="ArthasFigure" className={classes["figure-img"]} />
                 </div>
                 <div className={classes["column-2"]}>
-                    <h3 className={classes.h3}>Arthas Menethil</h3>
+                    <h3 className={classes.h3}>{product?.title}</h3>
                     <div className={classes["figure-desc"]}>
-                        <p className={classes["common-text"]}>Артас Менетіл — це один із найвідоміших персонажів всесвіту Warcraft, і фігурка, що зображує його, втілює його в епічному, величному образі. Фігурка зображує Артаса в його найвідомішій формі — як Короля-ліча (Lich King). Його броня масивна, чорна і срібляста, зі складними, загрозливими деталями, вкритими крижаними візерунками, що відбивають його владу над Смертоносними землями і Нежиттю.
-                            <br /><br />
-                            Артас тримає свій легендарний меч — Frostmourne, що зловісно світиться, ніби готовий поглинути душі ворогів. Його шолом із шипами приховує обличчя, залишаючи лише холодне, пронизливе світло очей, що символізує його перетворення на втілення чистого зла.
-                            <br /><br />
-                            Фігурка розроблена з неймовірною увагою до деталей, передаючи всі відтінки трагедії та величі персонажа. Рукавички, накидка, навіть текстура плаща і броні, здається, промовляють про його холодну міць.</p>
+                        <p className={classes["common-text"]}>
+                            {`${product?.description}`}
+                        </p>
                     </div>
-                    <div className={classes["category-list"]}>
-                        <div className={classes["category-container"]}>
-                            <p className={classes.p}>WOW</p>
-                        </div>
-                        <div className={classes["category-container"]}>
-                            <p className={classes.p}>Lich King</p>
-                        </div>
-                        <div className={classes["category-container"]}>
-                            <p className={classes.p}>Arthas</p>
-                        </div>
-                    </div>
+                    {product?.game ?
+                        <div className={classes["category-list"]}>
+                            <div className={classes["category-container"]}>
+                                <p className={classes.p}>{product?.game}</p>
+                            </div>
+                        </div> : null}
                     <div className={classes["price-container"]}>
-                        <h2 className={classes.price}>1500₴</h2>
+                        <h2 className={classes.price}>{product?.price}₴</h2>
                         <div className={classes["change-quantity"]}>
                             <p className={classes.p}>Обрати кількість</p>
                             <input className={classes["input-number"]} type="number" id="quan" value={quantity} min="1" onChange={handleInputChange} />

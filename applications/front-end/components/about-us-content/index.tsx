@@ -1,4 +1,5 @@
 import classes from '@boilerplate/front-end/components/about-us-content/style.module.scss'
+import Link from 'next/link'
 
 interface AboutUsProps { }
 
@@ -24,7 +25,7 @@ export const AboutUs: React.FC<AboutUsProps> = () => {
       <h3 className={classes.h3}>Відгуки наших клієнтів</h3>
       <p className={classes.p}>Наші клієнти — це наші найкращі партнери. Ми пишаємося довірою, яку вони нам висловлюють, і завжди прислухаємося до їхніх побажань та пропозицій. Дякуємо всім, хто ділиться своїми враженнями та допомагає нам ставати кращими!</p>
       <h3 className={classes.h3}>Зв'яжіться з нами</h3>
-      <p className={classes.p}>Маєте питання або хочете отримати консультацію?<a className={classes.a} href="contact.html"> Зв'яжіться з нами</a>, і ми з радістю допоможемо вам вибрати ідеальну фігурку або розповімо більше про наші товари. Будемо раді вам допомогти!</p>
+      <p className={classes.p}>Маєте питання або хочете отримати консультацію?<Link className={classes.a} href="contact"> Зв'яжіться з нами</Link>, і ми з радістю допоможемо вам вибрати ідеальну фігурку або розповімо більше про наші товари. Будемо раді вам допомогти!</p>
     </div>
   )
 }

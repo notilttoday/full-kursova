@@ -83,7 +83,7 @@ export const Cart: React.FC<CartProps> = () => {
                     </div>
                     <div className={classes["item-price"]}>
                         <p className={classes.price}>{totalPrice} грн</p>
-                        <button className={classes["remove-item"]} onClick={handleRemoveFromCartClick}><Image className={classes.img} src={crossIco} alt="cross-delete" /></button>
+                        <button className={classes["remove-item"]}><Image className={classes.img} src={crossIco} alt="cross-delete" /></button>
                     </div>
                 </li>
             </ul>

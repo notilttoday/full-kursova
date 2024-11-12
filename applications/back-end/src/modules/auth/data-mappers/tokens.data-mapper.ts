@@ -9,7 +9,7 @@ export class TokensDataMapper {
   toRegistrationProfile(
     data: PostTokenData,
     encryptedPassword: string,
-  ): Omit<ProfileEntity, 'id' | 'roles' | 'createdAt' | 'updatedAt' | 'contactMessage'> {
+  ): Omit<ProfileEntity, 'id' | 'roles' | 'createdAt' | 'updatedAt' | 'contactMessage' | 'statusText' | 'favGames'> {
     const { firstName, lastName, email, phone } = data
 
     return {

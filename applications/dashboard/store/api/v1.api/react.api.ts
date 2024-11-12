@@ -20,6 +20,7 @@ export const v1ReactApi = createApi({
     }
   },
 
+  tagTypes: ['Product'],
   endpoints: () => ({}),
 })
 
@@ -28,5 +29,5 @@ reducer.inject(v1ReactApi)
 middleware.inject(v1ReactApi.middleware)
 
 declare module '@boilerplate/dashboard/store' {
-  export interface LazyLoadedSlices extends WithSlice<typeof v1ReactApi> {}
+  export interface LazyLoadedSlices extends WithSlice<typeof v1ReactApi> { }
 }

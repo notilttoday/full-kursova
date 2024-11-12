@@ -21,7 +21,7 @@ export const WithProfile: React.FC<WithProfileProps> = ({ children }) => {
 
   useEffect(() => {
     if (profile === null) {
-      router.push('/sign-in')
+      router.push('/')
     }
   }, [profile])
 

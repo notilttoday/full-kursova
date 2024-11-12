@@ -19,7 +19,7 @@ export const WithoutProfile: React.FC<WithProfileProps> = ({ children }) => {
 
   useEffect(() => {
     if (profile !== null) {
-      router.push('/cabinet')
+      router.push('/')
     }
   }, [profile])
 

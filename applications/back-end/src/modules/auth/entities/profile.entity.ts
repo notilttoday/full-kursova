@@ -2,6 +2,7 @@ import { Column, CreateDateColumn, Entity, Index, JoinTable, OneToMany, PrimaryG
 
 import { Role } from '@boilerplate/core/interfaces/user'
 import { ContactMessageEntity } from 'src/modules/contact-message/entities/contact-message.entity'
+import { GameType } from '@boilerplate/types/products/interfaces/products'
 
 @Entity()
 export class ProfileEntity {
@@ -19,6 +20,12 @@ export class ProfileEntity {
 
   @Column()
   phone: string
+
+  @Column({ nullable: true })
+  statusText: string
+
+  @Column({ type: 'enum', enum: GameType, array: true, nullable: true })
+  favGames: GameType[]
 
   @Column()
   password: string

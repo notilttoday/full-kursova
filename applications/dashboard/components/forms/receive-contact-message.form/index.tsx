@@ -1,7 +1,5 @@
 'use client'
 
-import classes from '@boilerplate/front-end/components/products-list/style.module.scss'
-
 import { ContactMessageItem } from '@boilerplate/dashboard/components/forms/receive-contact-message.form/contact-message-item'
 
 import { useReceiveQuery } from '@boilerplate/dashboard/store/queries/contact-messages.query'
