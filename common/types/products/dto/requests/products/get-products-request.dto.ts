@@ -7,7 +7,7 @@ import { Method } from '@boilerplate/core/interfaces/http'
 
 import { GetSearchProductsData } from '@boilerplate/types/products/interfaces/products'
 
-export const GetProductsRequestUrl = '/'
+export const GetProductsRequestUrl = '/figure-search'
 
 export class GetSearchProductDataDto implements GetSearchProductsData {
   [x: string]: string | readonly string[]
