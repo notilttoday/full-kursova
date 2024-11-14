@@ -79,7 +79,7 @@ export const UpdateProductForm: React.FC<UpdateProductFormProps> = ({ productId 
 
     await updateProduct({ productId, formData }).unwrap()
     alert('Продукт оновлено!')
-    router.push('/products')
+    router.push('/')
   }
 
   const content = (
@@ -145,7 +145,7 @@ export const UpdateProductForm: React.FC<UpdateProductFormProps> = ({ productId 
         <button
           className="flex justify-center rounded border border-stroke px-6 py-2 font-medium text-white hover:shadow-1 dark:border-strokedark dark:text-white"
           type="submit"
-          onClick={() => router.push('/products')}
+          onClick={() => router.push('/')}
         >
           Скасувати
         </button>

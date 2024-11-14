@@ -5,6 +5,7 @@ import { type Metadata } from 'next'
 import { WithProfile } from '@boilerplate/dashboard/store/with-profile'
 
 import { DefaultLayout } from '@boilerplate/dashboard/components/layouts/default-layout'
+import { DashProductList } from '@boilerplate/dashboard/components/product-list'
 
 interface DashboardPageProps {}
 
@@ -15,7 +16,9 @@ export const metadata: Metadata = {
 
 export const DashboardPage: React.FC<DashboardPageProps> = () => (
   <WithProfile>
-    <DefaultLayout>Hello, world!</DefaultLayout>
+    <DefaultLayout>
+      <DashProductList />
+    </DefaultLayout>
   </WithProfile>
 )
 

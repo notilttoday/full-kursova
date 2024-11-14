@@ -23,7 +23,7 @@ const CreateProductBaseForm: React.FC<CreateProductBaseFormProps> = (props) => {
 
     dispatch(
       createProductStart({
-        redirect: () => router.push('/products'),
+        redirect: () => router.push('/'),
       }),
     )
   }, [])

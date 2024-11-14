@@ -23,8 +23,9 @@ const NOOP_LOGOUT = (): void => undefined
 export const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => (
   <ClickOutside onClick={() => setSidebarOpen(false)}>
     <aside
-      className={`fixed left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+      className={`fixed left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:translate-x-0 ${
+        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+      }`}
     >
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
         <Link href="/">
@@ -51,7 +52,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen })
       <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
         <nav className="mt-5 px-4 py-4 lg:mt-9 lg:px-6">
           <ul className="mb-6 flex flex-col gap-1.5">
-            <SidebarItem icon={<FaDoorOpen />} href="/products">
+            <SidebarItem icon={<FaDoorOpen />} href="/">
               Список товарів
             </SidebarItem>
             <SidebarItem icon={<FaDoorOpen />} href="/products/create">

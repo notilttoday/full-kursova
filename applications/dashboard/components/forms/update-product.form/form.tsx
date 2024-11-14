@@ -23,7 +23,7 @@ const UpdateProductBaseForm: React.FC<UpdateProductBaseFormProps> = (props) => {
 
     dispatch(
       updateProductStart({
-        redirect: () => router.push('/products'),
+        redirect: () => router.push('/'),
       }),
     )
   }, [])

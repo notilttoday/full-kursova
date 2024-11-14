@@ -52,7 +52,7 @@ function* handler(action: PayloadAction<DeleteProductStartActionPayload>): SagaI
 
     yield call(notification.success, 'Продукт видалено!')
 
-    yield call(router.push, '/products')
+    yield call(router.push, '/')
   } catch (error) {
     logger.error(error)
   }

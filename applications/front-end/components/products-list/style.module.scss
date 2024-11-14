@@ -255,3 +255,20 @@
     grid-template-columns: 1fr;
   }
 }
+
+.noProductsMessage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  text-align: center;
+  font-size: 18px;
+  color: #666;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.thinking-image {
+  width: 150px;
+  height: 150px;
+}

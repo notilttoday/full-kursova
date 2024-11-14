@@ -10,9 +10,9 @@ export class DashProductsDataMapper {
   private readonly gameMap: Record<GameType, string> = {
     [GameType.Dota]: 'Dota 2',
     [GameType.TheWitcher]: 'The Witcher',
-    [GameType.WorldOfWarcraft]: 'World of warcraft',
+    [GameType.WorldOfWarcraft]: 'World of Warcraft',
     [GameType.Diablo]: 'Diablo',
-    [GameType.AssassinsCreed]: 'Assassins creed',
+    [GameType.AssassinsCreed]: 'Assassins Creed',
   }
 
   toProductDash(entity: ProductEntity): GetFullProductDto {
@@ -21,7 +21,7 @@ export class DashProductsDataMapper {
     return {
       id,
       title,
-      price: price / 100,
+      price: price,
       description,
       game: this.gameMap[game],
       imagePath,

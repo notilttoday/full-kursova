@@ -192,3 +192,39 @@
   padding: 10px;
   z-index: 100;
 }
+
+.filter-button {
+  position: relative;
+}
+
+.filter-menu {
+  position: absolute;
+  top: 25%;
+  left: 82.5%;
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 4px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+}
+
+.filter-option {
+  margin-bottom: 10px;
+}
+
+.filter-option label {
+  font-size: 18px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.filter-option select {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
