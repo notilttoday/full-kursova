@@ -11,7 +11,7 @@ interface UpdateProfileState {
   phone: string
   statusText: string
   favGames: string[]
-  userId: string;
+  userId: string
 }
 
 const slice = createSlice({
@@ -73,5 +73,5 @@ export const updateProfileSlice = {
 }
 
 declare module '@boilerplate/front-end/store' {
-  export interface LazyLoadedSlices extends WithSlice<typeof slice> { }
+  export interface LazyLoadedSlices extends WithSlice<typeof slice> {}
 }

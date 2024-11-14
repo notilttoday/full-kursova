@@ -5,7 +5,7 @@ import {
   type PostContactMessageHttpClientRequestDto,
   PostContactMessageUrl,
 } from '@boilerplate/types/contact-message/dto/requests/contact-messages'
-import { PostContactMessageResultDto } from '@boilerplate/types/contact-message/dto/responses/contact-messages'
+import { type PostContactMessageResultDto } from '@boilerplate/types/contact-message/dto/responses/contact-messages'
 
 import { v1Api } from '@boilerplate/front-end/store/api/v1.api'
 

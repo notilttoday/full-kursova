@@ -42,3 +42,11 @@ export interface GetSingleProductData {
 export interface DeleteProductResult {
   isSuccess: boolean
 }
+
+export interface PatchProductData {
+  title: string
+  description: string
+  price: number
+  game: GameType
+  file: Express.Multer.File
+}

@@ -1,8 +1,13 @@
 import { Method } from '@boilerplate/core/interfaces/http'
 import { Role } from '@boilerplate/core/interfaces/user'
 
-import { type GetProfileMyHttpClientRequestDto, GetProfileMyUrl, PatchProfileMyParamsDto, PatchProfileMyUrl } from '@boilerplate/types/auth/dto/requests/profile'
-import { EditProfileDto, type MyProfileDto } from '@boilerplate/types/auth/dto/responses/profile'
+import {
+  type GetProfileMyHttpClientRequestDto,
+  GetProfileMyUrl,
+  type PatchProfileMyParamsDto,
+  PatchProfileMyUrl,
+} from '@boilerplate/types/auth/dto/requests/profile'
+import { type EditProfileDto, type MyProfileDto } from '@boilerplate/types/auth/dto/responses/profile'
 
 import { v1ReactApi } from '@boilerplate/front-end/store/api/v1.api/react.api'
 
@@ -26,12 +31,13 @@ const api = v1ReactApi.injectEndpoints({
           lastName,
           phone,
           statusText,
-          favGames
+          favGames,
         },
       }),
     }),
   }),
 })
 
-export const { useGetProfileQuery, useUpdateProfileMutation } = api;
-export const { getProfile, updateProfile } = api.endpoints;
+export const { useGetProfileQuery, useUpdateProfileMutation } = api
+
+export const { getProfile, updateProfile } = api.endpoints

@@ -35,7 +35,10 @@ const withSlice = reducer.inject(slice)
 export const productSlice = {
   /**
    
-Omit reducer and reducerPath for prevent any other connections of it to store*/..._omit(slice, ['reducer', 'reducerPath']),
+Omit reducer and reducerPath for prevent any other connections of it to store*/ ..._omit(slice, [
+    'reducer',
+    'reducerPath',
+  ]),
   selectSlice: withSlice.selector(slice.selectSlice),
   selectors: {
     productId: withSlice.selector(slice.selectors.productId),
@@ -44,5 +47,5 @@ Omit reducer and reducerPath for prevent any other connections of it to store*/.
 }
 
 declare module '@boilerplate/front-end/store' {
-  export interface LazyLoadedSlices extends WithSlice<typeof slice> { }
+  export interface LazyLoadedSlices extends WithSlice<typeof slice> {}
 }

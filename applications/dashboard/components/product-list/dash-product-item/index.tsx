@@ -49,7 +49,7 @@ export const DashProductItem: React.FC<DashProductItemProps> = ({ id, title, pri
         </div>
       </div>
       <div className={classes['buttons-container']}>
-        <Link href="products/update">
+        <Link href={`/products/update/${id}`}>
           <div className={classes['update-img']}>
             <Image className={classes.img} src={editIco} alt="update" />
           </div>

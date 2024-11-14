@@ -6,7 +6,7 @@ import { WithProfile } from '@boilerplate/dashboard/store/with-profile'
 
 import { CreateProductForm } from '@boilerplate/dashboard/components/forms/create-product.form'
 
-interface DashboardCreateProductPageProps { }
+interface DashboardCreateProductPageProps {}
 
 export const metadata: Metadata = {
   title: 'Next.js E-commerce Dashboard | TailAdmin - Next.js Dashboard Template',

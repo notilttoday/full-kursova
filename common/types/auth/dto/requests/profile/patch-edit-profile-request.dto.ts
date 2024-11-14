@@ -1,8 +1,9 @@
-import { IsEnum, IsOptional, IsString } from 'class-validator'
+import { IsOptional, IsString } from 'class-validator'
 
 import { HttpClientRequestDto } from '@boilerplate/core/dto/requests/http-client-request.dto'
 import { HttpServerRequestDto } from '@boilerplate/core/dto/requests/http-server-request.dto'
 import { Method, type Params } from '@boilerplate/core/interfaces/http'
+
 import { GameType } from '@boilerplate/types/products/interfaces/products'
 
 export const PatchProfileMyUrl = '/edit-profile'

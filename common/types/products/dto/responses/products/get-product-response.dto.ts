@@ -3,7 +3,7 @@ import { IsArray, IsNumber, IsOptional, IsString } from 'class-validator'
 
 import { HttpServerResponseDto } from '@boilerplate/core/dto/responses/http-server-response.dto'
 
-import { GameType, GetProduct } from '@boilerplate/types/products/interfaces/products'
+import { GetProduct } from '@boilerplate/types/products/interfaces/products'
 
 export class GetProductDto implements GetProduct {
   @IsString()

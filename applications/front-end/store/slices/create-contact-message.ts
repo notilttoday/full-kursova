@@ -25,12 +25,12 @@ const slice = createSlice({
     userId: '',
   }),
   selectors: {
-    firstName: state => state.firstName,
-    lastName: state => state.lastName,
-    email: state => state.email,
-    phone: state => state.phone,
-    message: state => state.message,
-    userId: state => state.userId,
+    firstName: (state) => state.firstName,
+    lastName: (state) => state.lastName,
+    email: (state) => state.email,
+    phone: (state) => state.phone,
+    message: (state) => state.message,
+    userId: (state) => state.userId,
   },
   reducers: {
     setFirstName(state, action: PayloadAction<string>) {
@@ -73,5 +73,5 @@ export const contactMessageSlice = {
 }
 
 declare module '@boilerplate/front-end/store' {
-  export interface LazyLoadedSlices extends WithSlice<typeof slice> { }
+  export interface LazyLoadedSlices extends WithSlice<typeof slice> {}
 }

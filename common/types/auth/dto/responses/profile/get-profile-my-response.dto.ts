@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer'
-import { IsArray, IsOptional, IsString } from 'class-validator'
+import { IsOptional, IsString } from 'class-validator'
 
 import { HttpServerResponseDto } from '@boilerplate/core/dto/responses/http-server-response.dto'
 

@@ -8,13 +8,13 @@ import { useRouter } from 'next/navigation'
 
 import { useAppDispatch } from '@boilerplate/dashboard/store'
 
-import { createProductStart } from '@boilerplate/dashboard/store/sagas/create-product.saga'
+import { updateProductStart } from '@boilerplate/dashboard/store/sagas/update-product.saga'
 
 type HTMLFormProps = React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>
 
-interface CreateProductBaseFormProps extends Omit<HTMLFormProps, 'onSubmit'> {}
+interface UpdateProductBaseFormProps extends Omit<HTMLFormProps, 'onSubmit'> {}
 
-const CreateProductBaseForm: React.FC<CreateProductBaseFormProps> = (props) => {
+const UpdateProductBaseForm: React.FC<UpdateProductBaseFormProps> = (props) => {
   const dispatch = useAppDispatch()
   const router = useRouter()
 
@@ -22,7 +22,7 @@ const CreateProductBaseForm: React.FC<CreateProductBaseFormProps> = (props) => {
     event.preventDefault()
 
     dispatch(
-      createProductStart({
+      updateProductStart({
         redirect: () => router.push('/products'),
       }),
     )
@@ -31,4 +31,4 @@ const CreateProductBaseForm: React.FC<CreateProductBaseFormProps> = (props) => {
   return <form {...props} onSubmit={handleSubmit} />
 }
 
-export default CreateProductBaseForm
+export default UpdateProductBaseForm

@@ -28,8 +28,8 @@ export const deleteProductStart = createAction<DeleteProductStartActionPayload>(
 function* handler(action: PayloadAction<DeleteProductStartActionPayload>): SagaIterator<void> {
   try {
     const isConfirmed = yield call(confirmDeletion, {
-      title: 'Confirm deletion',
-      description: 'Selected product will be removed.',
+      title: 'Підтвердження видалення',
+      description: 'Обраний продукт буде видалено.',
     })
 
     if (!isConfirmed) {
@@ -50,7 +50,7 @@ function* handler(action: PayloadAction<DeleteProductStartActionPayload>): SagaI
       return
     }
 
-    yield call(notification.success, 'Product removed!')
+    yield call(notification.success, 'Продукт видалено!')
 
     yield call(router.push, '/products')
   } catch (error) {

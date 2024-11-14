@@ -1,23 +1,36 @@
-'use client';
+'use client'
 
-import { useState, useEffect } from 'react';
-import classes from '@boilerplate/front-end/components/edit-profile/style.module.scss';
-import Image from 'next/image';
-import profileCircleImage from '@boilerplate/front-end/assets/icons/profile-circle.svg';
-import clockImage from '@boilerplate/front-end/assets/icons/clock.svg';
-import { useGetProfileQuery, useUpdateProfileMutation } from '@boilerplate/front-end/store/queries/profile.query';
-import { useAppDispatch } from '@boilerplate/front-end/store';
-import { updateProfileSlice } from '@boilerplate/front-end/store/slices/update-profile.slice';
-import { Game } from '@boilerplate/types/products/interfaces/products';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react'
 
-interface EditProfileProps { }
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+
+import profileCircleImage from '@boilerplate/front-end/assets/icons/profile-circle.svg'
+
+import { GameType } from '@boilerplate/types/products/interfaces/products'
+
+import { useAppDispatch } from '@boilerplate/front-end/store'
+
+import { useGetProfileQuery, useUpdateProfileMutation } from '@boilerplate/front-end/store/queries/profile.query'
+import { updateProfileSlice } from '@boilerplate/front-end/store/slices/update-profile.slice'
+
+import classes from '@boilerplate/front-end/components/edit-profile/style.module.scss'
+
+interface EditProfileProps {}
+
+const gameMap: Record<GameType, string> = {
+  [GameType.Dota]: 'Dota 2',
+  [GameType.TheWitcher]: 'The Witcher',
+  [GameType.WorldOfWarcraft]: 'World of warcraft',
+  [GameType.Diablo]: 'Diablo',
+  [GameType.AssassinsCreed]: 'Assassins creed',
+}
 
 export const EditProfile: React.FC<EditProfileProps> = () => {
-  const { data } = useGetProfileQuery();
-  const dispatch = useAppDispatch();
-  const [updateProfile] = useUpdateProfileMutation();
-  const router = useRouter();
+  const { data } = useGetProfileQuery()
+  const dispatch = useAppDispatch()
+  const [updateProfile] = useUpdateProfileMutation()
+  const router = useRouter()
 
   const [formState, setFormState] = useState({
     id: '',
@@ -26,8 +39,8 @@ export const EditProfile: React.FC<EditProfileProps> = () => {
     phone: '',
     email: '',
     statusText: '',
-    favGames: [] as Game[],
-  });
+    favGames: [] as GameType[],
+  })
 
   useEffect(() => {
     if (data) {
@@ -39,57 +52,60 @@ export const EditProfile: React.FC<EditProfileProps> = () => {
         email: data.email || '',
         statusText: data.statusText || '',
         favGames: data.favGames || [],
-      });
+      })
     }
-  }, [data]);
+  }, [data])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
+
     setFormState((prevState) => ({
       ...prevState,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
-  const handleGameChange = (index: number, newGame: Game) => {
-    const updatedGames = [...formState.favGames];
-    updatedGames[index] = newGame;
+  const handleGameChange = (index: number, newGame: GameType) => {
+    const updatedGames = [...formState.favGames]
+
+    updatedGames[index] = newGame
     setFormState((prevState) => ({
       ...prevState,
       favGames: updatedGames,
-    }));
-  };
+    }))
+  }
 
   const handleSave = async () => {
     try {
-      console.log('Updating profile with data:', formState);
-      await updateProfile(formState).unwrap();
-      dispatch(updateProfileSlice.actions.setFirstName(formState.firstName));
-      dispatch(updateProfileSlice.actions.setLastName(formState.lastName));
-      dispatch(updateProfileSlice.actions.setPhone(formState.phone));
-      dispatch(updateProfileSlice.actions.setStatusText(formState.statusText));
-      dispatch(updateProfileSlice.actions.setFavGames(formState.favGames));
-      alert('Профіль оновлено');
-      router.push('/cabinet');
+      await updateProfile(formState).unwrap()
+      dispatch(updateProfileSlice.actions.setFirstName(formState.firstName))
+      dispatch(updateProfileSlice.actions.setLastName(formState.lastName))
+      dispatch(updateProfileSlice.actions.setPhone(formState.phone))
+      dispatch(updateProfileSlice.actions.setStatusText(formState.statusText))
+      dispatch(updateProfileSlice.actions.setFavGames(formState.favGames))
+      alert('Профіль оновлено')
+      router.push('/cabinet')
     } catch (error) {
-      console.error('Помилка при оновленні профілю:', error);
+      console.error('Помилка при оновленні профілю:', error)
     }
-  };
+  }
 
   return (
     <div className={classes['my-profile']}>
       <Image className={classes['profile-img']} src={profileCircleImage} alt="profileImage" />
-      <h1 className={classes.h1}>{formState.firstName} {formState.lastName}</h1>
-      <div className={classes["inputs-container"]}>
+      <h1 className={classes.h1}>
+        {formState.firstName} {formState.lastName}
+      </h1>
+      <div className={classes['inputs-container']}>
         <p className={classes.p}>Введіть статус:</p>
-        <div className={classes["input-status"]}>
+        <div className={classes['input-status']}>
           <input
             type="text"
             name="statusText"
             value={formState.statusText}
             onChange={handleInputChange}
             placeholder="Статус"
-            className={classes['input']}
+            className={classes.input}
             maxLength={50}
           />
         </div>
@@ -101,7 +117,7 @@ export const EditProfile: React.FC<EditProfileProps> = () => {
             value={formState.firstName}
             onChange={handleInputChange}
             placeholder="Ім'я"
-            className={classes['input']}
+            className={classes.input}
           />
           <input
             type="text"
@@ -109,7 +125,7 @@ export const EditProfile: React.FC<EditProfileProps> = () => {
             value={formState.lastName}
             onChange={handleInputChange}
             placeholder="Прізвище"
-            className={classes['input']}
+            className={classes.input}
           />
         </div>
         <p className={classes.p}>Введіть номер телефону:</p>
@@ -119,27 +135,31 @@ export const EditProfile: React.FC<EditProfileProps> = () => {
           value={formState.phone}
           onChange={handleInputChange}
           placeholder="Телефон"
-          className={classes['input']}
+          className={classes.input}
         />
-        <div className={classes['favourite']}>
+        <div className={classes.favourite}>
           <p className={classes.p}>Улюблені ігри:</p>
           <div className={classes['fav-games']}>
             {formState.favGames.map((game, index) => (
               <select
                 key={index}
                 value={game}
-                onChange={(e) => handleGameChange(index, e.target.value as Game)}
-                className={classes['input']}
+                onChange={(e) => handleGameChange(index, e.target.value as GameType)}
+                className={classes.input}
               >
-                {Object.values(Game).map((gameValue) => (
-                  <option key={gameValue} value={gameValue}>{gameValue}</option>
+                {Object.entries(gameMap).map(([gameType, gameTitle]) => (
+                  <option key={gameType} value={gameType}>
+                    {gameTitle}
+                  </option>
                 ))}
               </select>
             ))}
           </div>
         </div>
       </div>
-      <button className={classes['save-button']} onClick={handleSave}>Зберегти зміни</button>
+      <button className={classes['save-button']} onClick={handleSave}>
+        Зберегти зміни
+      </button>
     </div>
-  );
-};
+  )
+}

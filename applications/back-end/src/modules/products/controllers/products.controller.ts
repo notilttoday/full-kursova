@@ -109,15 +109,46 @@ export class ProductsController {
     return await this.productsService.getDashboardProducts()
   }
 
-  @Patch('/edit-product/:productId')
   @ApiBearerAuth()
   @UseGuards(JwtPassportAuthGuard)
   @Roles([Role.Admin])
+  @Patch('/edit-product/:productId')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: multer.diskStorage({
+        destination: function (req, file, cb) {
+          cb(null, resolve(process.cwd(), 'uploads', 'products'))
+        },
+        filename: function (req, file, cb) {
+          cb(null, `${uuid()}${extname(file.originalname)}`)
+        },
+      }),
+    }),
+  )
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        title: { type: 'string' },
+        description: { type: 'string' },
+        price: { type: 'number' },
+        game: { type: 'string' },
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   async updateProduct(
     @Param('productId') productId: string,
-    @Body() updateProductDto: PatchProductParamsDto,
+    @Body() data: PatchProductParamsDto,
+    @UploadedFile() file: Express.Multer.File,
   ): Promise<PatchProductHttpServerResponseDto> {
-    return await this.productsService.updateProduct(productId, updateProductDto)
+    const { title, description, price, game } = data
+
+    return await this.productsService.updateProduct(productId, { title, description, price, game, file })
   }
 
   @Delete(DeleteProductUrl)

@@ -4,7 +4,6 @@ import { FindOptionsWhere, ILike, In } from 'typeorm'
 
 import { HttpListServerResponse, HttpServerResponse } from '@boilerplate/core/interfaces/http'
 
-import { PatchProductParamsDto } from '@boilerplate/types/products/dto/requests/products'
 import {
   GetFullProductDto,
   PatchProductHttpServerResponseDto,
@@ -16,6 +15,7 @@ import {
   GetProductShort,
   GetSearchProductsData,
   GetSingleProductData,
+  PatchProductData,
   PostProductData,
   PostProductResult,
 } from '@boilerplate/types/products/interfaces/products'
@@ -110,7 +110,7 @@ export class ProductsService {
     }
   }
 
-  async updateProduct(productId: string, params: PatchProductParamsDto): Promise<PatchProductHttpServerResponseDto> {
+  async updateProduct(productId: string, data: PatchProductData): Promise<PatchProductHttpServerResponseDto> {
     const product = await this.productsRepository.findOne({
       where: { id: productId },
     })
@@ -119,30 +119,34 @@ export class ProductsService {
       throw new NotFoundException('Product not found')
     }
 
-    if (params.title !== undefined) {
-      product.title = params.title
+    if (data.title !== undefined) {
+      product.title = data.title
     }
 
-    if (params.description !== undefined) {
-      product.description = params.description
+    if (data.description !== undefined) {
+      product.description = data.description
     }
 
-    if (params.price !== undefined) {
-      product.price = Math.round(parseFloat(params.price.toString()) * 100)
+    if (data.price !== undefined) {
+      product.price = Math.round(parseFloat(data.price.toString()))
     }
 
-    if (params.game !== undefined) {
-      if (!Object.values(GameType).includes(<GameType>params.game)) {
-        throw new Error(`Invalid game value: ${params.game}`)
+    if (data.game !== undefined) {
+      if (!Object.values(GameType).includes(<GameType>data.game)) {
+        throw new Error(`Invalid game value: ${data.game}`)
       }
 
-      product.game = <GameType>params.game
+      product.game = <GameType>data.game
+    }
+
+    if (data.file) {
+      product.imagePath = `/uploads/products/${data.file.filename}`
     }
 
     try {
       await this.productsRepository.save(product)
     } catch (error) {
-      this.logger.error({ action: 'updateProduct', params: { productId, ...params }, error })
+      this.logger.error({ action: 'updateProduct', data: { productId, ...data }, error })
 
       throw new InternalServerErrorException('Failed to update product')
     }
