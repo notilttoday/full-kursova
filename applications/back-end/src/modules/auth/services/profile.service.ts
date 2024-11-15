@@ -1,4 +1,10 @@
-import { ForbiddenException, Injectable, NotFoundException, UnauthorizedException, InternalServerErrorException } from '@nestjs/common'
+import {
+  ForbiddenException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { InjectRepository } from '@nestjs/typeorm'
 import { In, Repository } from 'typeorm'
@@ -7,7 +13,8 @@ import { EncryptedAuthToken } from '@boilerplate/core/interfaces/auth'
 import { HttpListServerResponse, HttpServerResponse } from '@boilerplate/core/interfaces/http'
 import { Role } from '@boilerplate/core/interfaces/user'
 
-import { MyProfile } from '@boilerplate/types/auth/interfaces/profile'
+import { PatchProfileMyHttpServerResponseDto } from '@boilerplate/types/auth/dto/responses/profile/patch-edit-profile-response.dto'
+import { MyProfile, PatchMyProfile } from '@boilerplate/types/auth/interfaces/profile'
 import {
   DeleteTokenResult,
   PatchTokenResult,
@@ -24,8 +31,6 @@ import { TokenService } from '@boilerplate/back-end/modules/auth/services/token.
 
 import { ProfileDataMapper } from '@boilerplate/back-end/modules/auth/data-mappers/profile.data-mapper'
 import { TokensDataMapper } from '@boilerplate/back-end/modules/auth/data-mappers/tokens.data-mapper'
-import { PatchProfileMyHttpServerRequestDto, PatchProfileMyParamsDto } from '@boilerplate/types/auth/dto/requests/profile/patch-edit-profile-request.dto'
-import { PatchProfileMyHttpServerResponseDto, EditProfileDto } from '@boilerplate/types/auth/dto/responses/profile/patch-edit-profile-response.dto'
 
 @Injectable()
 export class ProfileService {
@@ -42,7 +47,7 @@ export class ProfileService {
     private readonly tokensDataMapper: TokensDataMapper,
 
     private readonly profileDataMapper: ProfileDataMapper,
-  ) { }
+  ) {}
 
   async login(data: PutTokenData): Promise<HttpServerResponse<PutTokenResult>> {
     const { email, password } = data
@@ -153,39 +158,51 @@ export class ProfileService {
     }
   }
 
-  async updateMyProfile(
-    userGid: string,
-    updateProfileDto: PatchProfileMyParamsDto
-  ): Promise<PatchProfileMyHttpServerResponseDto> {
+  async updateMyProfile(userGid: string, data: PatchMyProfile): Promise<PatchProfileMyHttpServerResponseDto> {
     const {
       result: [profile],
-    } = await this.getProfiles([userGid]);
+    } = await this.getProfiles([userGid])
 
     if (!profile) {
-      throw new NotFoundException('Profile not found');
+      throw new NotFoundException('Profile not found')
     }
 
-    if (updateProfileDto.firstName !== undefined) {
-      profile.firstName = updateProfileDto.firstName;
+    if (data.firstName !== undefined) {
+      profile.firstName = data.firstName
     }
-    if (updateProfileDto.lastName !== undefined) {
-      profile.lastName = updateProfileDto.lastName;
+
+    if (data.lastName !== undefined) {
+      profile.lastName = data.lastName
     }
-    if (updateProfileDto.phone !== undefined) {
-      profile.phone = updateProfileDto.phone;
+
+    if (data.phone !== undefined) {
+      profile.phone = data.phone
     }
-    if (updateProfileDto.statusText !== undefined) {
-      profile.statusText = updateProfileDto.statusText;
+
+    if (data.statusText !== undefined) {
+      profile.statusText = data.statusText
     }
-    if (updateProfileDto.favGames !== undefined) {
-      profile.favGames = updateProfileDto.favGames;
+
+    if (data.favGames !== undefined) {
+      if (!Array.isArray(data.favGames)) {
+        try {
+          profile.favGames = JSON.parse(data.favGames)
+        } catch (error) {
+          throw new InternalServerErrorException('Invalid favGames format')
+        }
+      } else {
+        profile.favGames = data.favGames
+      }
+    }
+
+    if (data.file) {
+      profile.imagePath = `/uploads/products/${data.file.filename}`
     }
 
     try {
-      await this.profileRepository.save(profile);
+      await this.profileRepository.save(profile)
     } catch (error) {
-      console.error('Error saving profile:', error);
-      throw new InternalServerErrorException('Failed to update profile');
+      throw new InternalServerErrorException(error)
     }
 
     return {

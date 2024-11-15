@@ -1,7 +1,17 @@
-import { Column, CreateDateColumn, Entity, Index, JoinTable, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { ContactMessageEntity } from 'src/modules/contact-message/entities/contact-message.entity'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  Index,
+  JoinTable,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm'
 
 import { Role } from '@boilerplate/core/interfaces/user'
-import { ContactMessageEntity } from 'src/modules/contact-message/entities/contact-message.entity'
+
 import { GameType } from '@boilerplate/types/products/interfaces/products'
 
 @Entity()
@@ -32,6 +42,9 @@ export class ProfileEntity {
 
   @Column({ type: 'enum', enum: Role, array: true, default: [Role.User] })
   roles: Role[]
+
+  @Column({ type: 'text', nullable: true })
+  imagePath: string
 
   @Index()
   @CreateDateColumn({ type: 'timestamptz' })

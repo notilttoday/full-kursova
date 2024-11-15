@@ -2,6 +2,8 @@
 
 'use client'
 
+import { useState } from 'react'
+
 import { useRouter } from 'next/navigation'
 
 import Form, { type FormProps } from 'react-bootstrap/Form'
@@ -9,9 +11,8 @@ import Form, { type FormProps } from 'react-bootstrap/Form'
 import { useAppDispatch } from '@boilerplate/front-end/store'
 
 import { signInStart } from '@boilerplate/front-end/store/sagas/sign-in.saga'
-import { useState } from 'react'
 
-interface SignInBaseFormProps extends Omit<FormProps, 'onSubmit'> { }
+interface SignInBaseFormProps extends Omit<FormProps, 'onSubmit'> {}
 
 const SignInBaseForm: React.FC<SignInBaseFormProps> = (props) => {
   const dispatch = useAppDispatch()
@@ -43,7 +44,7 @@ const SignInBaseForm: React.FC<SignInBaseFormProps> = (props) => {
   return (
     <>
       <Form {...props} onSubmit={handleSignInSubmit} />
-      {loading && <p className="mt-2 text-center">Загрузка...</p>}
+      {loading && <p className="mt-2 text-center">Завантаження...</p>}
       {errorMessage && <p className="text-danger mt-2 text-center">{errorMessage}</p>}
     </>
   )

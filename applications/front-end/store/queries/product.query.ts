@@ -1,6 +1,9 @@
 import { Method } from '@boilerplate/core/interfaces/http'
 
-import { type GetProductHttpClientRequestDto, GetProductRequestUrl } from '@boilerplate/types/products/dto/requests/products'
+import {
+  type GetProductHttpClientRequestDto,
+  GetProductRequestUrl,
+} from '@boilerplate/types/products/dto/requests/products'
 import { type GetProductDto } from '@boilerplate/types/products/dto/responses/products'
 
 import { v1ReactApi } from '@boilerplate/front-end/store/api/v1.api/react.api'

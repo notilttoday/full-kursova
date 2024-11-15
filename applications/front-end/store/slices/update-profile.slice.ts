@@ -12,6 +12,7 @@ interface UpdateProfileState {
   statusText: string
   favGames: string[]
   userId: string
+  file: File | null
 }
 
 const slice = createSlice({
@@ -23,6 +24,7 @@ const slice = createSlice({
     statusText: '',
     favGames: [],
     userId: '',
+    file: null,
   }),
   selectors: {
     firstName: (state) => state.firstName,
@@ -31,6 +33,7 @@ const slice = createSlice({
     statusText: (state) => state.statusText,
     favGames: (state) => state.favGames,
     userId: (state) => state.userId,
+    file: (state) => state.file,
   },
   reducers: {
     setFirstName(state, action: PayloadAction<string>) {
@@ -51,6 +54,9 @@ const slice = createSlice({
     setUserId(state, action: PayloadAction<string>) {
       state.userId = action.payload
     },
+    setFile(state, action: PayloadAction<File | null>) {
+      state.file = action.payload
+    },
   },
 })
 
@@ -69,6 +75,7 @@ export const updateProfileSlice = {
     statusText: withSlice.selector(slice.selectors.statusText),
     favGames: withSlice.selector(slice.selectors.favGames),
     userId: withSlice.selector(slice.selectors.userId),
+    file: withSlice.selector(slice.selectors.file),
   },
 }
 

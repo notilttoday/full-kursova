@@ -3,7 +3,7 @@ import { Method } from '@boilerplate/core/interfaces/http'
 import {
   type GetProductsHttpClientRequestDto,
   GetProductsRequestUrl,
-  GetSearchProductDataDto,
+  type GetSearchProductDataDto,
 } from '@boilerplate/types/products/dto/requests/products'
 import { type GetProductShortDto } from '@boilerplate/types/products/dto/responses/products'
 
@@ -17,7 +17,7 @@ const api = v1ReactApi.injectEndpoints({
         url: GetProductsRequestUrl,
         search: {
           title,
-          game
+          game,
         },
       }),
     }),
@@ -25,4 +25,5 @@ const api = v1ReactApi.injectEndpoints({
 })
 
 export const { useGetProductsQuery } = api
+
 export const { getProducts } = api.endpoints

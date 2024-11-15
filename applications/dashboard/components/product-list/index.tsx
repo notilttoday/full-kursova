@@ -19,7 +19,7 @@ export const DashProductList: React.FC<DashProductListProps> = () => {
   const startIndex = (currentPage - 1) * itemsPerPage
   const currentProducts = data.slice(startIndex, startIndex + itemsPerPage)
 
-  const handlePageChange = (page: number) => {
+  const handlePageChange = (page: number): void => {
     setCurrentPage(page)
   }
 

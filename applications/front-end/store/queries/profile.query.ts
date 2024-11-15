@@ -4,7 +4,7 @@ import { Role } from '@boilerplate/core/interfaces/user'
 import {
   type GetProfileMyHttpClientRequestDto,
   GetProfileMyUrl,
-  type PatchProfileMyParamsDto,
+  type PatchProfileMyHttpClientRequestDto,
   PatchProfileMyUrl,
 } from '@boilerplate/types/auth/dto/requests/profile'
 import { type EditProfileDto, type MyProfileDto } from '@boilerplate/types/auth/dto/responses/profile'
@@ -22,17 +22,14 @@ const api = v1ReactApi.injectEndpoints({
         },
       }),
     }),
-    updateProfile: build.mutation<EditProfileDto, PatchProfileMyParamsDto>({
-      query: ({ firstName, lastName, phone, statusText, favGames }) => ({
+    updateProfile: build.mutation<EditProfileDto, FormData>({
+      query: (formData): PatchProfileMyHttpClientRequestDto => ({
         method: Method.Patch,
         url: PatchProfileMyUrl,
-        data: {
-          firstName,
-          lastName,
-          phone,
-          statusText,
-          favGames,
+        headers: {
+          'Content-Type': 'multipart/form-data',
         },
+        data: formData,
       }),
     }),
   }),

@@ -17,9 +17,9 @@ const UpdateProductBaseForm = lazy(() => import('@boilerplate/dashboard/componen
 const gameMap: Record<GameType, string> = {
   [GameType.Dota]: 'Dota 2',
   [GameType.TheWitcher]: 'The Witcher',
-  [GameType.WorldOfWarcraft]: 'World of warcraft',
+  [GameType.WorldOfWarcraft]: 'World of Warcraft',
   [GameType.Diablo]: 'Diablo',
-  [GameType.AssassinsCreed]: 'Assassins creed',
+  [GameType.AssassinsCreed]: 'Assassins Creed',
 }
 
 export const UpdateProductForm: React.FC<UpdateProductFormProps> = ({ productId }) => {

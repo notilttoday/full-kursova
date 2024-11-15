@@ -10,7 +10,7 @@ export class TokensDataMapper {
     data: PostTokenData,
     encryptedPassword: string,
   ): Omit<ProfileEntity, 'id' | 'roles' | 'createdAt' | 'updatedAt' | 'contactMessage' | 'statusText' | 'favGames'> {
-    const { firstName, lastName, email, phone } = data
+    const { firstName, lastName, email, phone, imagePath } = data
 
     return {
       firstName,
@@ -18,6 +18,7 @@ export class TokensDataMapper {
       email,
       phone,
       password: encryptedPassword,
+      imagePath,
     }
   }
 }

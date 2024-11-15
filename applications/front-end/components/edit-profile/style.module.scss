@@ -20,6 +20,39 @@
   }
 }
 
+.select {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  padding: 10px 15px;
+  border: 1px solid #a6a6a6;
+  border-radius: 10px;
+  margin: 10px 0;
+  transition: all 0.3s ease;
+  background-color: #fff;
+  appearance: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+select.input:focus {
+  outline: none;
+  border-color: #303030;
+  background-color: #303030; 
+  box-shadow: 0 0 5px rgba(48, 48, 48, 0.3);
+}
+
+.select option:checked {
+  background-color: #303030;
+  color: white;
+}
+
+.select option:disabled {
+  color: #a6a6a6;
+  background-color: #f2f2f2;
+  cursor: not-allowed; 
+}
+
 .inputs-container {
   display: flex;
   flex-direction: column;
@@ -27,11 +60,13 @@
 }
 
 .profile-img {
-  width: 243px;
-  height: 243px;
+  width: 273px;
+  height: 273px;
   border-radius: 50%;
   border: 3px solid #303030;
   margin-bottom: 20px;
+  padding: 10px;
+  object-fit: cover;
 }
 
 .my-profile {
@@ -88,4 +123,78 @@
 
 .p {
   margin-top: 20px;
+}
+
+.dropdown-container {
+  position: relative;
+  width: 100%;
+}
+
+.dropdown-toggle {
+  width: 100%;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.dropdown-toggle:hover {
+  background-color: #e0e0e0;
+}
+
+.dropdown-toggle:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(48, 48, 48, 0.5);
+}
+
+.dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  z-index: 10;
+  padding: 5px 0;
+}
+
+.game-checkbox {
+  display: flex;
+  align-items: center;
+  padding: 8px 20px;
+  cursor: pointer;
+}
+
+.game-checkbox:hover {
+  background-color: #f8f8f8;
+}
+
+.game-checkbox input {
+  margin-right: 10px;
+  accent-color: #303030;
+  cursor: pointer;
+}
+
+.game-checkbox label {
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+
+.dropdown-list.hidden {
+  display: none;
 }

@@ -29,6 +29,10 @@ export class MyProfileDto implements MyProfile {
   @IsOptional()
   @IsString({ each: true })
   favGames?: GameType[]
+
+  @IsOptional()
+  @IsString()
+  imagePath?: string
 }
 
 export class GetProfileMyHttpServerResponseDto extends HttpServerResponseDto<MyProfileDto> {

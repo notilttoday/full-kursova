@@ -1,15 +1,12 @@
 import { Method } from '@boilerplate/core/interfaces/http'
 
 import {
-  GetFullProductsListHttpClientRequestDto,
+  type GetFullProductsListHttpClientRequestDto,
   GetFullProductsRequestUrl,
 } from '@boilerplate/types/products/dto/requests/products'
-import {
-  GetFullProductDto,
-} from '@boilerplate/types/products/dto/responses/products'
+import { type GetFullProductDto } from '@boilerplate/types/products/dto/responses/products'
 
 import { v1ReactApi } from '@boilerplate/dashboard/store/api/v1.api/react.api'
-
 
 const api = v1ReactApi.injectEndpoints({
   endpoints: (build) => ({

@@ -12,6 +12,7 @@ export interface PostTokenData {
   lastName: string
   email: string
   phone: string
+  imagePath?: string
   password: string
 }
 

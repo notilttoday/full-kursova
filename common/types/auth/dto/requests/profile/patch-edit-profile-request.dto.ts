@@ -1,47 +1,57 @@
-import { IsOptional, IsString } from 'class-validator'
+import { Type } from 'class-transformer'
+import { IsString, ValidateNested } from 'class-validator'
 
+import { HttpRequestFieldDecorator } from '@boilerplate/core/decorators/http-request-field.decorator'
 import { HttpClientRequestDto } from '@boilerplate/core/dto/requests/http-client-request.dto'
 import { HttpServerRequestDto } from '@boilerplate/core/dto/requests/http-server-request.dto'
-import { Method, type Params } from '@boilerplate/core/interfaces/http'
+import { HttpRequestFieldCast, Method } from '@boilerplate/core/interfaces/http'
 
+import { PatchMyProfile } from '@boilerplate/types/auth/interfaces/profile'
 import { GameType } from '@boilerplate/types/products/interfaces/products'
 
 export const PatchProfileMyUrl = '/edit-profile'
 
-export class PatchProfileMyParamsDto implements Params<typeof PatchProfileMyUrl> {
-  @IsOptional()
+export class PatchProfileMyParamsDto implements Omit<PatchMyProfile, 'file'> {
+  @HttpRequestFieldDecorator({ cast: HttpRequestFieldCast.String })
   @IsString()
-  firstName?: string
+  firstName: string
 
-  @IsOptional()
+  @HttpRequestFieldDecorator({ cast: HttpRequestFieldCast.String })
   @IsString()
-  lastName?: string
+  lastName: string
 
-  @IsOptional()
+  @HttpRequestFieldDecorator({ cast: HttpRequestFieldCast.String })
   @IsString()
-  phone?: string
+  phone: string
 
-  @IsOptional()
+  @HttpRequestFieldDecorator({ cast: HttpRequestFieldCast.String })
   @IsString()
   statusText?: string
 
-  @IsOptional()
+  @HttpRequestFieldDecorator()
   @IsString({ each: true })
   favGames?: GameType[]
 }
 
-export class PatchProfileMyHttpServerRequestDto extends HttpServerRequestDto<typeof PatchProfileMyUrl> {
+export class PatchProfileMyHttpServerRequestDto extends HttpServerRequestDto<
+  typeof PatchProfileMyUrl,
+  PatchProfileMyParamsDto
+> {
   readonly method = Method.Patch
 
   readonly url = PatchProfileMyUrl
 
-  params: PatchProfileMyParamsDto
+  @ValidateNested()
+  @Type(() => PatchProfileMyParamsDto)
+  readonly data: PatchProfileMyParamsDto
 }
 
-export class PatchProfileMyHttpClientRequestDto extends HttpClientRequestDto<typeof PatchProfileMyUrl> {
+export class PatchProfileMyHttpClientRequestDto extends HttpClientRequestDto<typeof PatchProfileMyUrl, FormData> {
   readonly method = Method.Patch
 
   readonly url = PatchProfileMyUrl
 
-  params: PatchProfileMyParamsDto
+  @ValidateNested()
+  @Type(() => FormData)
+  readonly data: FormData
 }
