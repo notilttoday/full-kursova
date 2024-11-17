@@ -1,17 +1,13 @@
 /* eslint-disable import/no-default-export */
 'use client'
 
-import React, { useEffect } from 'react'
-import { useCallback } from 'react'
+// eslint-disable-next-line no-restricted-imports
+import React, { useCallback, useEffect } from 'react'
 
 import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-import clockImage from '@boilerplate/front-end/assets/icons/clock.svg'
 import logoutIco from '@boilerplate/front-end/assets/icons/exit.svg'
-import profileCircleImage from '@boilerplate/front-end/assets/icons/profile-circle.svg'
-import setUpIco from '@boilerplate/front-end/assets/icons/set-up.svg'
 
 import { useAppDispatch } from '@boilerplate/front-end/store'
 

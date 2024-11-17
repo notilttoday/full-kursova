@@ -44,7 +44,7 @@ export const DashProductItem: React.FC<DashProductItemProps> = ({ id, title, pri
         <h3 className={classes.h3}>{title}</h3>
         <p className={classes.description}>{description}</p>
         <div className={classes['game-price']}>
-          <p className={classes.price}>Ціна: {price}₴</p>
+          <p className={classes.price}>Ціна: {price * 100}₴</p>
           <p className={classes.game}>Гра: {game}</p>
         </div>
       </div>

@@ -12,7 +12,7 @@ import errorImage from '@boilerplate/front-end/assets/images/404-error.png'
 
 import { useAppDispatch } from '@boilerplate/front-end/store'
 
-import { cartSlice } from '@boilerplate/front-end/store/slices/cart.slice'
+import { orderSlice } from '@boilerplate/front-end/store/slices/order.slice'
 
 import classes from '@boilerplate/front-end/components/products-list/style.module.scss'
 
@@ -48,7 +48,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ id, title, price, imag
   }
 
   const handleAddToCartClick = (): void => {
-    dispatch(cartSlice.actions.add({ id, quantity }))
+    dispatch(orderSlice.actions.add({ id, quantity }))
   }
 
   return (

@@ -21,7 +21,7 @@ export class DashProductsDataMapper {
     return {
       id,
       title,
-      price: price,
+      price: price / 100,
       description,
       game: this.gameMap[game],
       imagePath,

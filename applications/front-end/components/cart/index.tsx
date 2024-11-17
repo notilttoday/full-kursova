@@ -10,7 +10,7 @@ import plusIco from '@boilerplate/front-end/assets/icons/plus.svg'
 import crossIco from '@boilerplate/front-end/assets/icons/cross.svg'
 import arthasImage from '@boilerplate/front-end/assets/figures/ArthasMenethil.jpg'
 import { useAppDispatch } from '@boilerplate/front-end/store'
-import { cartSlice } from '@boilerplate/front-end/store/slices/cart.slice'
+import { orderSlice } from '@boilerplate/front-end/store/slices/order.slice'
 
 interface CartItem {
     id: string,
@@ -57,7 +57,7 @@ export const Cart: React.FC<CartProps> = () => {
     };
 
     const handleRemoveFromCartClick = (id: string): void => {
-        dispatch(cartSlice.actions.remove(id));
+        dispatch(orderSlice.actions.remove(id));
     };
 
     return (

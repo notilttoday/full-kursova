@@ -52,7 +52,11 @@ const api = v1ReactApi.injectEndpoints({
           productId,
         },
       }),
-      invalidatesTags: [{ type: 'Product', id: 'LIST' }],
+      invalidatesTags: (result, error, { productId }) => [
+        { type: 'Product', id: 'current' },
+        { type: 'Product', id: productId },
+        { type: 'Product', id: 'LIST' },
+      ],
     }),
     getProduct: build.query<GetProductDto, string>({
       query: (productId: string): GetProductHttpServerRequestDto => ({

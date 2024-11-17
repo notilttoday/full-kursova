@@ -9,29 +9,16 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 
-import { GameType } from '@boilerplate/types/products/interfaces/products'
-
 import { OrderToProductEntity } from '@boilerplate/back-end/modules/orders/entities/order-to-product.entity'
 
 @Entity()
-export class ProductEntity {
+export class OrderEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @Column()
-  title: string
-
-  @Column('text')
-  description: string
-
-  @Column()
-  price: number
-
-  @Column({ type: 'enum', enum: GameType, nullable: true })
-  game: GameType
-
-  @Column({ type: 'text', nullable: true })
-  imagePath: string
+  @Index()
+  @Column('uuid', { nullable: true, default: null })
+  userGid: string
 
   @Index()
   @CreateDateColumn({ type: 'timestamptz' })
@@ -45,6 +32,6 @@ export class ProductEntity {
   @DeleteDateColumn({ type: 'timestamptz' })
   deletedAt: Date
 
-  @OneToMany(() => OrderToProductEntity, (orderToProduct) => orderToProduct.product)
-  toOrders: OrderToProductEntity[]
+  @OneToMany(() => OrderToProductEntity, (orderToProduct) => orderToProduct.order)
+  toProducts: OrderToProductEntity[]
 }

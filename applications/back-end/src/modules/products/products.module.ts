@@ -18,6 +18,6 @@ import { ProductsDataMapper } from '@boilerplate/back-end/modules/products/data-
   imports: [TypeOrmModule.forFeature([ProductEntity]), forwardRef(() => AuthModule)],
   controllers: [ProductsController],
   providers: [ProductsDataMapper, ProductsRepository, ProductsService, DashProductsDataMapper],
-  exports: [],
+  exports: [ProductsDataMapper],
 })
 export class ProductsModule {}
