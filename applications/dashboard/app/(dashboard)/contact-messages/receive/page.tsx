@@ -6,7 +6,7 @@ import { WithProfile } from '@boilerplate/dashboard/store/with-profile'
 
 import { ReceiveContactMessagePage } from '@boilerplate/dashboard/components/forms/receive-contact-message.form'
 
-interface DashboardReceiveContactMessagePageProps { }
+interface DashboardReceiveContactMessagePageProps {}
 
 export const metadata: Metadata = {
   title: 'Next.js E-commerce Dashboard | TailAdmin - Next.js Dashboard Template',

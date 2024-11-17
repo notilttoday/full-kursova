@@ -21,6 +21,10 @@ const api = v1ReactApi.injectEndpoints({
           role: Role.User,
         },
       }),
+      providesTags: (result) =>
+        Array.isArray(result)
+          ? [...result.map(({ id }) => ({ type: 'Profile', id }) as const), { type: 'Profile', id: 'LIST' }]
+          : [{ type: 'Profile', id: 'LIST' }],
     }),
     updateProfile: build.mutation<EditProfileDto, FormData>({
       query: (formData): PatchProfileMyHttpClientRequestDto => ({
@@ -31,6 +35,10 @@ const api = v1ReactApi.injectEndpoints({
         },
         data: formData,
       }),
+      invalidatesTags: [
+        { type: 'Profile', id: 'current' },
+        { type: 'Profile', id: 'LIST' },
+      ],
     }),
   }),
 })

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 
 import Image from 'next/image'
+import { useParams } from 'next/navigation'
 
 import leftArrow from '@boilerplate/front-end/assets/icons/arrow-left.svg'
 import rightArrow from '@boilerplate/front-end/assets/icons/arrow-right.svg'
@@ -22,9 +23,10 @@ interface ProductsListProps {
 
 export const ProductsList: React.FC<ProductsListProps> = () => {
   const [title] = useTitle()
+  const { game } = useParams<Partial<Record<'game', string>>>()
   const { data = [] } = useGetProductsQuery({
     title: title ?? '',
-    game: [],
+    game: game ? [game] : [],
   })
 
   const ITEMS_PER_PAGE = 18

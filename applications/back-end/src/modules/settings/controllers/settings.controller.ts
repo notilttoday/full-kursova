@@ -9,7 +9,10 @@ import {
   PatchSettingsDataDto,
   PatchSettingsRequestUrl,
 } from '@boilerplate/types/settings/dto/requests/settings'
-import { GetSettingsHttpResponseDto, PatchSettingsHttpResponseDto } from '@boilerplate/types/settings/dto/responses/settings'
+import {
+  GetSettingsHttpResponseDto,
+  PatchSettingsHttpResponseDto,
+} from '@boilerplate/types/settings/dto/responses/settings'
 
 import { JwtPassportAuthGuard } from '@boilerplate/back-end/modules/auth/guards/jwt-passport.guard'
 

@@ -50,39 +50,62 @@ export const SignUpForm: React.FC = () => {
   }
 
   return (
-    <div style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      flexDirection: 'column',
-    }}>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+      }}
+    >
       <Suspense>
         <SignUpBaseForm>
-          <div style={{ width: "320px" }}>
-            <div style={{ textAlign: "center", fontSize: "20px" }}>Реєстрація</div>
+          <div style={{ width: '320px' }}>
+            <div style={{ textAlign: 'center', fontSize: '20px' }}>Реєстрація</div>
             <Form.Group controlId="exampleFormControlInput1">
-              <Form.Label style={{ marginTop: "25px" }}>
-                Ім'я
-              </Form.Label>
-              <Form.Control value={firstName} onChange={handleFirstNameChange} type="first-name" placeholder="Введіть ім'я" style={{ height: "40px" }} />
+              <Form.Label style={{ marginTop: '25px' }}>Ім'я</Form.Label>
+              <Form.Control
+                value={firstName}
+                onChange={handleFirstNameChange}
+                type="first-name"
+                placeholder="Введіть ім'я"
+                style={{ height: '40px' }}
+              />
             </Form.Group>
             <Form.Group controlId="exampleFormControlInput2">
-              <Form.Label style={{ marginTop: "25px" }}>
-                Прізвище
-              </Form.Label>
-              <Form.Control value={lastName} onChange={handleLastNameChange} type="last-name" placeholder="Введіть прізвище" style={{ height: "40px" }} />
+              <Form.Label style={{ marginTop: '25px' }}>Прізвище</Form.Label>
+              <Form.Control
+                value={lastName}
+                onChange={handleLastNameChange}
+                type="last-name"
+                placeholder="Введіть прізвище"
+                style={{ height: '40px' }}
+              />
             </Form.Group>
             <Form.Group controlId="exampleFormControlInput3">
-              <Form.Label style={{ marginTop: "25px" }}>Пошта</Form.Label>
-              <Form.Control value={email} onChange={handleEmailChange} type="email" placeholder="Введіть пошту" style={{ height: "40px" }} />
+              <Form.Label style={{ marginTop: '25px' }}>Пошта</Form.Label>
+              <Form.Control
+                value={email}
+                onChange={handleEmailChange}
+                type="email"
+                placeholder="Введіть пошту"
+                style={{ height: '40px' }}
+              />
             </Form.Group>
             <Form.Group controlId="exampleFormControlInput4">
-              <Form.Label style={{ marginTop: "25px" }}>Пароль</Form.Label>
-              <Form.Control value={password} onChange={handlePasswordChange} type="password" placeholder="Введіть пароль" style={{ height: "40px" }} />
+              <Form.Label style={{ marginTop: '25px' }}>Пароль</Form.Label>
+              <Form.Control
+                value={password}
+                onChange={handlePasswordChange}
+                type="password"
+                placeholder="Введіть пароль"
+                style={{ height: '40px' }}
+              />
             </Form.Group>
             <Form.Group controlId="exampleFormControlInput5">
-              <Form.Label style={{ marginTop: "25px" }}>Повторіть пароль</Form.Label>
-              <Form.Control style={{ height: "40px" }}
+              <Form.Label style={{ marginTop: '25px' }}>Повторіть пароль</Form.Label>
+              <Form.Control
+                style={{ height: '40px' }}
                 value={repeatPassword}
                 onChange={handleRepeatPasswordChange}
                 type="password"
@@ -90,13 +113,23 @@ export const SignUpForm: React.FC = () => {
               />
             </Form.Group>
             <Form.Group controlId="exampleFormControlInput7">
-              <Form.Label style={{ marginTop: "25px" }}>Номер телефону</Form.Label>
-              <Form.Control style={{ height: "40px" }} value={phone} onChange={handlePhoneChange} type="phone" placeholder="Введіть номер телефону" />
+              <Form.Label style={{ marginTop: '25px' }}>Номер телефону</Form.Label>
+              <Form.Control
+                style={{ height: '40px' }}
+                value={phone}
+                onChange={handlePhoneChange}
+                type="phone"
+                placeholder="Введіть номер телефону"
+              />
             </Form.Group>
-            <div style={{ textAlign: "center" }}>
-              <Button style={{ marginTop: "25px", backgroundColor: "#008000", border: "0" }} type="submit" variant="primary"
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#006400'}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#008000'}>
+            <div style={{ textAlign: 'center' }}>
+              <Button
+                style={{ marginTop: '25px', backgroundColor: '#008000', border: '0' }}
+                type="submit"
+                variant="primary"
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#006400')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#008000')}
+              >
                 Зареєструватись
               </Button>
             </div>

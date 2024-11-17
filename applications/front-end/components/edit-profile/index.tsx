@@ -14,6 +14,8 @@ import { useAppDispatch } from '@boilerplate/front-end/store'
 import { useGetProfileQuery, useUpdateProfileMutation } from '@boilerplate/front-end/store/queries/profile.query'
 import { updateProfileSlice } from '@boilerplate/front-end/store/slices/update-profile.slice'
 
+import { notification } from '@boilerplate/front-end/utils/notification'
+
 import classes from '@boilerplate/front-end/components/edit-profile/style.module.scss'
 
 interface EditProfileProps {}
@@ -115,7 +117,7 @@ export const EditProfile: React.FC<EditProfileProps> = () => {
       dispatch(updateProfileSlice.actions.setPhone(formState.phone))
       dispatch(updateProfileSlice.actions.setStatusText(formState.statusText))
       dispatch(updateProfileSlice.actions.setFavGames(formState.favGames))
-      alert('Профіль оновлено!')
+      notification.success('Профіль оновлено!')
       router.push('/cabinet')
     } catch (error) {
       console.error('Помилка при оновленні профілю:', error)

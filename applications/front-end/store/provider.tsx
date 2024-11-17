@@ -1,6 +1,8 @@
 'use client'
 
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
+
+import { useRouter } from 'next/navigation'
 
 import { Provider } from 'react-redux'
 
@@ -16,11 +18,20 @@ interface ReduxProviderProps {
 }
 
 export const ReduxProvider: React.FC<ReduxProviderProps> = ({ children, profile }) => {
+  const router = useRouter()
+
   const storeRef = useRef<AppStore | null>(null)
+
   if (!storeRef.current) {
-    storeRef.current = createStore()
+    storeRef.current = createStore({ router })
     storeRef.current.dispatch(profileSlice.actions.init(profile))
   }
+
+  useEffect(() => {
+    if (profile) {
+      import('@boilerplate/front-end/store/sagas/refrash-token.saga')
+    }
+  }, [profile])
 
   return <Provider store={storeRef.current}>{children}</Provider>
 }

@@ -20,6 +20,7 @@ const slice = createSlice({
   }),
   selectors: {
     profile: (state) => state.data,
+    isAuthorized: (state) => Boolean(state.data),
   },
   reducers: {
     init(state, action: PayloadAction<MyProfile | null>) {
@@ -38,6 +39,7 @@ export const profileSlice = {
   selectSlice: withSlice.selector(slice.selectSlice),
   selectors: {
     profile: withSlice.selector(slice.selectors.profile),
+    isAuthorized: withSlice.selector(slice.selectors.isAuthorized),
   },
 }
 

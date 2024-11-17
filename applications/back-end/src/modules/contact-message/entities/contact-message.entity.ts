@@ -1,5 +1,14 @@
 import { ProfileEntity } from 'src/modules/auth/entities/profile.entity'
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  Index,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm'
 
 @Entity()
 export class ContactMessageEntity {

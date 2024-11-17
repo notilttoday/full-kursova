@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, lazy, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { useRouter } from 'next/navigation'
 
@@ -17,8 +17,6 @@ interface ReduxProviderProps {
   profile: MyProfile | null
 }
 
-const RefrashToken = lazy(() => import('@boilerplate/dashboard/store/refrash-token'))
-
 export const ReduxProvider: React.FC<ReduxProviderProps> = ({ children, profile }) => {
   const router = useRouter()
 
@@ -29,12 +27,11 @@ export const ReduxProvider: React.FC<ReduxProviderProps> = ({ children, profile 
     storeRef.current.dispatch(profileSlice.actions.init(profile))
   }
 
-  return (
-    <Provider store={storeRef.current}>
-      <Suspense>
-        <RefrashToken />
-      </Suspense>
-      {children}
-    </Provider>
-  )
+  useEffect(() => {
+    if (profile) {
+      import('@boilerplate/dashboard/store/sagas/refrash-token.saga')
+    }
+  }, [profile])
+
+  return <Provider store={storeRef.current}>{children}</Provider>
 }

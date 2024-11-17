@@ -8,11 +8,11 @@ import { useRouter } from 'next/navigation'
 
 import { findProductsStart } from '@boilerplate/front-end/store/sagas/find-product.saga'
 
-import { useAppDispatch } from '@boilerplate/dashboard/store'
+import { useAppDispatch } from '@boilerplate/front-end/store'
 
 type HTMLFormProps = React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>
 
-interface FindProductsFormProps extends Omit<HTMLFormProps, 'onSubmit'> { }
+interface FindProductsFormProps extends Omit<HTMLFormProps, 'onSubmit'> {}
 
 const FindProductsForm: React.FC<FindProductsFormProps> = (props) => {
   const dispatch = useAppDispatch()

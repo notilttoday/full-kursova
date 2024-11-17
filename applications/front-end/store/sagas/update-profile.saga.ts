@@ -11,7 +11,7 @@ import { type EditProfileDto } from '@boilerplate/types/auth/dto/responses/profi
 import { updateProfile } from '@boilerplate/front-end/store/queries/profile.query'
 import { updateProfileSlice } from '@boilerplate/front-end/store/slices/update-profile.slice'
 
-import { saga } from '@boilerplate/dashboard/store'
+import { saga } from '@boilerplate/front-end/store'
 
 interface UpdateProfileStartActionPayload {
   redirect: () => void

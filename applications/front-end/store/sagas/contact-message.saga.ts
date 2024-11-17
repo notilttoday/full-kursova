@@ -1,7 +1,9 @@
-import { type PayloadAction, createAction } from '@reduxjs/toolkit'
+import { type useRouter } from 'next/navigation'
+
+import { createAction } from '@reduxjs/toolkit'
 import logger from 'loglevel'
 import { type SagaIterator } from 'redux-saga'
-import { call, put, select, takeLatest } from 'redux-saga/effects'
+import { call, getContext, put, select, takeLatest } from 'redux-saga/effects'
 
 import { createSagaActionType } from '@boilerplate/core/builders/saga-action-type.builder'
 import { type HttpClientResponse } from '@boilerplate/core/interfaces/http'
@@ -13,16 +15,18 @@ import { saga } from '@boilerplate/front-end/store'
 import { postContactMessage } from '@boilerplate/front-end/store/queries/contact-message.query'
 import { contactMessageSlice } from '@boilerplate/front-end/store/slices/create-contact-message'
 
-interface CreateProductStartActionPayload {
-  redirect: () => void
-}
+import { notification } from '@boilerplate/front-end/utils/notification'
+
+interface CreateProductStartActionPayload {}
 
 export const createContactMessageStart = createAction<CreateProductStartActionPayload>(
   createSagaActionType('create-contact-message-start'),
 )
 
-function* handler(action: PayloadAction<CreateProductStartActionPayload>): SagaIterator<void> {
+function* handler(): SagaIterator<void> {
   try {
+    const router: ReturnType<typeof useRouter> = yield getContext('router')
+
     const firstName: ReturnType<typeof contactMessageSlice.selectors.firstName> = yield select(
       contactMessageSlice.selectors.firstName,
     )
@@ -50,7 +54,15 @@ function* handler(action: PayloadAction<CreateProductStartActionPayload>): SagaI
       () => createContactMessageRequest,
     )
 
-    yield call(action.payload.redirect)
+    if (!createContactMessageResponse?.data?.isSuccess) {
+      yield call(notification.error, 'Щось пішло не так')
+
+      return
+    }
+
+    yield call(notification.success, 'Звернення відправлено')
+
+    yield call(router.push, '/')
   } catch (error) {
     logger.error(error)
   }

@@ -17,8 +17,6 @@ export const PatchOrderAdminUrl = '/orders/admin/:orderId'
 export class PatchOrderParamsDto
   implements Params<typeof PatchOrderUnauthorizedUrl | typeof PatchOrderAuthorizedUrl | typeof PatchOrderAdminUrl>
 {
-  readonly [x: string]: string | number
-
   @HttpRequestFieldDecorator()
   @IsUUID(4)
   orderId: string

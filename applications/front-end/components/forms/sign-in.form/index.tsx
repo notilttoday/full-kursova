@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '@boilerplate/front-end/store'
 
 import { authSlice } from '@boilerplate/front-end/store/slices/auth.slice'
 
-interface SignInFormProps { }
+interface SignInFormProps {}
 
 const SignInBaseForm = lazy(() => import('@boilerplate/front-end/components/forms/sign-in.form/base.form'))
 
@@ -28,19 +28,22 @@ export const SignInForm: React.FC<SignInFormProps> = () => {
   }
 
   return (
-    <div style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      flexDirection: 'column',
-    }}>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+      }}
+    >
       <Card style={{ width: '380px', padding: '20px', height: '280px', backgroundColor: '#ededed', border: '0' }}>
         <Card.Body>
           <Suspense>
             <SignInBaseForm>
               <Form.Group controlId="exampleFormControlInput1">
                 <Form.Label>Пошта</Form.Label>
-                <Form.Control style={{ height: "40px" }}
+                <Form.Control
+                  style={{ height: '40px' }}
                   value={email}
                   onChange={handleEmailChange}
                   type="text"
@@ -48,7 +51,7 @@ export const SignInForm: React.FC<SignInFormProps> = () => {
                 />
               </Form.Group>
               <Form.Group controlId="exampleFormControlInput2">
-                <Form.Label style={{ marginTop: "20px" }}>Пароль</Form.Label>
+                <Form.Label style={{ marginTop: '20px' }}>Пароль</Form.Label>
                 <Form.Control
                   value={password}
                   onChange={handlePasswordChange}
@@ -56,10 +59,13 @@ export const SignInForm: React.FC<SignInFormProps> = () => {
                   placeholder="Введіть пароль"
                 />
               </Form.Group>
-              <div style={{ display: 'flex', justifyContent: 'center', marginTop: "30px" }}>
-                <Button type="submit" variant="primary" style={{ backgroundColor: "#008000", border: "0", transition: "background-color 0.3s", }}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#006400'}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#008000'}
+              <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px' }}>
+                <Button
+                  type="submit"
+                  variant="primary"
+                  style={{ backgroundColor: '#008000', border: '0', transition: 'background-color 0.3s' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#006400')}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#008000')}
                 >
                   Log In
                 </Button>

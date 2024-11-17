@@ -5,7 +5,7 @@ import { createSliceKey } from '@boilerplate/core/builders/slice-key.builder'
 
 import { reducer } from '@boilerplate/front-end/store'
 
-import { postUnauthorizedOrder } from '@boilerplate/front-end/store/queries/order.query'
+import { postOrder } from '@boilerplate/front-end/store/queries/order.query'
 
 interface OrdersListState {
   id: string | null
@@ -27,7 +27,7 @@ const slice = createSlice({
     },
   },
   extraReducers(builder) {
-    builder.addMatcher(postUnauthorizedOrder.matchFulfilled, (state, action) => {
+    builder.addMatcher(postOrder.matchFulfilled, (state, action) => {
       localStorage.setItem('orderId', action.payload.orderId)
 
       state.id = action.payload.orderId

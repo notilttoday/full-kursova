@@ -2,18 +2,22 @@ import { Injectable } from '@nestjs/common'
 
 import { HttpServerResponse } from '@boilerplate/core/interfaces/http'
 
-import { GetSettingsResult, PatchSettingsData, PatchSettingsResult } from '@boilerplate/types/settings/interfaces/settings'
-
-import { SettingsDataMapper } from '@boilerplate/back-end/modules/settings/data-mappers/settings.data-mapper'
+import {
+  GetSettingsResult,
+  PatchSettingsData,
+  PatchSettingsResult,
+} from '@boilerplate/types/settings/interfaces/settings'
 
 import { SettingsRepository } from '@boilerplate/back-end/modules/settings/repositories/settings.repository'
+
+import { SettingsDataMapper } from '@boilerplate/back-end/modules/settings/data-mappers/settings.data-mapper'
 
 @Injectable()
 export class SettingsService {
   constructor(
     private readonly settingsDataMapper: SettingsDataMapper,
 
-    private readonly settingsRepository: SettingsRepository
+    private readonly settingsRepository: SettingsRepository,
   ) {}
 
   async getSettings(): Promise<HttpServerResponse<GetSettingsResult>> {

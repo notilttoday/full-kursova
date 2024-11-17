@@ -5,13 +5,13 @@ import { AuthModule } from '@boilerplate/back-end/modules/auth/auth.module'
 
 import { ContactMessageEntity } from '@boilerplate/back-end/modules/contact-message/entities/contact-message.entity'
 
-import { ContactMessageController } from '@boilerplate/back-end/modules/contact-message/controllers/contact-message.controller'
-
-import { ContactMessagesDataMapper } from '@boilerplate/back-end/modules/contact-message/data-mappers/contact-messages.data-mapper'
-
 import { ContactMessagesRepository } from '@boilerplate/back-end/modules/contact-message/repositories/contact-messages.repository'
 
+import { ContactMessageController } from '@boilerplate/back-end/modules/contact-message/controllers/contact-message.controller'
+
 import { ContactMessagesService } from '@boilerplate/back-end/modules/contact-message/services/contact-messages.service'
+
+import { ContactMessagesDataMapper } from '@boilerplate/back-end/modules/contact-message/data-mappers/contact-messages.data-mapper'
 
 @Module({
   imports: [TypeOrmModule.forFeature([ContactMessageEntity]), forwardRef(() => AuthModule)],
@@ -19,4 +19,4 @@ import { ContactMessagesService } from '@boilerplate/back-end/modules/contact-me
   providers: [ContactMessagesDataMapper, ContactMessagesRepository, ContactMessagesService],
   exports: [],
 })
-export class ContactMessageModule { }
+export class ContactMessageModule {}

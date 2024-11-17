@@ -14,8 +14,6 @@
 .cart-item {
     background-color: var(--gray);
     border-radius: 10px;
-    min-height: 150px;
-    max-height: 240px;
     padding: 30px;
     display: flex;
     justify-content: space-between;
@@ -35,8 +33,6 @@
 
 .item-img {
     background-color: #FFF;
-    height: 180px;
-    width: 150px;
     object-fit: contain;
     border-radius: 8px;
     transition: all 0.1s ease;

@@ -4,7 +4,6 @@ import { AboutUs } from '@boilerplate/front-end/components/about-us-content'
 
 export interface AboutUsPageProps {}
 
-const AboutUsPage: React.FC<AboutUsPageProps> = () => 
-  <AboutUs></AboutUs>
+const AboutUsPage: React.FC<AboutUsPageProps> = () => <AboutUs></AboutUs>
 
 export default AboutUsPage

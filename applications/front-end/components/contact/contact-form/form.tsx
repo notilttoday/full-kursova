@@ -6,13 +6,13 @@ import { useCallback } from 'react'
 
 import { useRouter } from 'next/navigation'
 
-import { useAppDispatch } from '@boilerplate/dashboard/store'
+import { useAppDispatch } from '@boilerplate/front-end/store'
 
 import { createContactMessageStart } from '@boilerplate/front-end/store/sagas/contact-message.saga'
 
 type HTMLFormProps = React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>
 
-interface ContactMessageBaseFormProps extends Omit<HTMLFormProps, 'onSubmit'> { }
+interface ContactMessageBaseFormProps extends Omit<HTMLFormProps, 'onSubmit'> {}
 
 const ContactMessageBaseForm: React.FC<ContactMessageBaseFormProps> = (props) => {
   const dispatch = useAppDispatch()

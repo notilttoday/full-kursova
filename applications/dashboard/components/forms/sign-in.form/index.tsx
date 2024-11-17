@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '@boilerplate/dashboard/store'
 
 import { authSlice } from '@boilerplate/dashboard/store/slices/auth.slice'
 
-interface SignInProps { }
+interface SignInProps {}
 
 const SignInForm = lazy(() => import('@boilerplate/dashboard/components/forms/sign-in.form/form'))
 

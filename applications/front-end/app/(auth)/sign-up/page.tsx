@@ -3,13 +3,14 @@
 'use client'
 
 import Link from 'next/link'
-import classes from '@boilerplate/front-end/app/(auth)/styles.module.scss'
 
 import Card from 'react-bootstrap/Card'
 
+import classes from '@boilerplate/front-end/app/(auth)/styles.module.scss'
+
 import { SignUpForm } from '@boilerplate/front-end/components/forms/sing-up.form'
 
-export interface AuthSignUpPageProps { }
+export interface AuthSignUpPageProps {}
 
 const AuthSignUpPage: React.FC<AuthSignUpPageProps> = () => (
   <div className={classes.container}>
@@ -17,9 +18,11 @@ const AuthSignUpPage: React.FC<AuthSignUpPageProps> = () => (
       <Card.Body className={classes.cardBody}>
         <SignUpForm />
         <div>
-          <p style={{ marginTop: "10px", textAlign: "center" }}>
+          <p style={{ marginTop: '10px', textAlign: 'center' }}>
             Вже маєте аккаунт?&nbsp;
-            <Link href="/sign-in" className={classes.link}>Увійти</Link>
+            <Link href="/sign-in" className={classes.link}>
+              Увійти
+            </Link>
           </p>
         </div>
       </Card.Body>

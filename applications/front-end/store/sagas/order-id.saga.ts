@@ -6,7 +6,7 @@ import { call, put, select } from 'redux-saga/effects'
 
 import { saga } from '@boilerplate/front-end/store'
 
-import { postAuthorizedOrder, postUnauthorizedOrder } from '@boilerplate/front-end/store/queries/order.query'
+import { postOrder } from '@boilerplate/front-end/store/queries/order.query'
 import { orderSlice } from '@boilerplate/front-end/store/slices/order.slice'
 import { profileSlice } from '@boilerplate/front-end/store/slices/profile.slice'
 
@@ -18,19 +18,13 @@ function* handler(): SagaIterator<void> {
       return
     }
 
-    const profile: ReturnType<typeof profileSlice.selectors.profile> = yield select(profileSlice.selectors.profile)
+    const isAuthorized: ReturnType<typeof profileSlice.selectors.isAuthorized> = yield select(
+      profileSlice.selectors.isAuthorized,
+    )
 
-    if (profile) {
-      const postAuthorizedOrderRequest = yield put(postAuthorizedOrder.initiate(undefined))
+    const postOrderRequest = yield put(postOrder.initiate({ authorized: isAuthorized }))
 
-      yield call(() => postAuthorizedOrderRequest)
-
-      return
-    }
-
-    const postUnauthorizedOrderRequest = yield put(postUnauthorizedOrder.initiate(undefined))
-
-    yield call(() => postUnauthorizedOrderRequest)
+    yield call(() => postOrderRequest)
   } catch (error) {
     logger.error(error)
   }

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useParams, useRouter } from 'next/navigation'
 
 import filterico from '@boilerplate/front-end/assets/icons/filter.png'
 import logo from '@boilerplate/front-end/assets/images/logo.png'
@@ -27,11 +28,14 @@ const gameMap: Record<GameType, string> = {
 interface HeaderProps {}
 
 export const Header: React.FC<HeaderProps> = () => {
+  const router = useRouter()
+
   const [title, setTitle] = useTitle()
+
+  const { game } = useParams<Partial<Record<'game', string>>>()
 
   const [showFilterMenu, setShowFilterMenu] = useState(false)
   const [selectedSort, setSelectedSort] = useState<string | null>(null)
-  const [selectedGame, setSelectedGame] = useState<GameType | null>(null)
   const filterMenuRef = useRef<HTMLDivElement>(null)
 
   const handleTitleChange = useCallback<React.ChangeEventHandler<HTMLInputElement>>((e) => {
@@ -54,6 +58,10 @@ export const Header: React.FC<HeaderProps> = () => {
     return (): void => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
+  }, [])
+
+  const handleGameChange = useCallback<React.ChangeEventHandler<HTMLSelectElement>>((e) => {
+    router.push(e.currentTarget.value)
   }, [])
 
   return (
@@ -98,7 +106,7 @@ export const Header: React.FC<HeaderProps> = () => {
             </div>
             <div className={classes['filter-option']}>
               <label>Фільтрувати по грі:</label>
-              <select value={selectedGame ?? ''} onChange={(e) => setSelectedGame(e.target.value as GameType)}>
+              <select value={game ?? ''} onChange={handleGameChange}>
                 {Object.entries(gameMap).map(([gameType, gameTitle]) => (
                   <option key={gameType} value={gameType}>
                     {gameTitle}

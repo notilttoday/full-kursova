@@ -9,7 +9,7 @@ import { config } from '@boilerplate/back-end/config'
 
 import { AppModule } from '@boilerplate/back-end/app.module'
 
-console.log("123123");
+console.log('123123')
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule, { bufferLogs: true })
 

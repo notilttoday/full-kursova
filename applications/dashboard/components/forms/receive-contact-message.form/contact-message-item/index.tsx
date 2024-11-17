@@ -1,7 +1,3 @@
-'use client'
-
-import React from 'react'
-
 import classes from '@boilerplate/dashboard/components/products-list/style.module.scss'
 
 interface ContactMessageItemProps {
@@ -15,7 +11,6 @@ interface ContactMessageItemProps {
 }
 
 export const ContactMessageItem: React.FC<ContactMessageItemProps> = ({
-  id,
   firstName,
   lastName,
   email,

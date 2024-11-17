@@ -2,6 +2,7 @@
 
 import { type Metadata } from 'next'
 
+import dynamic from 'next/dynamic'
 import { cookies } from 'next/headers'
 
 import logger from 'loglevel'
@@ -17,13 +18,20 @@ import { ReduxProvider } from '@boilerplate/front-end/store/provider'
 
 import { Footer } from '@boilerplate/front-end/components/footer'
 import { Header } from '@boilerplate/front-end/components/header'
+import { Progress } from '@boilerplate/front-end/components/progress'
+import { Snackbar } from '@boilerplate/front-end/components/snackbar'
 
+import '@boilerplate/dashboard/assets/css/satoshi.css'
+import '@boilerplate/dashboard/assets/css/style.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '@boilerplate/front-end/app/global.scss'
 
 export interface RootLayoutProps {
   readonly children: React.ReactNode
 }
+
+const ConfirmDeletion = dynamic(() => import('@boilerplate/front-end/components/confirms/delete'))
+const ConfirmChanges = dynamic(() => import('@boilerplate/front-end/components/confirms/changes'))
 
 export const metadata: Metadata = {
   title: 'Figure shop',
@@ -69,9 +77,13 @@ const RootLayout: React.FC<RootLayoutProps> = async ({ children }) => {
       </head>
       <body>
         <ReduxProvider profile={profile}>
+          <Progress />
           <Header />
           {children}
           <Footer />
+          <Snackbar />
+          <ConfirmDeletion />
+          <ConfirmChanges />
         </ReduxProvider>
       </body>
     </html>
