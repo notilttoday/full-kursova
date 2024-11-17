@@ -21,7 +21,6 @@ import {
 } from '@boilerplate/types/orders/dto/responses/orders'
 
 import { v1ReactApi } from '@boilerplate/front-end/store/api/v1.api/react.api'
-import { orderSlice } from '@boilerplate/front-end/store/slices/order.slice'
 
 const api = v1ReactApi.injectEndpoints({
   endpoints: (build) => ({
@@ -50,7 +49,7 @@ const api = v1ReactApi.injectEndpoints({
         url: PostOrderUnauthorizedUrl,
       }),
     }),
-    postAuthorizedOrder: build.mutation<PostOrderResultDto, { orderId: string }>({
+    postAuthorizedOrder: build.mutation<PostOrderResultDto, void>({
       query: (): PostOrderAuthorizedUrlHttpClientRequestDto => ({
         method: Method.Post,
         url: PostOrderAuthorizedUrl,
@@ -69,9 +68,6 @@ const api = v1ReactApi.injectEndpoints({
         },
         data: { productId, quantity },
       }),
-      onQueryStarted({ orderId, productId, quantity }, { dispatch }) {
-        dispatch(orderSlice.actions.updateQuantity({ id: productId, quantity }))
-      },
     }),
     patchAuthorizedOrder: build.mutation<PatchOrderResultDto, { orderId: string; productId: string; quantity: number }>(
       {
@@ -83,9 +79,6 @@ const api = v1ReactApi.injectEndpoints({
           },
           data: { productId, quantity },
         }),
-        onQueryStarted({ orderId, productId, quantity }, { dispatch }) {
-          dispatch(orderSlice.actions.updateQuantity({ id: productId, quantity }))
-        },
       },
     ),
   }),
