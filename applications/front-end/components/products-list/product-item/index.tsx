@@ -10,7 +10,7 @@ import addToCart from '@boilerplate/front-end/assets/icons/add-to-cart.svg'
 import topArrow from '@boilerplate/front-end/assets/icons/top-arrow.svg'
 import errorImage from '@boilerplate/front-end/assets/images/404-error.png'
 
-import { useAppDispatch, useAppSelector } from '@boilerplate/front-end/store'
+import { useAppSelector } from '@boilerplate/front-end/store'
 
 import { usePatchOrderMutation } from '@boilerplate/front-end/store/queries/order.query'
 import { orderSlice } from '@boilerplate/front-end/store/slices/order.slice'
@@ -26,8 +26,6 @@ interface ProductItemProps {
 }
 
 export const ProductItem: React.FC<ProductItemProps> = ({ id, title, price, imagePath }) => {
-  const dispatch = useAppDispatch()
-
   const orderId = useAppSelector(orderSlice.selectors.id) as string
   const isAuthorized = useAppSelector(profileSlice.selectors.isAuthorized)
 

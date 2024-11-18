@@ -98,7 +98,7 @@ export const Cabinet: React.FC<CabinetProps> = () => {
         </div>
       </div>
       <div className={classes['general-buttons']}>
-        <Link href="edit-profile" className={classes['edit-button']}>
+        <Link href="/edit-profile" className={classes['edit-button']}>
           Редагувати профіль <Image className={classes['edit-image']} src={setUpIco} alt="edit" />
         </Link>
         <LogoutButton />

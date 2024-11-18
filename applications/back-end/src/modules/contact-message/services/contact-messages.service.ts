@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common'
 
 import { HttpListServerResponse, HttpServerResponse } from '@boilerplate/core/interfaces/http'
 
-import { GetContactMessage } from '@boilerplate/types/contact-message/interfaces/contact-message'
 import {
+  GetContactMessage,
   PostContactMessage,
   PostContactMessageResult,
 } from '@boilerplate/types/contact-message/interfaces/contact-message'

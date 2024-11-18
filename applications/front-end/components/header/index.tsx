@@ -74,13 +74,13 @@ export const Header: React.FC<HeaderProps> = () => {
       <div className={classes.nav}>
         <ul>
           <li>
-            <Link href="figure-search">Магазин</Link>
+            <Link href="/figure-search">Магазин</Link>
           </li>
           <li>
-            <Link href="about-us">Про нас</Link>
+            <Link href="/about-us">Про нас</Link>
           </li>
           <li>
-            <Link href="contact">Контакти</Link>
+            <Link href="/contact">Контакти</Link>
           </li>
         </ul>
       </div>

@@ -1,12 +1,13 @@
 'use client'
 
+// eslint-disable-next-line no-restricted-imports
 import React, { useState } from 'react'
 
 import Image from 'next/image'
 
-import arthasImg from '@boilerplate/front-end/assets/figures/ArthasMenethil.jpg'
 import addToCart from '@boilerplate/front-end/assets/icons/add-to-cart.svg'
 import topArrow from '@boilerplate/front-end/assets/icons/top-arrow.svg'
+import errorImage from '@boilerplate/front-end/assets/images/404-error.png'
 
 import { useGetProductQuery } from '@boilerplate/front-end/store/queries/product.query'
 
@@ -19,6 +20,7 @@ interface ProductDescriptionProps {
 export const ProductDescription: React.FC<ProductDescriptionProps> = ({ productId }) => {
   const [quantity, setQuantity] = useState(1)
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data: product, isLoading } = useGetProductQuery(productId)
 
   const increaseQuantity = (): void => {
@@ -39,7 +41,11 @@ export const ProductDescription: React.FC<ProductDescriptionProps> = ({ productI
     <div className={classes['product-desc']}>
       <div className={classes['about-figure']}>
         <div className={classes['column-1']}>
-          <Image src={arthasImg} alt="ArthasFigure" className={classes['figure-img']} />
+          <Image
+            src={product?.imagePath ? product?.imagePath : errorImage}
+            alt="ArthasFigure"
+            className={classes['figure-img']}
+          />
         </div>
         <div className={classes['column-2']}>
           <h3 className={classes.h3}>{product?.title}</h3>

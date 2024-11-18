@@ -11,6 +11,12 @@ import {
   type PatchOrderParamsDto,
   type PatchOrderUnauthorizedHttpClientRequestDto,
   PatchOrderUnauthorizedUrl,
+  type PatchOrderUserAuthorizedHttpClientRequestDto,
+  PatchOrderUserAuthorizedUrl,
+  type PatchOrderUserDataDto,
+  type PatchOrderUserParamsDto,
+  type PatchOrderUserUnauthorizedHttpClientRequestDto,
+  PatchOrderUserUnauthorizedUrl,
   PostOrderAuthorizedUrl,
   type PostOrderAuthorizedUrlHttpClientRequestDto,
   PostOrderUnauthorizedUrl,
@@ -19,6 +25,7 @@ import {
 import {
   type GetOrderDto,
   type PatchOrderResultDto,
+  type PatchOrderUserDataResultDto,
   type PostOrderResultDto,
 } from '@boilerplate/types/orders/dto/responses/orders'
 
@@ -76,9 +83,36 @@ const api = v1ReactApi.injectEndpoints({
         { type: 'Order', id: 'LIST' },
       ],
     }),
+
+    patchOrderUserData: build.mutation<
+      PatchOrderUserDataResultDto,
+      PatchOrderUserParamsDto & PatchOrderUserDataDto & { authorized: boolean }
+    >({
+      query: ({
+        orderId,
+        authorized,
+        firstName,
+        lastName,
+        phone,
+        email,
+        // paymentType,
+      }): PatchOrderUserUnauthorizedHttpClientRequestDto | PatchOrderUserAuthorizedHttpClientRequestDto => ({
+        method: Method.Patch,
+        url: authorized ? PatchOrderUserAuthorizedUrl : PatchOrderUserUnauthorizedUrl,
+        params: {
+          orderId,
+        },
+        data: { firstName, lastName, phone, email },
+      }),
+      invalidatesTags: (result, error, { orderId }) => [
+        { type: 'Order', id: 'current' },
+        { type: 'Order', id: orderId },
+        { type: 'Order', id: 'LIST' },
+      ],
+    }),
   }),
 })
 
-export const { useGetOrderQuery, usePostOrderMutation, usePatchOrderMutation } = api
+export const { useGetOrderQuery, usePostOrderMutation, usePatchOrderMutation, usePatchOrderUserDataMutation } = api
 
-export const { getOrder, postOrder, patchOrder } = api.endpoints
+export const { getOrder, postOrder, patchOrder, patchOrderUserData } = api.endpoints

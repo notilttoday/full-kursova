@@ -7,7 +7,10 @@ import {
   GetOrdersSearch,
   PatchOrderData,
   PatchOrderResult,
+  PatchOrderUserData,
+  PatchOrderUserDataResult,
   PostOrderResult,
+  StatusType,
 } from '@boilerplate/types/orders/interfaces/orders'
 
 import { OrdersRepository } from '@boilerplate/back-end/modules/orders/repositories/orders.repository'
@@ -72,5 +75,32 @@ export class OrdersService {
     }
 
     return { result }
+  }
+
+  async patchOrderUserData(
+    id: string,
+    data: PatchOrderUserData,
+    userGid?: string | 'all',
+  ): Promise<HttpServerResponse<PatchOrderUserDataResult>> {
+    const { firstName, lastName, email, phone, paymentType } = data
+
+    const order = await this.ordersRepository.findOrderOneOrFail(id, userGid)
+
+    order.firstName = firstName || ''
+    order.lastName = lastName || ''
+    order.email = email || ''
+    order.phone = phone || ''
+
+    order.paymentStatus = StatusType.Processing
+
+    await this.ordersRepository.save(order)
+
+    const result: PatchOrderUserDataResult = {
+      isSuccess: true,
+    }
+
+    return {
+      result,
+    }
   }
 }

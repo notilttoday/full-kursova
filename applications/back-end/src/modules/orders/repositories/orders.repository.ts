@@ -61,6 +61,11 @@ export class OrdersRepository extends Repository<OrderEntity> {
           product: true,
         },
       },
+      order: {
+        toProducts: {
+          createdAt: 'DESC',
+        },
+      },
     })
 
     if (!order) {

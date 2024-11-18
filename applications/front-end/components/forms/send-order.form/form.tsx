@@ -8,21 +8,21 @@ import { useRouter } from 'next/navigation'
 
 import { useAppDispatch } from '@boilerplate/front-end/store'
 
-import { findProductsStart } from '@boilerplate/front-end/store/sagas/find-product.saga'
+import { updateUserDataStart } from '@boilerplate/front-end/store/sagas/send-order.saga'
 
 type HTMLFormProps = React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>
 
-interface FindProductsFormProps extends Omit<HTMLFormProps, 'onSubmit'> {}
+interface BaseSendOrderFormProps extends Omit<HTMLFormProps, 'onSubmit'> {}
 
-const FindProductsForm: React.FC<FindProductsFormProps> = (props) => {
+const BaseSendOrderForm: React.FC<BaseSendOrderFormProps> = (props) => {
   const dispatch = useAppDispatch()
   const router = useRouter()
 
   const handleSubmit = useCallback<React.FormEventHandler<HTMLFormElement>>((event) => {
     event.preventDefault()
-
+    console.log('123')
     dispatch(
-      findProductsStart({
+      updateUserDataStart({
         redirect: () => router.push('/'),
       }),
     )
@@ -31,4 +31,4 @@ const FindProductsForm: React.FC<FindProductsFormProps> = (props) => {
   return <form {...props} onSubmit={handleSubmit} />
 }
 
-export default FindProductsForm
+export default BaseSendOrderForm

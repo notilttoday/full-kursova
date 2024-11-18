@@ -19,6 +19,9 @@ import {
   PatchOrderAuthorizedUrl,
   PatchOrderDataDto,
   PatchOrderUnauthorizedUrl,
+  PatchOrderUserAuthorizedUrl,
+  PatchOrderUserDataDto,
+  PatchOrderUserUnauthorizedUrl,
   PostOrderAuthorizedUrl,
   PostOrderAuthorizedUrlHttpServerRequestDto,
   PostOrderUnauthorizedUrl,
@@ -205,5 +208,54 @@ export class OrdersController {
     })
 
     return await this.ordersService.patchOrder(orderId, { productId, quantity }, 'all')
+  }
+
+  // @Patch(PatchOrderUserDataUrl)
+  // async patchOrderUserData(
+  //   @Body() data: PatchOrderUserDataDto,
+  //   @Request() request: PatchOrderAuthorizedHttpServerRequestDto,
+  //   @Param('orderId') orderId: string,
+  // ): Promise<PatchOrderUserDataHttpResponseDto> {
+  //   const {
+  //     user: { gid: userGid },
+  //   } = request
+  //   const { firstName, lastName, email, phone, paymentType } = data
+
+  //   return await this.ordersService.patchOrderUserData(
+  //     { firstName, lastName, email, phone, paymentType },
+  //     userGid,
+  //     orderId,
+  //   )
+  // }
+
+  @Patch(PatchOrderUserUnauthorizedUrl)
+  async patchOrderUserUnauthorized(
+    @Param('orderId') orderId: string,
+    @Body() data: PatchOrderUserDataDto,
+  ): Promise<PatchOrderResultHttpResponseDto> {
+    const { firstName, lastName, email, phone, paymentType } = data
+
+    return await this.ordersService.patchOrderUserData(orderId, { firstName, lastName, email, phone, paymentType })
+  }
+
+  @Patch(PatchOrderUserAuthorizedUrl)
+  @ApiBearerAuth()
+  @UseGuards(JwtPassportAuthGuard)
+  @Roles([Role.User])
+  async patchOrderUserAuthorized(
+    @Request() request: PatchOrderAuthorizedHttpServerRequestDto,
+    @Param('orderId') orderId: string,
+    @Body() data: PatchOrderUserDataDto,
+  ): Promise<PatchOrderResultHttpResponseDto> {
+    const { firstName, lastName, email, phone, paymentType } = data
+    const {
+      user: { gid: userGid },
+    } = request
+
+    return await this.ordersService.patchOrderUserData(
+      orderId,
+      { firstName, lastName, email, phone, paymentType },
+      userGid,
+    )
   }
 }

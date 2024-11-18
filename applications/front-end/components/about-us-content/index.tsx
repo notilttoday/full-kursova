@@ -48,7 +48,7 @@ export const AboutUs: React.FC<AboutUsProps> = () => (
     <h3 className={classes.h3}>Зв'яжіться з нами</h3>
     <p className={classes.p}>
       Маєте питання або хочете отримати консультацію?
-      <Link className={classes.a} href="contact">
+      <Link className={classes.a} href="/contact">
         {' '}
         Зв'яжіться з нами
       </Link>

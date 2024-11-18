@@ -44,13 +44,13 @@ export const Footer: React.FC<FooterProps> = () => (
       <div className={classes['more-info']}>
         <p className={classes.p}>Більше інформації</p>
         <div className={classes['footer-info']}>
-          <Link className={classes.a} href="cabinet">
+          <Link className={classes.a} href="/cabinet">
             Мій профіль
           </Link>
-          <Link className={classes.a} href="contact">
+          <Link className={classes.a} href="/contact">
             Контакти
           </Link>
-          <Link className={classes.a} href="about-us">
+          <Link className={classes.a} href="/about-us">
             Про нас
           </Link>
         </div>

@@ -9,15 +9,30 @@ import { postOrder } from '@boilerplate/front-end/store/queries/order.query'
 
 interface OrdersListState {
   id: string | null
+  firstName: string
+  lastName: string
+  phone: string
+  email: string
+  // paymentType: string | null
 }
 
 const slice = createSlice({
   name: createSliceKey('order-card-list'),
   initialState: (): OrdersListState => ({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    // paymentType: '',
     id: localStorage.getItem('orderId') || null,
   }),
   selectors: {
     id: (state) => state.id,
+    firstName: (state) => state.firstName,
+    lastName: (state) => state.lastName,
+    email: (state) => state.email,
+    phone: (state) => state.phone,
+    // paymentType: (state) => state.paymentType,
   },
   reducers: {
     setId(state, action: PayloadAction<string>) {
@@ -25,6 +40,25 @@ const slice = createSlice({
 
       state.id = action.payload
     },
+    clearId(state) {
+      localStorage.removeItem('orderId')
+      state.id = null
+    },
+    setFirstName(state, action: PayloadAction<string>) {
+      state.firstName = action.payload
+    },
+    setLastName(state, action: PayloadAction<string>) {
+      state.lastName = action.payload
+    },
+    setEmail(state, action: PayloadAction<string>) {
+      state.email = action.payload
+    },
+    setPhone(state, action: PayloadAction<string>) {
+      state.phone = action.payload
+    },
+    // setPaymentType(state, action: PayloadAction<string>) {
+    //   state.paymentType = action.payload
+    // },
   },
   extraReducers(builder) {
     builder.addMatcher(postOrder.matchFulfilled, (state, action) => {
@@ -47,6 +81,11 @@ Omit reducer and reducerPath for prevent any other connections of it to store*/ 
   selectSlice: withSlice.selector(slice.selectSlice),
   selectors: {
     id: withSlice.selector(slice.selectors.id),
+    firstName: withSlice.selector(slice.selectors.firstName),
+    lastName: withSlice.selector(slice.selectors.lastName),
+    email: withSlice.selector(slice.selectors.email),
+    phone: withSlice.selector(slice.selectors.phone),
+    // paymentType: withSlice.selector(slice.selectors.paymentType),
   },
 }
 

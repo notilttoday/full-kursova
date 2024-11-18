@@ -5,10 +5,10 @@ import { useCallback, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import arthasImage from '@boilerplate/front-end/assets/figures/ArthasMenethil.jpg'
 import crossIco from '@boilerplate/front-end/assets/icons/cross.svg'
 import minusIco from '@boilerplate/front-end/assets/icons/minus.svg'
 import plusIco from '@boilerplate/front-end/assets/icons/plus.svg'
+import errorImage from '@boilerplate/front-end/assets/images/404-error.png'
 
 import { useAppSelector } from '@boilerplate/front-end/store'
 
@@ -44,13 +44,13 @@ export const CartItem: React.FC<CartItemProps> = ({ id, title, price, quantity, 
 
   const increaseQuantity = useCallback<React.MouseEventHandler<HTMLButtonElement>>((): void => {
     patchOrder({ orderId, productId: id, authorized: isAuthorized, quantity: quantity + 1 })
-  }, [])
+  }, [quantity])
 
   const decreaseQuantity = useCallback<React.MouseEventHandler<HTMLButtonElement>>((): void => {
     if (quantity > 1) {
       patchOrder({ orderId, productId: id, authorized: isAuthorized, quantity: quantity - 1 })
     }
-  }, [])
+  }, [quantity])
 
   const handleRemoveFromCartClick = useCallback<React.MouseEventHandler<HTMLButtonElement>>(() => {
     patchOrder({ orderId, productId: id, authorized: isAuthorized, quantity: 0 })
@@ -61,13 +61,13 @@ export const CartItem: React.FC<CartItemProps> = ({ id, title, price, quantity, 
       <div className={classes['cart-info']}>
         <div className="cart-item-image">
           <img
-            src={imageSrc ? imageSrc : arthasImage.src}
+            src={imageSrc ? imageSrc : errorImage.src}
             alt="Arthas"
             className={`${classes['item-img']} ${isZoomed ? classes.zoomed : ''}`}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
-            width={40}
-            height={40}
+            width={60}
+            height={60}
           />
         </div>
         <div className={classes['item-text-info']}>
@@ -84,7 +84,7 @@ export const CartItem: React.FC<CartItemProps> = ({ id, title, price, quantity, 
           <Image className={classes.img} src={minusIco} alt="minus" />
         </button>
         <input className={classes['input-number']} type="number" id="quan" value={quantity} min="1" readOnly />
-        <button className={classes.butotn} onClick={increaseQuantity}>
+        <button className={classes.button} onClick={increaseQuantity}>
           <Image className={classes.img} src={plusIco} alt="plus" />
         </button>
       </div>

@@ -9,6 +9,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 
+import { StatusType } from '@boilerplate/types/orders/interfaces/orders'
+
 import { OrderToProductEntity } from '@boilerplate/back-end/modules/orders/entities/order-to-product.entity'
 
 @Entity()
@@ -19,6 +21,21 @@ export class OrderEntity {
   @Index()
   @Column('uuid', { nullable: true, default: null })
   userGid: string
+
+  @Column({ nullable: true, default: null })
+  firstName: string
+
+  @Column({ nullable: true, default: null })
+  lastName: string
+
+  @Column({ nullable: true, default: null })
+  phone: string
+
+  @Column({ nullable: true, default: null })
+  email: string
+
+  @Column({ type: 'enum', enum: StatusType, nullable: true, default: StatusType.Pending })
+  paymentStatus: StatusType
 
   @Index()
   @CreateDateColumn({ type: 'timestamptz' })
