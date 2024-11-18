@@ -165,7 +165,7 @@ export class ProductsService {
       throw new Error('Product not found')
     }
 
-    await this.productsRepository.delete(productId)
+    await this.productsRepository.softDelete(productId)
 
     const result: DeleteProductResult = {
       isSuccess: true,

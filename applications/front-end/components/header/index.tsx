@@ -35,7 +35,6 @@ export const Header: React.FC<HeaderProps> = () => {
   const { game } = useParams<Partial<Record<'game', string>>>()
 
   const [showFilterMenu, setShowFilterMenu] = useState(false)
-  const [selectedSort, setSelectedSort] = useState<string | null>(null)
   const filterMenuRef = useRef<HTMLDivElement>(null)
 
   const handleTitleChange = useCallback<React.ChangeEventHandler<HTMLInputElement>>((e) => {
@@ -61,7 +60,7 @@ export const Header: React.FC<HeaderProps> = () => {
   }, [])
 
   const handleGameChange = useCallback<React.ChangeEventHandler<HTMLSelectElement>>((e) => {
-    router.push(e.currentTarget.value)
+    router.push(`/figure-search/${e.currentTarget.value}`)
   }, [])
 
   return (
@@ -97,13 +96,6 @@ export const Header: React.FC<HeaderProps> = () => {
         </button>
         {showFilterMenu && (
           <div className={classes['filter-menu']} ref={filterMenuRef}>
-            <div className={classes['filter-option']}>
-              <label>Сортування:</label>
-              <select value={selectedSort ?? ''} onChange={(e) => setSelectedSort(e.target.value)}>
-                <option value="az">Від A до Z</option>
-                <option value="new">Спочатку нові</option>
-              </select>
-            </div>
             <div className={classes['filter-option']}>
               <label>Фільтрувати по грі:</label>
               <select value={game ?? ''} onChange={handleGameChange}>

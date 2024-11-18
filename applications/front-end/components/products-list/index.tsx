@@ -16,10 +16,7 @@ import { useTitle } from '@boilerplate/front-end/hooks/use-title.hook'
 import { ProductItem } from '@boilerplate/front-end/components/products-list/product-item'
 import classes from '@boilerplate/front-end/components/products-list/style.module.scss'
 
-interface ProductsListProps {
-  title?: string
-  game?: string[]
-}
+interface ProductsListProps {}
 
 export const ProductsList: React.FC<ProductsListProps> = () => {
   const [title] = useTitle()
