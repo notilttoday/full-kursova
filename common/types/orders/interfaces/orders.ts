@@ -25,7 +25,30 @@ export interface PatchOrderResult {
   isSuccess: boolean
 }
 
+export interface PatchOrderUserData {
+  firstName?: string
+  lastName?: string
+  phone?: string
+  email?: string
+  paymentType?: string
+}
+
+export interface PatchOrderUserDataResult {
+  isSuccess: boolean
+}
+
 export interface PostOrderResult {
   orderId: string
   isSuccess: boolean
+}
+
+export enum StatusType {
+  Pending = 'pending',
+  Processing = 'processing',
+  Paid = 'paid',
+  Completed = 'completed',
+  Failed = 'failed',
+  Expired = 'assassins_creed',
+  Refunded = 'refunded',
+  OnHold = 'on_hold',
 }
