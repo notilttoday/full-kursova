@@ -11,7 +11,7 @@ import { useAppDispatch } from '@boilerplate/dashboard/store'
 
 import classes from '@boilerplate/dashboard/components/product-list/style.module.scss'
 
-interface DashProductItemProps {
+interface OrderItemProps {
   id: string
   title: string
   price: number
@@ -20,7 +20,7 @@ interface DashProductItemProps {
   imagePath?: string
 }
 
-export const DashProductItem: React.FC<DashProductItemProps> = ({ id, title, price, description, game, imagePath }) => {
+export const OrderItem: React.FC<OrderItemProps> = ({ id, title, price, description, game, imagePath }) => {
   const dispatch = useAppDispatch()
 
   const handleDelete = async (): Promise<void> => {

@@ -11,6 +11,15 @@ export interface GetOrder {
   items: OrderItem[]
 }
 
+export interface GetOrderInfo extends GetOrder {
+  id?: string
+  userId?: string
+  firstName?: string
+  lastName?: string
+  phone?: string
+  email?: string
+}
+
 export interface GetOrdersSearch extends HttpSearch {
   page?: string
   pageSize?: string
@@ -51,4 +60,17 @@ export enum StatusType {
   Expired = 'assassins_creed',
   Refunded = 'refunded',
   OnHold = 'on_hold',
+}
+
+export interface GetOrdersListParams {
+  status?: string
+}
+
+export interface PatchOrderStatus {
+  orderId: string
+  paymentStatus: string
+}
+
+export interface PatchOrderStatusResult {
+  isSuccess: boolean
 }

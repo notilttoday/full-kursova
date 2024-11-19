@@ -2,7 +2,7 @@ import { Method } from '@boilerplate/core/interfaces/http'
 
 import {
   DeleteProductUrl,
-  type GetProductHttpServerRequestDto,
+  type GetProductHttpClientRequestDto,
   GetProductRequestUrl,
   type PatchProductMyHttpClientRequestDto,
   PatchProductMyUrl,
@@ -10,8 +10,8 @@ import {
   PostProductUrl,
 } from '@boilerplate/types/products/dto/requests/products'
 import {
-  type EditProductDto,
   type GetProductDto,
+  type PatchProductResultDto,
   type PostProductResultDto,
 } from '@boilerplate/types/products/dto/responses/products'
 
@@ -40,7 +40,7 @@ const api = v1ReactApi.injectEndpoints({
       }),
       invalidatesTags: [{ type: 'Product', id: 'LIST' }],
     }),
-    updateProduct: build.mutation<EditProductDto, { productId: string; formData: FormData }>({
+    updateProduct: build.mutation<PatchProductResultDto, { productId: string; formData: FormData }>({
       query: ({ productId, formData }): PatchProductMyHttpClientRequestDto => ({
         method: Method.Patch,
         url: PatchProductMyUrl,
@@ -59,7 +59,7 @@ const api = v1ReactApi.injectEndpoints({
       ],
     }),
     getProduct: build.query<GetProductDto, string>({
-      query: (productId: string): GetProductHttpServerRequestDto => ({
+      query: (productId: string): GetProductHttpClientRequestDto => ({
         method: Method.Get,
         url: GetProductRequestUrl,
         params: {

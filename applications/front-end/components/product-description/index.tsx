@@ -9,19 +9,38 @@ import addToCart from '@boilerplate/front-end/assets/icons/add-to-cart.svg'
 import topArrow from '@boilerplate/front-end/assets/icons/top-arrow.svg'
 import errorImage from '@boilerplate/front-end/assets/images/404-error.png'
 
+import { GameType } from '@boilerplate/types/products/interfaces/products'
+
+import { useAppSelector } from '@boilerplate/front-end/store'
+
+import { usePatchOrderMutation } from '@boilerplate/front-end/store/queries/order.query'
 import { useGetProductQuery } from '@boilerplate/front-end/store/queries/product.query'
+import { orderSlice } from '@boilerplate/front-end/store/slices/order.slice'
+import { profileSlice } from '@boilerplate/front-end/store/slices/profile.slice'
 
 import classes from '@boilerplate/front-end/components/product-description/style.module.scss'
+
+const gameMap: Record<GameType, string> = {
+  [GameType.Dota]: 'Dota 2',
+  [GameType.TheWitcher]: 'The Witcher',
+  [GameType.WorldOfWarcraft]: 'World of Warcraft',
+  [GameType.Diablo]: 'Diablo',
+  [GameType.AssassinsCreed]: 'Assassins Creed',
+}
 
 interface ProductDescriptionProps {
   productId: string
 }
 
 export const ProductDescription: React.FC<ProductDescriptionProps> = ({ productId }) => {
-  const [quantity, setQuantity] = useState(1)
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data: product, isLoading } = useGetProductQuery(productId)
+
+  const orderId = useAppSelector(orderSlice.selectors.id) as string
+  const isAuthorized = useAppSelector(profileSlice.selectors.isAuthorized)
+
+  const [patchOrder] = usePatchOrderMutation()
+  const [quantity, setQuantity] = useState(1)
 
   const increaseQuantity = (): void => {
     setQuantity((prevQuantity) => prevQuantity + 1)
@@ -37,6 +56,10 @@ export const ProductDescription: React.FC<ProductDescriptionProps> = ({ productI
     setQuantity(newQuantity)
   }
 
+  const handleAddToCartClick = (): void => {
+    patchOrder({ orderId, authorized: isAuthorized, productId, quantity })
+  }
+
   return (
     <div className={classes['product-desc']}>
       <div className={classes['about-figure']}>
@@ -45,6 +68,8 @@ export const ProductDescription: React.FC<ProductDescriptionProps> = ({ productI
             src={product?.imagePath ? product?.imagePath : errorImage}
             alt="ArthasFigure"
             className={classes['figure-img']}
+            width={100}
+            height={100}
           />
         </div>
         <div className={classes['column-2']}>
@@ -55,12 +80,12 @@ export const ProductDescription: React.FC<ProductDescriptionProps> = ({ productI
           {product?.game ? (
             <div className={classes['category-list']}>
               <div className={classes['category-container']}>
-                <p className={classes.p}>{product?.game}</p>
+                <p className={classes.p}>{gameMap[product?.game]}</p>
               </div>
             </div>
           ) : null}
           <div className={classes['price-container']}>
-            <h2 className={classes.price}>{product?.price}₴</h2>
+            {product ? <h2 className={classes.price}>{(product?.price * quantity).toFixed(2)}₴</h2> : null}
             <div className={classes['change-quantity']}>
               <p className={classes.p}>Обрати кількість</p>
               <input
@@ -72,20 +97,15 @@ export const ProductDescription: React.FC<ProductDescriptionProps> = ({ productI
                 onChange={handleInputChange}
               />
               <div className={classes['quantity-arrows']}>
-                <button className={classes.button}>
-                  <Image className={classes.img} src={topArrow} onClick={increaseQuantity} alt="top arrow" />
+                <button className={classes.button} onClick={increaseQuantity}>
+                  <Image className={classes.img} src={topArrow} alt="top arrow" />
                 </button>
-                <button className={classes.button}>
-                  <Image
-                    className={classes['img-bottom-arrow']}
-                    onClick={decreaseQuantity}
-                    src={topArrow}
-                    alt="bottom arrow"
-                  />
+                <button className={classes.button} onClick={decreaseQuantity}>
+                  <Image className={classes['img-bottom-arrow']} src={topArrow} alt="bottom arrow" />
                 </button>
               </div>
             </div>
-            <button className={classes['add-to-cart']}>
+            <button className={classes['add-to-cart']} onClick={handleAddToCartClick}>
               <p className={classes.p}>Додати у кошик</p>
               <Image src={addToCart} alt="addToCart" className={classes.img} />
             </button>

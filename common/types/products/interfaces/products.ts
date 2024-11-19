@@ -31,7 +31,15 @@ export interface GetSearchProductsData extends Record<string, string | readonly 
   game?: string[]
 }
 
+export interface GetProductsByOrder extends Record<string, string | readonly string[]> {
+  orderId?: string
+}
+
 export interface PostProductResult {
+  isSuccess: boolean
+}
+
+export interface PatchProductResult {
   isSuccess: boolean
 }
 

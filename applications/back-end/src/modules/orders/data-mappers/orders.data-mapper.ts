@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 
-import { GetOrder, OrderItem } from '@boilerplate/types/orders/interfaces/orders'
+import { GetOrder, GetOrderInfo, OrderItem } from '@boilerplate/types/orders/interfaces/orders'
 
 import { OrderToProductEntity } from '@boilerplate/back-end/modules/orders/entities/order-to-product.entity'
 import { OrderEntity } from '@boilerplate/back-end/modules/orders/entities/order.entity'
@@ -14,6 +14,13 @@ export class OrdersDataMapper {
   toOrderItem(entity: OrderToProductEntity): OrderItem {
     const { product, quantity } = entity
 
+    if (!product) {
+      return {
+        product: null,
+        quantity,
+      }
+    }
+
     return {
       product: this.productsDataMapper.toProductShort(product),
       quantity,
@@ -24,7 +31,21 @@ export class OrdersDataMapper {
     const { toProducts } = entity
 
     return {
-      items: toProducts.map((toProduct) => this.toOrderItem(toProduct)),
+      items: toProducts?.map((toProduct) => this.toOrderItem(toProduct)),
+    }
+  }
+
+  toOrderInfo(entity: OrderEntity): GetOrderInfo {
+    const { toProducts, userGid, firstName, lastName, phone, email, id } = entity
+
+    return {
+      id,
+      items: toProducts?.map((toProduct) => this.toOrderItem(toProduct)),
+      userId: userGid,
+      firstName,
+      lastName,
+      phone,
+      email,
     }
   }
 }

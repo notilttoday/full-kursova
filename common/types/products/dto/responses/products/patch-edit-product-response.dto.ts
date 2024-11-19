@@ -1,34 +1,17 @@
 import { Type } from 'class-transformer'
-import { IsNumber, IsOptional, IsString } from 'class-validator'
+import { IsBoolean, IsOptional } from 'class-validator'
 
 import { HttpServerResponseDto } from '@boilerplate/core/dto/responses/http-server-response.dto'
 
-import { GetProduct } from '@boilerplate/types/products/interfaces/products'
+import { PatchProductResult } from '@boilerplate/types/products/interfaces/products'
 
-export class EditProductDto implements GetProduct {
-  @IsOptional()
-  @IsString()
-  id: string
-
-  @IsOptional()
-  @IsString()
-  title: string
-
-  @IsOptional()
-  @IsString()
-  description: string
-
-  @IsOptional()
-  @IsNumber()
-  price: number
-
-  @IsOptional()
-  @IsString()
-  game: string
+export class PatchProductResultDto implements PatchProductResult {
+  @IsBoolean()
+  isSuccess: boolean
 }
 
-export class PatchProductHttpServerResponseDto extends HttpServerResponseDto<EditProductDto> {
+export class PatchProductHttpServerResponseDto extends HttpServerResponseDto<PatchProductResultDto> {
   @IsOptional()
-  @Type(() => EditProductDto)
-  result?: EditProductDto
+  @Type(() => PatchProductResultDto)
+  result?: PatchProductResultDto
 }

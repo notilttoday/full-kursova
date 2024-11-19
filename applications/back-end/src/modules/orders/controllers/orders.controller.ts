@@ -11,13 +11,18 @@ import {
   GetOrderAuthorizedHttpServerRequestDto,
   GetOrderAuthorizedUrl,
   GetOrderUnauthorizedUrl,
+  GetOrdersListAdminHttpServerRequestDto,
+  GetOrdersListAdminUrl,
   GetOrdersListUrl,
+  GetOrdersParamsDto,
   GetOrdersSearchDto,
   PatchOrderAdminHttpServerRequestDto,
   PatchOrderAdminUrl,
   PatchOrderAuthorizedHttpServerRequestDto,
   PatchOrderAuthorizedUrl,
   PatchOrderDataDto,
+  PatchOrderStatusDto,
+  PatchOrderStatusUrl,
   PatchOrderUnauthorizedUrl,
   PatchOrderUserAuthorizedUrl,
   PatchOrderUserDataDto,
@@ -29,7 +34,9 @@ import {
 import {
   GetOrderHttpResponseDto,
   GetOrdersHttpListResponseDto,
+  GetOrdersHttpResponseDto,
   PatchOrderResultHttpResponseDto,
+  PatchOrderStatusHttpServerResponseDto,
   PostOrderResultHttpResponseDto,
 } from '@boilerplate/types/orders/dto/responses/orders'
 
@@ -145,6 +152,19 @@ export class OrdersController {
     return await this.ordersService.getOrder(orderId, 'all')
   }
 
+  @Get(GetOrdersListAdminUrl)
+  @ApiBearerAuth()
+  @UseGuards(JwtPassportAuthGuard)
+  @Roles([Role.User])
+  async getOrdersAdmin(
+    @Request() request: GetOrdersListAdminHttpServerRequestDto,
+    @Query() queries: GetOrdersParamsDto,
+  ): Promise<GetOrdersHttpResponseDto> {
+    const { status } = queries
+
+    return await this.ordersService.getOrdersListAdmin(status)
+  }
+
   @Patch(PatchOrderUnauthorizedUrl)
   async patchOrderUnauthorized(
     @Param('orderId') orderId: string,
@@ -257,5 +277,15 @@ export class OrdersController {
       { firstName, lastName, email, phone, paymentType },
       userGid,
     )
+  }
+
+  @Patch(PatchOrderStatusUrl)
+  @ApiBearerAuth()
+  @UseGuards(JwtPassportAuthGuard)
+  @Roles([Role.Admin])
+  async deleteProduct(@Query() queries: PatchOrderStatusDto): Promise<PatchOrderStatusHttpServerResponseDto> {
+    const { orderId, paymentStatus } = queries
+
+    return await this.ordersService.patchOrderStatus(orderId, paymentStatus)
   }
 }

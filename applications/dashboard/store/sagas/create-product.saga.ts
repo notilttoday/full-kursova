@@ -59,6 +59,8 @@ function* handler(action: PayloadAction<CreateProductStartActionPayload>): SagaI
       return
     }
 
+    yield call(notification.success, 'Продукт створено!')
+
     yield call(action.payload.redirect)
   } catch (error) {
     logger.error(error)

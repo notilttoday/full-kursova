@@ -1,17 +1,22 @@
 import { Injectable } from '@nestjs/common'
+import { FindOptionsWhere } from 'typeorm'
 
 import { HttpListServerResponse, HttpServerResponse } from '@boilerplate/core/interfaces/http'
 
 import {
   GetOrder,
+  GetOrderInfo,
   GetOrdersSearch,
   PatchOrderData,
   PatchOrderResult,
+  PatchOrderStatusResult,
   PatchOrderUserData,
   PatchOrderUserDataResult,
   PostOrderResult,
   StatusType,
 } from '@boilerplate/types/orders/interfaces/orders'
+
+import { OrderEntity } from '@boilerplate/back-end/modules/orders/entities/order.entity'
 
 import { OrdersRepository } from '@boilerplate/back-end/modules/orders/repositories/orders.repository'
 
@@ -40,6 +45,27 @@ export class OrdersService {
     }
   }
 
+  async getOrdersListAdmin(status?: string): Promise<HttpListServerResponse<GetOrderInfo>> {
+    const where: FindOptionsWhere<OrderEntity> = {}
+    if (status) {
+      where.paymentStatus = StatusType[status]
+    }
+
+    const [orders, total] = await this.ordersRepository.findAndCount({
+      where,
+      relations: {
+        toProducts: {
+          product: true,
+        },
+      },
+    })
+
+    return {
+      result: orders.map((order) => this.ordersDataMapper.toOrderInfo(order)),
+      total,
+    }
+  }
+
   async postOrder(userGid?: string): Promise<HttpServerResponse<PostOrderResult>> {
     const order = await this.ordersRepository.save({ userGid })
 
@@ -57,6 +83,23 @@ export class OrdersService {
     return {
       result: this.ordersDataMapper.toOrder(order),
     }
+  }
+
+  async patchOrderStatus(orderId: string, paymentStatus: string): Promise<HttpServerResponse<PatchOrderStatusResult>> {
+    const where: FindOptionsWhere<OrderEntity> = {}
+
+    where.id = orderId
+    const order = await this.ordersRepository.findOne({ where })
+
+    order.paymentStatus = StatusType[paymentStatus]
+
+    await this.ordersRepository.save(order)
+
+    const result: PatchOrderStatusResult = {
+      isSuccess: true,
+    }
+
+    return { result }
   }
 
   async patchOrder(

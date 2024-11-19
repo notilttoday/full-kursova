@@ -9,3 +9,5 @@ export * from '@boilerplate/types/products/dto/requests/products/get-products-da
 export * from '@boilerplate/types/products/dto/requests/products/patch-edit-product-request.dto'
 
 export * from '@boilerplate/types/products/dto/requests/products/delete-product-request.dto'
+
+export * from '@boilerplate/types/products/dto/requests/products/get-products-by-order-request.dto'

@@ -26,9 +26,12 @@ import {
   DeleteProductUrl,
   GetFullProductsRequestUrl,
   GetProductRequestUrl,
+  GetProductsByOrderDataDto,
+  GetProductsByOrderRequestUrl,
   GetProductsRequestUrl,
   GetSearchProductDataDto,
-  PatchProductParamsDto,
+  PatchProductDataDto,
+  PatchProductMyUrl,
   PostProductDataDto,
   PostProductUrl,
 } from '@boilerplate/types/products/dto/requests/products'
@@ -96,6 +99,16 @@ export class ProductsController {
     return await this.productsService.getProducts({ title, game })
   }
 
+  @Get(GetProductsByOrderRequestUrl)
+  @ApiBearerAuth()
+  @UseGuards(JwtPassportAuthGuard)
+  @Roles([Role.Admin])
+  async getOrderToProducts(@Query() queries: GetProductsByOrderDataDto): Promise<GetFullProductsListHttpResponseDto> {
+    const { orderId } = queries
+
+    return await this.productsService.getProductsByOrder(orderId)
+  }
+
   @Get(GetProductRequestUrl)
   async getProduct(@Param('productId') productId: string): Promise<GetProductHttpResponseDto> {
     return await this.productsService.getProduct({ productId })
@@ -112,7 +125,7 @@ export class ProductsController {
   @ApiBearerAuth()
   @UseGuards(JwtPassportAuthGuard)
   @Roles([Role.Admin])
-  @Patch('/edit-product/:productId')
+  @Patch(PatchProductMyUrl)
   @UseInterceptors(
     FileInterceptor('file', {
       storage: multer.diskStorage({
@@ -137,18 +150,19 @@ export class ProductsController {
         file: {
           type: 'string',
           format: 'binary',
+          nullable: true,
         },
       },
     },
   })
   async updateProduct(
     @Param('productId') productId: string,
-    @Body() data: PatchProductParamsDto,
-    @UploadedFile() file: Express.Multer.File,
+    @Body() data: PatchProductDataDto,
+    @UploadedFile() file?: Express.Multer.File,
   ): Promise<PatchProductHttpServerResponseDto> {
     const { title, description, price, game } = data
 
-    return await this.productsService.updateProduct(productId, { title, description, price, game, file })
+    return await this.productsService.updateProduct(productId, { title, description, price, game, file: file || null })
   }
 
   @Delete(DeleteProductUrl)

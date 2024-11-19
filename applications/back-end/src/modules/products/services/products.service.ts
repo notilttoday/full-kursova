@@ -4,10 +4,7 @@ import { FindOptionsWhere, ILike, In } from 'typeorm'
 
 import { HttpListServerResponse, HttpServerResponse } from '@boilerplate/core/interfaces/http'
 
-import {
-  GetFullProductDto,
-  PatchProductHttpServerResponseDto,
-} from '@boilerplate/types/products/dto/responses/products'
+import { GetFullProductDto } from '@boilerplate/types/products/dto/responses/products'
 import {
   DeleteProductResult,
   GameType,
@@ -16,6 +13,7 @@ import {
   GetSearchProductsData,
   GetSingleProductData,
   PatchProductData,
+  PatchProductResult,
   PostProductData,
   PostProductResult,
 } from '@boilerplate/types/products/interfaces/products'
@@ -68,6 +66,8 @@ export class ProductsService {
 
     const product = await this.productsRepository.findOne({ where: { id: productId } })
 
+    product.price /= 100
+
     return {
       result: product,
     }
@@ -110,7 +110,28 @@ export class ProductsService {
     }
   }
 
-  async updateProduct(productId: string, data: PatchProductData): Promise<PatchProductHttpServerResponseDto> {
+  async getProductsByOrder(orderId: string): Promise<HttpListServerResponse<GetFullProductDto>> {
+    const where: FindOptionsWhere<ProductEntity> = {}
+
+    where.toOrders = {
+      order: {
+        id: orderId,
+      },
+    }
+    const [products, total] = await this.productsRepository.findAndCount({
+      where,
+      order: {
+        createdAt: 'desc',
+      },
+    })
+
+    return {
+      result: products.map((product) => this.dashProductsDataMapper.toProductDash(product)),
+      total,
+    }
+  }
+
+  async updateProduct(productId: string, data: PatchProductData): Promise<HttpServerResponse<PatchProductResult>> {
     const product = await this.productsRepository.findOne({
       where: { id: productId },
     })
@@ -128,7 +149,7 @@ export class ProductsService {
     }
 
     if (data.price !== undefined) {
-      product.price = Math.round(parseFloat(data.price.toString()))
+      product.price = parseInt(`${data.price * 100}`, 10)
     }
 
     if (data.game !== undefined) {
@@ -151,8 +172,12 @@ export class ProductsService {
       throw new InternalServerErrorException('Failed to update product')
     }
 
+    const result: PatchProductResult = {
+      isSuccess: true,
+    }
+
     return {
-      result: this.dashProductsDataMapper.toProductDash(product),
+      result,
     }
   }
 

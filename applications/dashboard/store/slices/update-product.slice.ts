@@ -3,38 +3,38 @@ import _omit from 'lodash/omit'
 
 import { createSliceKey } from '@boilerplate/core/builders/slice-key.builder'
 
-import { reducer } from '@boilerplate/front-end/store'
+import { reducer } from '@boilerplate/dashboard/store'
 
 interface UpdateProductState {
-  file: File | null
+  productId: string
   description: string
   title: string
   price: number
   game: string
-  productId: string
+  file: File | null
 }
 
 const slice = createSlice({
   name: createSliceKey('update-product'),
   initialState: (): UpdateProductState => ({
-    file: null,
+    productId: '',
     description: '',
     title: '',
     price: 0,
     game: '',
-    productId: '',
+    file: null,
   }),
   selectors: {
-    file: (state) => state.file,
+    productId: (state) => state.productId,
     description: (state) => state.description,
     title: (state) => state.title,
     price: (state) => state.price,
     game: (state) => state.game,
-    productId: (state) => state.productId,
+    file: (state) => state.file,
   },
   reducers: {
-    setFile(state, action: PayloadAction<File | null>) {
-      state.file = action.payload
+    setProductId(state, action: PayloadAction<string>) {
+      state.productId = action.payload
     },
     setDescription(state, action: PayloadAction<string>) {
       state.description = action.payload
@@ -48,8 +48,8 @@ const slice = createSlice({
     setGame(state, action: PayloadAction<string>) {
       state.game = action.payload
     },
-    setProductId(state, action: PayloadAction<string>) {
-      state.productId = action.payload
+    setFile(state, action: PayloadAction<File | null>) {
+      state.file = action.payload
     },
   },
 })
@@ -63,15 +63,15 @@ export const updateProductSlice = {
   ..._omit(slice, ['reducer', 'reducerPath']),
   selectSlice: withSlice.selector(slice.selectSlice),
   selectors: {
-    file: withSlice.selector(slice.selectors.file),
+    productId: withSlice.selector(slice.selectors.productId),
     description: withSlice.selector(slice.selectors.description),
     title: withSlice.selector(slice.selectors.title),
     price: withSlice.selector(slice.selectors.price),
     game: withSlice.selector(slice.selectors.game),
-    productId: withSlice.selector(slice.selectors.productId),
+    file: withSlice.selector(slice.selectors.file),
   },
 }
 
-declare module '@boilerplate/front-end/store' {
+declare module '@boilerplate/dashboard/store' {
   export interface LazyLoadedSlices extends WithSlice<typeof slice> {}
 }
