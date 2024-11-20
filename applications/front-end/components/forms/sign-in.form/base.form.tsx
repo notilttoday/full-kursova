@@ -32,7 +32,7 @@ const SignInBaseForm: React.FC<SignInBaseFormProps> = (props) => {
 
     dispatch(
       signInStart({
-        redirect: () => router.push('/wallet'),
+        redirect: () => router.push('/cabinet'),
         onError: (message) => {
           setErrorMessage(message)
           setLoading(false)

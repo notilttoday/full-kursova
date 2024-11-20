@@ -12,6 +12,7 @@ import { type PutTokenResultDto } from '@boilerplate/types/auth/dto/responses/to
 
 import { saga } from '@boilerplate/front-end/store'
 
+import { postOrder } from '@boilerplate/front-end/store/queries/order.query'
 import { getProfile } from '@boilerplate/front-end/store/queries/profile.query'
 import { login } from '@boilerplate/front-end/store/queries/token.query'
 import { authSlice } from '@boilerplate/front-end/store/slices/auth.slice'
@@ -44,6 +45,10 @@ function* handler(action: PayloadAction<SignInStartActionPayload>): SagaIterator
     const getProfileResponse: HttpClientResponse<MyProfileDto> = yield call(() => getProfileRequest)
 
     yield put(profileSlice.actions.init(getProfileResponse.data))
+
+    const postOrderRequest = yield put(postOrder.initiate({ authorized: true }))
+
+    yield call(() => postOrderRequest)
 
     yield call(action.payload.redirect)
   } catch (error: any) {

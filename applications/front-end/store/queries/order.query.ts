@@ -29,9 +29,9 @@ import {
   type PostOrderResultDto,
 } from '@boilerplate/types/orders/dto/responses/orders'
 
-import { v1ReactApi } from '@boilerplate/front-end/store/api/v1.api/react.api'
+import { v1Api } from '@boilerplate/front-end/store/api/v1.api'
 
-const api = v1ReactApi.injectEndpoints({
+const api = v1Api.injectEndpoints({
   endpoints: (build) => ({
     getOrder: build.query<GetOrderDto, { orderId: string; authorized: boolean }>({
       query: ({

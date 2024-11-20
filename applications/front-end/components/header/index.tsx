@@ -60,7 +60,13 @@ export const Header: React.FC<HeaderProps> = () => {
   }, [])
 
   const handleGameChange = useCallback<React.ChangeEventHandler<HTMLSelectElement>>((e) => {
-    router.push(`/figure-search/${e.currentTarget.value}`)
+    const selectedGame = e.currentTarget.value
+
+    if (selectedGame === '') {
+      router.push('/figure-search')
+    } else {
+      router.push(`/figure-search/${selectedGame}`)
+    }
   }, [])
 
   return (
@@ -99,6 +105,7 @@ export const Header: React.FC<HeaderProps> = () => {
             <div className={classes['filter-option']}>
               <label>Фільтрувати по грі:</label>
               <select value={game ?? ''} onChange={handleGameChange}>
+                <option value="">...</option>
                 {Object.entries(gameMap).map(([gameType, gameTitle]) => (
                   <option key={gameType} value={gameType}>
                     {gameTitle}

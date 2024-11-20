@@ -11,12 +11,9 @@ import errorImage from '@boilerplate/front-end/assets/images/404-error.png'
 
 import { GameType } from '@boilerplate/types/products/interfaces/products'
 
-import { useAppSelector } from '@boilerplate/front-end/store'
+import { useAppDispatch } from '@boilerplate/front-end/store'
 
-import { usePatchOrderMutation } from '@boilerplate/front-end/store/queries/order.query'
 import { useGetProductQuery } from '@boilerplate/front-end/store/queries/product.query'
-import { orderSlice } from '@boilerplate/front-end/store/slices/order.slice'
-import { profileSlice } from '@boilerplate/front-end/store/slices/profile.slice'
 
 import classes from '@boilerplate/front-end/components/product-description/style.module.scss'
 
@@ -34,12 +31,9 @@ interface ProductDescriptionProps {
 
 export const ProductDescription: React.FC<ProductDescriptionProps> = ({ productId }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { data: product, isLoading } = useGetProductQuery(productId)
+  const dispatch = useAppDispatch()
+  const { data: product } = useGetProductQuery(productId)
 
-  const orderId = useAppSelector(orderSlice.selectors.id) as string
-  const isAuthorized = useAppSelector(profileSlice.selectors.isAuthorized)
-
-  const [patchOrder] = usePatchOrderMutation()
   const [quantity, setQuantity] = useState(1)
 
   const increaseQuantity = (): void => {
@@ -56,8 +50,10 @@ export const ProductDescription: React.FC<ProductDescriptionProps> = ({ productI
     setQuantity(newQuantity)
   }
 
-  const handleAddToCartClick = (): void => {
-    patchOrder({ orderId, authorized: isAuthorized, productId, quantity })
+  const handleAddToCartClick = async (): Promise<void> => {
+    const { addToCartStart } = await import('@boilerplate/front-end/store/sagas/add-to-cart.saga')
+
+    dispatch(addToCartStart({ productId, quantity }))
   }
 
   return (

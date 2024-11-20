@@ -18,6 +18,7 @@ export interface GetOrderInfo extends GetOrder {
   lastName?: string
   phone?: string
   email?: string
+  status?: string
 }
 
 export interface GetOrdersSearch extends HttpSearch {
@@ -57,7 +58,7 @@ export enum StatusType {
   Paid = 'paid',
   Completed = 'completed',
   Failed = 'failed',
-  Expired = 'assassins_creed',
+  Expired = 'expired',
   Refunded = 'refunded',
   OnHold = 'on_hold',
 }
@@ -67,7 +68,6 @@ export interface GetOrdersListParams {
 }
 
 export interface PatchOrderStatus {
-  orderId: string
   paymentStatus: string
 }
 

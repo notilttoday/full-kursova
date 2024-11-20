@@ -26,20 +26,22 @@ export const Cart: React.FC<CartProps> = () => {
           <p className={classes['cart-list-empty']}>Ваш кошик порожній</p>
         </ul>
       ) : (
-        <ul className={classes['cart-list']}>
-          {cartItems.map(({ product, quantity }) => (
-            <CartItem
-              key={product.id}
-              id={product.id}
-              title={product.title}
-              price={product.price}
-              imageSrc={product.imagePath}
-              quantity={quantity}
-            />
-          ))}
-        </ul>
+        <>
+          <ul className={classes['cart-list']}>
+            {cartItems.map(({ product, quantity }) => (
+              <CartItem
+                key={product.id}
+                id={product.id}
+                title={product.title}
+                price={product.price}
+                imageSrc={product.imagePath}
+                quantity={quantity}
+              />
+            ))}
+          </ul>
+          <SendOrderUserData />
+        </>
       )}
-      <SendOrderUserData />
     </div>
   )
 }

@@ -52,14 +52,6 @@ export const SendOrderUserData: React.FC<SendOrderUserDataProps> = ({ firstName,
     dispatch(orderSlice.actions.setPhone(event.target.value))
   }, [])
 
-  // const handleSubmit = useCallback<React.FormEventHandler<HTMLFormElement>>(async (event) => {
-  //   event.preventDefault()
-
-  //   const { updateUserDataStart } = await import('@boilerplate/front-end/store/sagas/order-id.saga')
-
-  //   dispatch(updateUserDataStart({}))
-  // }, [])
-
   const content = (
     <div className={classes['order-data']}>
       <div className={classes['row-data']}>
@@ -71,6 +63,7 @@ export const SendOrderUserData: React.FC<SendOrderUserDataProps> = ({ firstName,
           className={classes['input-data']}
           value={storedFirstName ? storedFirstName : ''}
           onChange={handleChangeFirstName}
+          required
         />
 
         <label>Прізвище</label>
@@ -81,6 +74,7 @@ export const SendOrderUserData: React.FC<SendOrderUserDataProps> = ({ firstName,
           className={classes['input-data']}
           value={storedLastName ? storedLastName : ''}
           onChange={handleChangeLastName}
+          required
         />
       </div>
       <div className={classes['row-data']}>
@@ -92,6 +86,7 @@ export const SendOrderUserData: React.FC<SendOrderUserDataProps> = ({ firstName,
           className={classes['input-data']}
           value={storedEmail ? storedEmail : ''}
           onChange={handleChangeEmail}
+          required
         />
 
         <label>Телефон</label>
@@ -102,6 +97,7 @@ export const SendOrderUserData: React.FC<SendOrderUserDataProps> = ({ firstName,
           className={classes['input-data']}
           value={storedPhone ? storedPhone : ''}
           onChange={handleChangePhone}
+          required
         />
 
         <div className={classes['row-select']}>

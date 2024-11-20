@@ -56,7 +56,7 @@ function* handler(action: PayloadAction<UpdateProductStartActionPayload>): SagaI
     const patchProductResponse: HttpClientResponse<PatchProductResultDto> = yield call(() => patchProductRequest)
 
     if (!patchProductResponse?.data?.isSuccess) {
-      notification.error("Something's wrong!")
+      notification.error('Щось пішло не так!')
 
       return
     }

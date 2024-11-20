@@ -4,13 +4,13 @@ import {
   type GetOrdersListAdminHttpClientRequestDto,
   GetOrdersListAdminUrl,
 } from '@boilerplate/types/orders/dto/requests/orders'
-import { type GetOrderDto } from '@boilerplate/types/orders/dto/responses/orders'
+import { type GetOrderInfoDto } from '@boilerplate/types/orders/dto/responses/orders'
 
 import { v1ReactApi } from '@boilerplate/dashboard/store/api/v1.api/react.api'
 
 const api = v1ReactApi.injectEndpoints({
   endpoints: (build) => ({
-    getOrdersList: build.query<GetOrderDto[], void>({
+    getOrdersList: build.query<GetOrderInfoDto[], void>({
       query: (): GetOrdersListAdminHttpClientRequestDto => ({
         method: Method.Get,
         url: GetOrdersListAdminUrl,

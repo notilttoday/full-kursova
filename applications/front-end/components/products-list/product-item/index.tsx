@@ -10,11 +10,7 @@ import addToCart from '@boilerplate/front-end/assets/icons/add-to-cart.svg'
 import topArrow from '@boilerplate/front-end/assets/icons/top-arrow.svg'
 import errorImage from '@boilerplate/front-end/assets/images/404-error.png'
 
-import { useAppSelector } from '@boilerplate/front-end/store'
-
-import { usePatchOrderMutation } from '@boilerplate/front-end/store/queries/order.query'
-import { orderSlice } from '@boilerplate/front-end/store/slices/order.slice'
-import { profileSlice } from '@boilerplate/front-end/store/slices/profile.slice'
+import { useAppDispatch } from '@boilerplate/front-end/store'
 
 import classes from '@boilerplate/front-end/components/products-list/style.module.scss'
 
@@ -26,10 +22,7 @@ interface ProductItemProps {
 }
 
 export const ProductItem: React.FC<ProductItemProps> = ({ id, title, price, imagePath }) => {
-  const orderId = useAppSelector(orderSlice.selectors.id) as string
-  const isAuthorized = useAppSelector(profileSlice.selectors.isAuthorized)
-
-  const [patchOrder] = usePatchOrderMutation()
+  const dispatch = useAppDispatch()
 
   const router = useRouter()
   const [quantity, setQuantity] = useState(1)
@@ -52,8 +45,10 @@ export const ProductItem: React.FC<ProductItemProps> = ({ id, title, price, imag
     router.push(`/product-description/${id}`)
   }
 
-  const handleAddToCartClick = (): void => {
-    patchOrder({ orderId, authorized: isAuthorized, productId: id, quantity })
+  const handleAddToCartClick = async (): Promise<void> => {
+    const { addToCartStart } = await import('@boilerplate/front-end/store/sagas/add-to-cart.saga')
+
+    dispatch(addToCartStart({ productId: id, quantity }))
   }
 
   return (

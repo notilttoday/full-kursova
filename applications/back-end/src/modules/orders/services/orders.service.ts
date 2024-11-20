@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { FindOptionsWhere } from 'typeorm'
 
+import { OrderType } from '@boilerplate/core/interfaces/core'
 import { HttpListServerResponse, HttpServerResponse } from '@boilerplate/core/interfaces/http'
 
 import {
@@ -9,6 +10,7 @@ import {
   GetOrdersSearch,
   PatchOrderData,
   PatchOrderResult,
+  PatchOrderStatus,
   PatchOrderStatusResult,
   PatchOrderUserData,
   PatchOrderUserDataResult,
@@ -67,7 +69,22 @@ export class OrdersService {
   }
 
   async postOrder(userGid?: string): Promise<HttpServerResponse<PostOrderResult>> {
-    const order = await this.ordersRepository.save({ userGid })
+    let order: OrderEntity
+
+    if (!userGid) {
+      order = await this.ordersRepository.save({ userGid })
+    }
+
+    order = await this.ordersRepository.findOne({
+      where: { userGid },
+      order: {
+        createdAt: OrderType.Desc,
+      },
+    })
+
+    if (!order) {
+      order = await this.ordersRepository.save({ userGid })
+    }
 
     const result: PostOrderResult = {
       orderId: order.id,
@@ -85,13 +102,14 @@ export class OrdersService {
     }
   }
 
-  async patchOrderStatus(orderId: string, paymentStatus: string): Promise<HttpServerResponse<PatchOrderStatusResult>> {
+  async patchOrderStatus(orderId: string, data: PatchOrderStatus): Promise<HttpServerResponse<PatchOrderStatusResult>> {
     const where: FindOptionsWhere<OrderEntity> = {}
+    const { paymentStatus } = data
 
     where.id = orderId
     const order = await this.ordersRepository.findOne({ where })
 
-    order.paymentStatus = StatusType[paymentStatus]
+    order.paymentStatus = <StatusType>paymentStatus
 
     await this.ordersRepository.save(order)
 

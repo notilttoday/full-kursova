@@ -230,24 +230,6 @@ export class OrdersController {
     return await this.ordersService.patchOrder(orderId, { productId, quantity }, 'all')
   }
 
-  // @Patch(PatchOrderUserDataUrl)
-  // async patchOrderUserData(
-  //   @Body() data: PatchOrderUserDataDto,
-  //   @Request() request: PatchOrderAuthorizedHttpServerRequestDto,
-  //   @Param('orderId') orderId: string,
-  // ): Promise<PatchOrderUserDataHttpResponseDto> {
-  //   const {
-  //     user: { gid: userGid },
-  //   } = request
-  //   const { firstName, lastName, email, phone, paymentType } = data
-
-  //   return await this.ordersService.patchOrderUserData(
-  //     { firstName, lastName, email, phone, paymentType },
-  //     userGid,
-  //     orderId,
-  //   )
-  // }
-
   @Patch(PatchOrderUserUnauthorizedUrl)
   async patchOrderUserUnauthorized(
     @Param('orderId') orderId: string,
@@ -283,9 +265,12 @@ export class OrdersController {
   @ApiBearerAuth()
   @UseGuards(JwtPassportAuthGuard)
   @Roles([Role.Admin])
-  async deleteProduct(@Query() queries: PatchOrderStatusDto): Promise<PatchOrderStatusHttpServerResponseDto> {
-    const { orderId, paymentStatus } = queries
+  async patchOrderStatus(
+    @Param('orderId') orderId: string,
+    @Body() body: PatchOrderStatusDto,
+  ): Promise<PatchOrderStatusHttpServerResponseDto> {
+    const { paymentStatus } = body
 
-    return await this.ordersService.patchOrderStatus(orderId, paymentStatus)
+    return await this.ordersService.patchOrderStatus(orderId, { paymentStatus })
   }
 }

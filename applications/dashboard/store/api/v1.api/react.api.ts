@@ -20,7 +20,7 @@ export const v1ReactApi = createApi({
     }
   },
 
-  tagTypes: ['Product', 'Order'],
+  tagTypes: ['Product', 'Order', 'OrderStatus'],
   endpoints: () => ({}),
 })
 

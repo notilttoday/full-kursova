@@ -20,7 +20,6 @@ const BaseSendOrderForm: React.FC<BaseSendOrderFormProps> = (props) => {
 
   const handleSubmit = useCallback<React.FormEventHandler<HTMLFormElement>>((event) => {
     event.preventDefault()
-    console.log('123')
     dispatch(
       updateUserDataStart({
         redirect: () => router.push('/'),

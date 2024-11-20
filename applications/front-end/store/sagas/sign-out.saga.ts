@@ -11,7 +11,9 @@ import { type DeleteTokenResultDto } from '@boilerplate/types/auth/dto/responses
 
 import { saga } from '@boilerplate/front-end/store'
 
+import { v1Api } from '@boilerplate/front-end/store/api/v1.api'
 import { logout } from '@boilerplate/front-end/store/queries/token.query'
+import { orderSlice } from '@boilerplate/front-end/store/slices/order.slice'
 import { profileSlice } from '@boilerplate/front-end/store/slices/profile.slice'
 
 interface SignOutStartActionPayload {
@@ -33,6 +35,15 @@ function* handler(action: PayloadAction<SignOutStartActionPayload>): SagaIterato
     jwtStore.clear()
 
     yield put(profileSlice.actions.init(null))
+
+    yield put(orderSlice.actions.clearId())
+
+    yield put(
+      v1Api.util.invalidateTags([
+        { type: 'Order', id: 'current' },
+        { type: 'Order', id: 'LIST' },
+      ]),
+    )
 
     yield call(action.payload.redirect)
   } catch (error) {

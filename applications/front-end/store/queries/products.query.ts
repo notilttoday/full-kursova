@@ -7,9 +7,9 @@ import {
 } from '@boilerplate/types/products/dto/requests/products'
 import { type GetProductShortDto } from '@boilerplate/types/products/dto/responses/products'
 
-import { v1ReactApi } from '@boilerplate/front-end/store/api/v1.api/react.api'
+import { v1Api } from '@boilerplate/front-end/store/api/v1.api'
 
-const api = v1ReactApi.injectEndpoints({
+const api = v1Api.injectEndpoints({
   endpoints: (build) => ({
     getProducts: build.query<GetProductShortDto[], Required<GetSearchProductDataDto>>({
       query: ({ title, game }): GetProductsHttpClientRequestDto => ({

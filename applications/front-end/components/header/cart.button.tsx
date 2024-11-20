@@ -24,10 +24,6 @@ export const HeaderCartButton: React.FC<HeaderCartButtonProps> = () => {
   const { data } = useGetOrderQuery({ orderId, authorized: isAuthorized })
   const items = data?.items || []
 
-  useEffect(() => {
-    import('@boilerplate/front-end/store/sagas/order-id.saga')
-  }, [])
-
   return (
     <div className={classes['cart-dropdown']}>
       <Link href="/cart" className={classes.profile}>

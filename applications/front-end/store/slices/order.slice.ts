@@ -42,6 +42,7 @@ const slice = createSlice({
     },
     clearId(state) {
       localStorage.removeItem('orderId')
+
       state.id = null
     },
     setFirstName(state, action: PayloadAction<string>) {

@@ -1,19 +1,22 @@
-import { IsString, IsUUID } from 'class-validator'
+import { Type } from 'class-transformer'
+import { IsString, IsUUID, ValidateNested } from 'class-validator'
 
 import { HttpRequestFieldDecorator } from '@boilerplate/core/decorators/http-request-field.decorator'
 import { HttpClientRequestDto } from '@boilerplate/core/dto/requests/http-client-request.dto'
 import { HttpServerRequestDto } from '@boilerplate/core/dto/requests/http-server-request.dto'
-import { Method } from '@boilerplate/core/interfaces/http'
+import { Method, Params } from '@boilerplate/core/interfaces/http'
 
 import { PatchOrderStatus } from '@boilerplate/types/orders/interfaces/orders'
 
-export const PatchOrderStatusUrl = '/edit-order-status/'
+export const PatchOrderStatusUrl = '/edit-order-status/:orderId'
 
-export class PatchOrderStatusDto implements PatchOrderStatus {
+export class PatchOrderStatusParamsDto implements Params<typeof PatchOrderStatusUrl> {
   @HttpRequestFieldDecorator()
   @IsUUID(4)
   orderId: string
+}
 
+export class PatchOrderStatusDto implements PatchOrderStatus {
   @HttpRequestFieldDecorator()
   @IsString()
   paymentStatus: string
@@ -26,6 +29,10 @@ export class PatchOrderStatusHttpServerRequestDto extends HttpServerRequestDto<
   readonly method = Method.Patch
 
   readonly url = PatchOrderStatusUrl
+
+  @ValidateNested()
+  @Type(() => PatchOrderStatusDto)
+  readonly data: PatchOrderStatusDto
 }
 
 export class PatchOrderStatusMyHttpClientRequestDto extends HttpClientRequestDto<
@@ -35,4 +42,8 @@ export class PatchOrderStatusMyHttpClientRequestDto extends HttpClientRequestDto
   readonly method = Method.Patch
 
   readonly url = PatchOrderStatusUrl
+
+  @ValidateNested()
+  @Type(() => PatchOrderStatusDto)
+  readonly data: PatchOrderStatusDto
 }

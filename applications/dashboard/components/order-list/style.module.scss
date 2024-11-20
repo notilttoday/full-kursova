@@ -135,3 +135,121 @@
   margin-top: 20px;
   gap: 40px;
 }
+
+.order {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-info {
+  width: 300px;
+  margin: auto 0;
+  margin-left: 20px;
+}
+
+.user-info .p {
+  margin: 18px 0;
+}
+
+.order-details {
+  display: flex;
+  gap: 10px;
+  width: 900px;
+  margin: 10px;
+  border-left: 4px solid #202434;
+  border-radius: 3px;
+  background-color: #fff;
+  padding: 10px;
+  width: 100%;
+}
+
+.order-item-container {
+  border-radius: 5px;
+  border: 1px solid #a6a6a6;
+  padding: 10px;
+  width: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.order-items {
+  display: flex;
+  gap: 10px;
+  width: 900px;
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.h3-order-list {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.order-info .h3 {
+  font-size: 14px;
+  text-align: center;
+}
+.order-info .price {
+  font-size: 14px;
+  text-align: center;
+}
+.order-info .quantity {
+  font-size: 14px;
+  text-align: center;
+}
+
+.order-summary {
+  display: flex;
+  flex-direction: row;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  border: 1px solid #a6a6a6;
+  border-radius: 10px;
+  padding: 10px;
+
+}
+
+.order-summary:hover {
+  background-color: #e5e5e5;
+}
+
+.order-id {
+  width: 500px;
+}
+
+.order-status {
+  width: 600px;
+}
+
+.change-button {
+  border-radius: 5px;
+  background-color: #202434;
+  padding: 5px;
+  font-size: 18px;
+  color: white;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.change-button:hover {
+  background-color: #202445;
+}
+
+.submit {
+  display: flex;
+  justify-content: end;
+}

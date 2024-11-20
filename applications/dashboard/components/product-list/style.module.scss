@@ -8,6 +8,7 @@
   align-items: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 15px;
+  max-height: 180px;
 }
 
 .image-container {
@@ -15,6 +16,7 @@
   margin-right: 20px;
   overflow: hidden;
   border-radius: 10px;
+  max-height: 120px;
 }
 
 .figure-img {
