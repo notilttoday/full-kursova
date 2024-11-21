@@ -29,6 +29,7 @@ import {
   PatchOrderUserUnauthorizedUrl,
   PostOrderAuthorizedUrl,
   PostOrderAuthorizedUrlHttpServerRequestDto,
+  PostOrderDataDto,
   PostOrderUnauthorizedUrl,
 } from '@boilerplate/types/orders/dto/requests/orders'
 import {
@@ -84,17 +85,22 @@ export class OrdersController {
   @Roles([Role.User])
   async postOrder(
     @Request() request: PostOrderAuthorizedUrlHttpServerRequestDto,
+    @Body() body: PostOrderDataDto,
   ): Promise<PostOrderResultHttpResponseDto> {
     const {
       user: { gid: userGid },
     } = request
+    const { force } = body
 
     this.logger.log({
       controller: OrdersController.name,
       action: `${OrdersController.name}.postOrder`,
+      body: {
+        force,
+      },
     })
 
-    return await this.ordersService.postOrder(userGid)
+    return await this.ordersService.postOrder(userGid, force)
   }
 
   @Get(GetOrderUnauthorizedUrl)

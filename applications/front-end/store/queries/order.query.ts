@@ -19,6 +19,7 @@ import {
   PatchOrderUserUnauthorizedUrl,
   PostOrderAuthorizedUrl,
   type PostOrderAuthorizedUrlHttpClientRequestDto,
+  type PostOrderDataDto,
   PostOrderUnauthorizedUrl,
   type PostOrderUnauthorizedUrlHttpClientRequestDto,
 } from '@boilerplate/types/orders/dto/requests/orders'
@@ -50,12 +51,16 @@ const api = v1Api.injectEndpoints({
           : [{ type: 'Order', id: 'LIST' }],
     }),
 
-    postOrder: build.mutation<PostOrderResultDto, { authorized: boolean }>({
+    postOrder: build.mutation<PostOrderResultDto, { authorized: boolean } & Partial<PostOrderDataDto>>({
       query: ({
         authorized,
+        force,
       }): PostOrderUnauthorizedUrlHttpClientRequestDto | PostOrderAuthorizedUrlHttpClientRequestDto => ({
         method: Method.Post,
         url: authorized ? PostOrderAuthorizedUrl : PostOrderUnauthorizedUrl,
+        data: {
+          force: force ?? false,
+        },
       }),
       invalidatesTags: [
         { type: 'Order', id: 'current' },

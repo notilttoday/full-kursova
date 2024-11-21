@@ -20,7 +20,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
     pages.push(1)
 
     if (left > 2) {
-      pages.push('- - -')
+      pages.push('____')
     }
 
     for (let i = left; i <= right; i++) {
@@ -28,7 +28,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
     }
 
     if (right < totalPages - 1) {
-      pages.push('- - -')
+      pages.push('____')
     }
 
     if (totalPages > 1) {

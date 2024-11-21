@@ -68,7 +68,13 @@ export class OrdersService {
     }
   }
 
-  async postOrder(userGid?: string): Promise<HttpServerResponse<PostOrderResult>> {
+  async postOrder(userGid?: string, force = false): Promise<HttpServerResponse<PostOrderResult>> {
+    if (force) {
+      const { id: orderId } = await this.ordersRepository.save({ userGid })
+
+      return { result: { orderId, isSuccess: true } }
+    }
+
     let order: OrderEntity
 
     if (!userGid) {

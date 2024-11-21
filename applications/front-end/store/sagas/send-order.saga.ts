@@ -60,7 +60,7 @@ function* handler(): SagaIterator<void> {
 
     yield put(orderSlice.actions.clearId())
 
-    const newOrderId = yield put(postOrder.initiate({ authorized: isAuthorized }))
+    const newOrderId = yield put(postOrder.initiate({ authorized: isAuthorized, force: true }))
 
     yield put(orderSlice.actions.setId(newOrderId))
 

@@ -74,3 +74,7 @@ export interface PatchOrderStatus {
 export interface PatchOrderStatusResult {
   isSuccess: boolean
 }
+
+export interface PostOrderData {
+  force: boolean
+}
