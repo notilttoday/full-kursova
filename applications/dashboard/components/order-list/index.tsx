@@ -22,7 +22,14 @@ export const OrderList: React.FC<OrderListProps> = () => {
   }
 
   const filteredOrders = data.filter(
-    (order) => order.items && order.items.length > 0 && order.items.every((item) => item.product !== null),
+    (order) =>
+      order.items &&
+      order.items.length > 0 &&
+      order.items.every((item) => item.product !== null) &&
+      order.firstName &&
+      order.lastName &&
+      order.email &&
+      order.phone,
   )
 
   const totalPages = Math.ceil(filteredOrders.length / itemsPerPage)

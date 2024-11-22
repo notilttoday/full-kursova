@@ -31,26 +31,6 @@ export const UpdateProductForm: React.FC<UpdateProductFormProps> = ({ productId 
   const { data: product } = useGetProductQuery(productId)
   const dispatch = useAppDispatch()
 
-  // const [formState, setFormState] = useState({
-  //   title: '',
-  //   description: '',
-  //   price: '',
-  //   game: GameType.Dota as GameType,
-  //   file: null as File | null,
-  // })
-
-  // useEffect(() => {
-  //   if (data) {
-  //     setFormState({
-  //       title: data.title || '',
-  //       description: data.description || '',
-  //       price: data.price?.toString() || '',
-  //       game: (data.game as GameType) || GameType.Dota,
-  //       file: null,
-  //     })
-  //   }
-  // }, [data])
-
   useEffect(() => {
     if (product) {
       dispatch(updateProductSlice.actions.setProductId(product.id))
@@ -89,39 +69,6 @@ export const UpdateProductForm: React.FC<UpdateProductFormProps> = ({ productId 
 
     dispatch(updateProductSlice.actions.setFile(selectedFile))
   }, [])
-
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>): void => {
-  //   const { name, value } = e.target
-
-  //   setFormState((prevState) => ({
-  //     ...prevState,
-  //     [name]: value,
-  //   }))
-  // }
-
-  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-  //   const selectedFile = e.target.files?.[0] || null
-
-  //   setFormState((prevState) => ({
-  //     ...prevState,
-  //     file: selectedFile,
-  //   }))
-  // }
-
-  // const handleSave = async (): Promise<void> => {
-  //   const formData = new FormData()
-
-  //   formData.append('title', formState.title)
-  //   formData.append('description', formState.description)
-  //   formData.append('price', formState.price)
-  //   formData.append('game', formState.game)
-  //   if (formState.file) {
-  //     formData.append('file', formState.file)
-  //   }
-
-  //   await updateProduct({ productId, formData }).unwrap()
-  //   router.push('/')
-  // }
 
   const content = (
     <>
@@ -185,7 +132,7 @@ export const UpdateProductForm: React.FC<UpdateProductFormProps> = ({ productId 
       <div className="flex justify-end gap-4.5">
         <button
           className="flex justify-center rounded border border-stroke px-6 py-2 font-medium text-white hover:shadow-1 dark:border-strokedark dark:text-white"
-          type="submit"
+          type="button"
           onClick={() => router.push('/')}
         >
           Скасувати

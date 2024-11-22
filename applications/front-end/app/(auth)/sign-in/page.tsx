@@ -20,12 +20,6 @@ const AuthSignInPage: React.FC<AuthSignInPageProps> = () => (
           Зареєструватись
         </Link>
       </p>
-      <br />
-      <p style={{ textAlign: 'center' }}>
-        <Link href="/lost-password" className={classes.link}>
-          Відновити пароль
-        </Link>
-      </p>
     </div>
   </div>
 )

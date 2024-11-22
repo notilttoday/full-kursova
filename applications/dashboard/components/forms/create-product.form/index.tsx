@@ -2,6 +2,8 @@
 
 import { Suspense, lazy, useCallback } from 'react'
 
+import { useRouter } from 'next/navigation'
+
 import { GameType } from '@boilerplate/types/products/interfaces/products'
 
 import { useAppDispatch, useAppSelector } from '@boilerplate/dashboard/store'
@@ -22,6 +24,8 @@ const gameMap: Record<GameType, string> = {
 
 export const CreateProductForm: React.FC<CreateProductFormProps> = () => {
   const dispatch = useAppDispatch()
+
+  const router = useRouter()
 
   const title = useAppSelector(createProductSlice.selectors.title)
   const handleChangeTitle = useCallback<React.ChangeEventHandler<HTMLInputElement>>((event) => {
@@ -106,7 +110,8 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = () => {
       <div className="flex justify-end gap-4.5">
         <button
           className="flex justify-center rounded border border-stroke px-6 py-2 font-medium text-white hover:shadow-1 dark:border-strokedark dark:text-white"
-          type="submit"
+          type="button"
+          onClick={() => router.push('/')}
         >
           Скасувати
         </button>

@@ -47,6 +47,13 @@ interface OrderItemProps {
 
 export const OrderItem: React.FC<OrderItemProps> = ({ orderId, status, user, items, isExpanded, onToggle }) => {
   const [selectedStatus, setSelectedStatus] = useState(status)
+
+  const hasUserData = user.firstName && user.lastName && user.email && user.phone
+
+  if (!hasUserData) {
+    return null
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const calculateTotalPrice = (orderItems: any[]): number =>
     orderItems.reduce((total, item) => total + (item.product?.price || 0) * item.quantity, 0)
