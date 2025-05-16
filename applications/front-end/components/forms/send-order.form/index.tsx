@@ -101,14 +101,14 @@ export const SendOrderUserData: React.FC<SendOrderUserDataProps> = ({ firstName,
         />
 
         <div className={classes['row-select']}>
-          <div className={classes['select-container']}>
+          {/* <div className={classes['select-container']}>
             <label>Спосіб оплати</label>
             <select name="payment" className={classes['input-data-select']}>
               <option value="cash" className={classes['option-select']}>
                 Готівкою
               </option>
             </select>
-          </div>
+          </div> */}
           <button className={classes['confirm-button']} type="submit">
             Підтвердити
           </button>

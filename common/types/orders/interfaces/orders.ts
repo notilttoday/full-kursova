@@ -19,11 +19,16 @@ export interface GetOrderInfo extends GetOrder {
   phone?: string
   email?: string
   status?: string
+  updatedAt?: string
 }
 
 export interface GetOrdersSearch extends HttpSearch {
   page?: string
   pageSize?: string
+}
+
+export interface GetUserOrders {
+  orders?: GetOrderInfo[]
 }
 
 export interface PatchOrderData {

@@ -1,12 +1,12 @@
 import { Type } from 'class-transformer'
-import { IsNumber, IsString, Min, ValidateNested } from 'class-validator'
+import { IsString, ValidateNested } from 'class-validator'
 
+import { HttpRequestFieldDecorator } from '@boilerplate/core/decorators/http-request-field.decorator'
 import { HttpClientRequestDto } from '@boilerplate/core/dto/requests/http-client-request.dto'
 import { HttpServerRequestDto } from '@boilerplate/core/dto/requests/http-server-request.dto'
 import { Method } from '@boilerplate/core/interfaces/http'
 
 import { type PostContactMessage } from '@boilerplate/types/contact-message/interfaces/contact-message'
-import { HttpRequestFieldDecorator } from '@boilerplate/core/decorators/http-request-field.decorator'
 
 export const PostContactMessageUrl = '/contact-message'
 

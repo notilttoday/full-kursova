@@ -41,6 +41,21 @@ const slice = createSlice({
       state.id = action.payload
     },
     clearId(state) {
+      const orderId = localStorage.getItem('orderId')
+
+      let orders: string[] = []
+
+      const storedOrders = localStorage.getItem('orders')
+      if (storedOrders) {
+        orders = JSON.parse(storedOrders)
+      }
+
+      // Додамо orderId, якщо він не null
+      if (orderId && !orders.includes(orderId)) {
+        orders.push(orderId)
+      }
+
+      localStorage.setItem('orders', JSON.stringify(orders))
       localStorage.removeItem('orderId')
 
       state.id = null

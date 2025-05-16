@@ -36,7 +36,7 @@ export class OrdersDataMapper {
   }
 
   toOrderInfo(entity: OrderEntity): GetOrderInfo {
-    const { toProducts, userGid, firstName, lastName, phone, email, id, paymentStatus } = entity
+    const { toProducts, userGid, firstName, lastName, phone, email, id, paymentStatus, updatedAt } = entity
 
     return {
       id,
@@ -47,6 +47,7 @@ export class OrdersDataMapper {
       phone,
       email,
       status: paymentStatus.toString(),
+      updatedAt: updatedAt?.toISOString(),
     }
   }
 }

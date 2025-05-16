@@ -11,3 +11,5 @@ export * from '@boilerplate/types/orders/dto/responses/orders/patch-order-user-r
 export * from '@boilerplate/types/orders/dto/responses/orders/get-orders-response.dto'
 
 export * from '@boilerplate/types/orders/dto/responses/orders/patch-order-status-response.dto'
+
+export * from '@boilerplate/types/orders/dto/responses/orders/get-user-orders-list-response.dto'

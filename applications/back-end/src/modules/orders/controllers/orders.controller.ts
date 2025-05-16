@@ -16,6 +16,8 @@ import {
   GetOrdersListUrl,
   GetOrdersParamsDto,
   GetOrdersSearchDto,
+  GetUserOrdersListHttpServerRequestDto,
+  GetUserOrdersListUrl,
   PatchOrderAdminHttpServerRequestDto,
   PatchOrderAdminUrl,
   PatchOrderAuthorizedHttpServerRequestDto,
@@ -36,6 +38,7 @@ import {
   GetOrderHttpResponseDto,
   GetOrdersHttpListResponseDto,
   GetOrdersHttpResponseDto,
+  GetUserOrdersListHttpServerResponseDto,
   PatchOrderResultHttpResponseDto,
   PatchOrderStatusHttpServerResponseDto,
   PostOrderResultHttpResponseDto,
@@ -169,6 +172,20 @@ export class OrdersController {
     const { status } = queries
 
     return await this.ordersService.getOrdersListAdmin(status)
+  }
+
+  @Get(GetUserOrdersListUrl)
+  @ApiBearerAuth()
+  @UseGuards(JwtPassportAuthGuard)
+  @Roles([Role.Admin, Role.User])
+  async addUserOrder(
+    @Request() request: GetUserOrdersListHttpServerRequestDto,
+  ): Promise<GetUserOrdersListHttpServerResponseDto> {
+    const {
+      user: { gid: userGid },
+    } = request
+
+    return await this.ordersService.getUserOrdersList(userGid)
   }
 
   @Patch(PatchOrderUnauthorizedUrl)

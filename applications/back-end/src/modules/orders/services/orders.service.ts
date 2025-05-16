@@ -4,6 +4,7 @@ import { FindOptionsWhere } from 'typeorm'
 import { OrderType } from '@boilerplate/core/interfaces/core'
 import { HttpListServerResponse, HttpServerResponse } from '@boilerplate/core/interfaces/http'
 
+import { GetUserOrdersListDto } from '@boilerplate/types/orders/dto/responses/orders'
 import {
   GetOrder,
   GetOrderInfo,
@@ -55,6 +56,9 @@ export class OrdersService {
 
     const [orders, total] = await this.ordersRepository.findAndCount({
       where,
+      order: {
+        createdAt: 'DESC',
+      },
       relations: {
         toProducts: {
           product: true,
@@ -65,6 +69,26 @@ export class OrdersService {
     return {
       result: orders.map((order) => this.ordersDataMapper.toOrderInfo(order)),
       total,
+    }
+  }
+
+  async getUserOrdersList(userGid: string): Promise<HttpServerResponse<GetUserOrdersListDto[]>> {
+    const where: FindOptionsWhere<OrderEntity> = {
+      userGid: userGid,
+    }
+
+    const [orders] = await this.ordersRepository.findAndCount({ where })
+
+    if (!orders.length) {
+      return { result: [] }
+    }
+
+    const result = await Promise.all(
+      orders.map((order) => this.getOrderInfo(order.id, userGid).then((res) => res.result)),
+    )
+
+    return {
+      result,
     }
   }
 
@@ -105,6 +129,14 @@ export class OrdersService {
 
     return {
       result: this.ordersDataMapper.toOrder(order),
+    }
+  }
+
+  async getOrderInfo(id?: string, userGid?: string | 'all'): Promise<HttpServerResponse<GetOrder>> {
+    const order = await this.ordersRepository.findOrderOneOrFail(id, userGid)
+
+    return {
+      result: this.ordersDataMapper.toOrderInfo(order),
     }
   }
 
