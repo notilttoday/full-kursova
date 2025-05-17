@@ -1,12 +1,15 @@
 import Image from 'next/image'
 
 import errorImage from '@boilerplate/dashboard/assets/images/404-error.png'
+import { QRCodeSVG } from 'qrcode.react'
+
+import { StatusType } from '@boilerplate/types/orders/interfaces/orders'
 
 import classes from '@boilerplate/front-end/components/cabinet/style.module.scss'
 
 interface OrdersListProps {
   orderId: string
-  // status: string
+  status: string
   items: {
     product: {
       id: string
@@ -19,7 +22,18 @@ interface OrdersListProps {
   updatedAt: string
 }
 
-const OrdersList: React.FC<OrdersListProps> = ({ orderId, updatedAt, items }) => {
+const OrdersList: React.FC<OrdersListProps> = ({ orderId, updatedAt, items, status }) => {
+  const statusMap: Record<StatusType, string> = {
+    [StatusType.Pending]: 'Очікування',
+    [StatusType.Processing]: 'Обробка',
+    [StatusType.Completed]: 'Готово до видачі',
+    [StatusType.OnHold]: 'На утриманні',
+    [StatusType.Expired]: 'Просрочено',
+    // [StatusType.Paid]: 'Сплачено',
+    [StatusType.Refunded]: 'Повернено',
+    [StatusType.Failed]: 'Скасовано',
+  }
+
   const calculateTotalPrice = (orderItems: typeof items): number =>
     orderItems.reduce((total, item) => total + (item.product?.price || 0) * item.quantity, 0)
 
@@ -36,16 +50,12 @@ const OrdersList: React.FC<OrdersListProps> = ({ orderId, updatedAt, items }) =>
 
   return (
     <div className={classes['order-wrapper']}>
-      <div className={classes['order-header']}>
+      <div className={`${classes['order-col']} ${classes['ai-c']}`}>
         <p>
-          <strong>Код замовлення:</strong> {orderId}
+          <b className={classes.b}>Код замовлення</b>
         </p>
-        <p>
-          <strong>Дата:</strong> {formatDate(updatedAt)}
-        </p>
-        <p>
-          <strong>Загальна ціна:</strong> {totalPrice}₴
-        </p>
+        <QRCodeSVG className={classes.qrCodeContainer} value={orderId} />
+        <p>{formatDate(updatedAt)}</p>
       </div>
 
       <div className={classes['order-items']}>
@@ -66,6 +76,18 @@ const OrdersList: React.FC<OrdersListProps> = ({ orderId, updatedAt, items }) =>
             </div>
           </div>
         ))}
+      </div>
+      <div className={`${classes['order-col']} ${classes['ai-e']}`}>
+        <div className={`${classes['order-status']} ${classes[status]}`}>
+          <p>{statusMap[status as StatusType]}</p>
+        </div>
+
+        {status === StatusType.Completed && (
+          <div className={classes.pickupNote}>
+            Заберіть за адресою: <b>м. Київ, вул. Прикладна, 12</b>
+          </div>
+        )}
+        <div className={classes.price}>{totalPrice}₴</div>
       </div>
     </div>
   )

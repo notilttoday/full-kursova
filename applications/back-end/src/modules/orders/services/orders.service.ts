@@ -77,7 +77,12 @@ export class OrdersService {
       userGid: userGid,
     }
 
-    const [orders] = await this.ordersRepository.findAndCount({ where })
+    const [orders] = await this.ordersRepository.findAndCount({
+      where,
+      order: {
+        updatedAt: 'DESC',
+      },
+    })
 
     if (!orders.length) {
       return { result: [] }

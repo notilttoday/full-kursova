@@ -121,6 +121,7 @@ export const Cabinet: React.FC<CabinetProps> = () => {
                   orderId={order.id ?? ''}
                   updatedAt={order.updatedAt ?? ''}
                   items={order.items}
+                  status={order.status ?? ''}
                 />
               ))
           ) : (

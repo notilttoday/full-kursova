@@ -18,7 +18,7 @@ const statusMap: Record<StatusType, string> = {
   [StatusType.Completed]: 'Завершено',
   [StatusType.OnHold]: 'На утриманні',
   [StatusType.Expired]: 'Просрочено',
-  [StatusType.Paid]: 'Сплачено',
+  // [StatusType.Paid]: 'Сплачено',
   [StatusType.Refunded]: 'Повернено',
   [StatusType.Failed]: 'Скасовано',
 }
@@ -79,7 +79,7 @@ export const OrderItem: React.FC<OrderItemProps> = ({ orderId, status, user, ite
           <strong>ID:</strong> {orderId}
         </p>
         <p className={classes['order-status']}>
-          <strong>Статус:</strong> {status}
+          <strong>Статус:</strong> {statusMap[status as StatusType]}
         </p>
         <p className={classes['order-total-price']}>
           <strong>Загальна ціна:</strong> {totalPrice}₴
