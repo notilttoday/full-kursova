@@ -13,12 +13,19 @@ interface SendOrderUserDataProps {
   lastName?: string
   phone?: string
   email?: string
+  totalPrice: number
   // paymentType?: string
 }
 
 const BaseSendOrderFormProps = lazy(() => import('@boilerplate/front-end/components/forms/send-order.form/form'))
 
-export const SendOrderUserData: React.FC<SendOrderUserDataProps> = ({ firstName, lastName, phone, email }) => {
+export const SendOrderUserData: React.FC<SendOrderUserDataProps> = ({
+  firstName,
+  lastName,
+  phone,
+  email,
+  totalPrice,
+}) => {
   // const orderId = useAppSelector(orderSlice.selectors.id) as string
   // const isAuthorized = useAppSelector(profileSlice.selectors.isAuthorized)
 
@@ -119,7 +126,7 @@ export const SendOrderUserData: React.FC<SendOrderUserDataProps> = ({ firstName,
 
   return (
     <Suspense fallback={<form>{content}</form>}>
-      <BaseSendOrderFormProps>{content}</BaseSendOrderFormProps>
+      <BaseSendOrderFormProps totalPrice={totalPrice}>{content}</BaseSendOrderFormProps>
     </Suspense>
   )
 }

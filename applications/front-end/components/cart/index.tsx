@@ -19,6 +19,8 @@ export const Cart: React.FC<CartProps> = () => {
   const { data } = useGetOrderQuery({ orderId, authorized: isAuthorized })
   const cartItems = data?.items || []
 
+  const totalPrice = cartItems.reduce((acc, item) => acc + Number(item.product.price), 0)
+
   return (
     <div className={classes.cart}>
       {cartItems.length === 0 ? (
@@ -39,7 +41,7 @@ export const Cart: React.FC<CartProps> = () => {
               />
             ))}
           </ul>
-          <SendOrderUserData />
+          <SendOrderUserData totalPrice={totalPrice} />
         </>
       )}
     </div>

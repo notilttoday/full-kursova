@@ -60,7 +60,7 @@ export const CartItem: React.FC<CartItemProps> = ({ id, title, price, quantity, 
     <li className={classes['cart-item']}>
       <div className={classes['cart-info']}>
         <div className="cart-item-image">
-          <img
+          <Image
             src={imageSrc ? imageSrc : errorImage.src}
             alt="Arthas"
             className={`${classes['item-img']} ${isZoomed ? classes.zoomed : ''}`}

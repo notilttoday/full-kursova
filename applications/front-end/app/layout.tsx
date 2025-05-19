@@ -4,6 +4,7 @@ import { type Metadata } from 'next'
 
 import dynamic from 'next/dynamic'
 import { cookies } from 'next/headers'
+import Script from 'next/script'
 
 import logger from 'loglevel'
 
@@ -74,6 +75,11 @@ const RootLayout: React.FC<RootLayoutProps> = async ({ children }) => {
     <html lang="en" style={{ fontFamily: 'Arial, sans-serif' }}>
       <head>
         <meta name="format-detection" content="telephone=no, date=no, email=no, address=no" />
+        <Script
+          src="https://www.paypal.com/sdk/js?client-id=ASqT8stfpBxkiCV0mE5zxC9yKVA-AjZktVaDqvVIWa-_XQqi1-Bx6oiRwA9FaEKM7n7NhrzfnJkLGY_H&currency=CZK"
+          strategy="afterInteractive"
+          defer
+        ></Script>
       </head>
       <body>
         <ReduxProvider profile={profile}>
